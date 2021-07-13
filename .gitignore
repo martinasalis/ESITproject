@@ -1,0 +1,7 @@
+# IDE settings
+.idea/
+
+# Node js modules
+webApp/node_modules/
+package.json
+package-lock.json
