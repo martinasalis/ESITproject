@@ -1,15 +1,15 @@
 <div class="grandParentContainer">
   <div class="parentContainer">
-    <form [formGroup]="angForm" novalidate action="login-form.component.ts" method="post" id="login_form">
+    <form action="login-form.component.ts" method="post" id="login_form"> <!--[formGroup]="angForm" novalidate-->
 
       <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
 
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required>
 
-        <button type="submit" (click)=getLogin()>Login</button>
+        <button type="submit">Login</button> <!--(click)=getLogin()-->
       </div>
 
       <div class="container" style="background-color:#f1f1f1">
