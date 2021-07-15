@@ -1,10 +1,14 @@
 // modules =================================================
 const express = require('express');
 const cors = require('cors');
-const app = express();
-app.use(cors());
 const bodyParser     = require('body-parser');
 const methodOverride = require('method-override');
+const app = express();
+
+const corsOptions = {
+    origin: "http://localhost:8081"
+};
+app.use(cors(corsOptions));
 
 // configuration ===========================================
 
@@ -12,7 +16,7 @@ const methodOverride = require('method-override');
 const db = require('./config/db');
 
 // set our port
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 
 // connect to our mongoDB database
 // (uncomment after you enter in your own credentials in config/db.js)
@@ -38,11 +42,10 @@ app.use(express.static(__dirname + '/public'));
 require('./app/routes')(app); // configure our routes
 
 // start app ===============================================
-// startup our app at http://localhost:8000
-app.listen(port);
-
-// shoutout to the user
-console.log('Magic happens on port ' + port);
+// startup our app at http://localhost:8080
+app.listen(port, () => {
+    console.log('Server is running on port ' + port);
+});
 
 // expose app
 exports = module.exports = app;
