@@ -3,13 +3,17 @@
     <form action="login-form.component.ts" method="post" id="login_form"> <!--[formGroup]="angForm" novalidate-->
 
       <div class="container">
-        <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="username" required>
+        <mat-form-field>
+          <label>Username</label>
+          <input matInput type="text" placeholder="Enter Username" name="username" required>
+        </mat-form-field>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+        <mat-form-field>
+          <label><b>Password</b></label>
+          <input matInput type="password" placeholder="Enter Password" name="psw" required>
+        </mat-form-field>
 
-        <button type="submit">Login</button> <!--(click)=getLogin()-->
+        <button mat-button type="submit">Login</button> <!--(click)=getLogin()-->
       </div>
 
       <div class="container" style="background-color:#f1f1f1">

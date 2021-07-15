@@ -10,11 +10,11 @@
     <!-- The form -->
     <form class="search" action="home.component.ts">
       <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <button mat-button type="submit"><i class="fa fa-search"></i></button>
     </form>
 
     <div class="table" style="overflow-x:auto;">
-      <table>
+      <table mat-table>
         <tr>
           <th>Codice fiscale</th>
           <th>Nome</th>
@@ -27,6 +27,8 @@
         </tr>
       </table>
     </div>
+
+
 
   </div>
 

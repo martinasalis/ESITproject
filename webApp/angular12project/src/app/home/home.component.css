@@ -9,7 +9,7 @@ th, td {
   padding: 8px;
 }
 
-tr:nth-child(even) {background-color: #c0e6d8;}
+/*tr:nth-child(even) {background-color: #c0e6d8;}*/
 
 * {
   box-sizing: border-box;
@@ -19,10 +19,10 @@ tr:nth-child(even) {background-color: #c0e6d8;}
 form.search input[type=text] {
   padding: 10px;
   font-size: 17px;
-  border: 1px solid grey;
+  /*border: 1px solid grey;*/
   float: left;
   width: 80%;
-  background: #f1f1f1;
+  /*background: #f1f1f1;*/
 }
 
 /* Style the submit button */
@@ -30,16 +30,16 @@ form.search button {
   float: left;
   width: 20%;
   padding: 10px;
-  background: #04AA6D;
-  color: white;
+  /*background: #04AA6D;
+  color: white;*/
   font-size: 17px;
-  border: 1px solid grey;
+  /*border: 1px solid grey;*/
   border-left: none; /* Prevent double borders */
   cursor: pointer;
 }
 
 form.search button:hover {
-  background: #037a4e;
+  /*background: #037a4e;*/
 }
 
 /* Clear floats */
@@ -64,7 +64,7 @@ body {
 .topnav a {
   float: right;
   display: block;
-  color: #f2f2f2;
+  /*color: #f2f2f2;*/
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -72,13 +72,13 @@ body {
 
 /* Change color on hover */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+  /*background-color: #ddd;
+  color: black;*/
 }
 
 /* Style the content */
 .content {
-  background-color: #f5fbf9;
+  /*background-color: #f5fbf9;*/
   padding: 10px;
   height: 200px; /* Should be removed. Only for demonstration */
 }

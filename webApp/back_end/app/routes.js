@@ -1,7 +1,10 @@
+const express = require('express');
+
 // grab the nerd model we just created
 const Models = require('./models/models');
 
 module.exports = function(app) {
+    app.set('view engine', 'pug');
 
     // server routes ===========================================================
     // handle things like api calls
@@ -27,7 +30,8 @@ module.exports = function(app) {
     // frontend routes =========================================================
     // route to handle all angular requests
     app.get('*', function(req, res) {
-        res.sendfile('./../../angular12project/src/index.html'); // load our src/index.html file
+        res.render('/home/parallels/WebstormProjects/ESITproject/webApp/angular12project/src/index'); // load our src/index.html file
     });
+
 
 };

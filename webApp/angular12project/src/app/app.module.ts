@@ -7,6 +7,11 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { HttpClientModule } from "@angular/common/http";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HomeComponent } from './home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './shared/material.module';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatButtonModule} from "@angular/material/button";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatTableModule
   ],
   providers: [
     FormBuilder
