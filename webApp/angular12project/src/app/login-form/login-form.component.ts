@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms'
 
 import {Observable, of} from "rxjs";
+import {LoginService, User} from "../login.service";
 
 @Component({
   selector: 'app-login-form',
@@ -12,21 +14,22 @@ import {Observable, of} from "rxjs";
 
 export class LoginFormComponent implements OnInit {
 
-  username: string | undefined;
+  username = new FormControl('username');
+  password = new FormControl('psw');
+  user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
 
-  constructor(
-  ) { }
+  constructor(private service: LoginService, private router: Router) { }
 
   ngOnInit(): void {
-    this.logout();
+    this.login();
   }
 
   login(): void {
-    if (this.username) {
+    this.service.login(this.username, this.password).subscribe(data => {
+      this.user = data;
+    });
 
-    } else {
-
-    }
+    this.router.navigate(['/home'], {queryParams: {user: this.user}});
   }
 
   logout(): void {

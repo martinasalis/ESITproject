@@ -10,14 +10,14 @@ module.exports = function(app) {
     // sample api route
     app.post('/login', function(req, res) {
         // use mongoose to check if username and password is true or not
-        Models.find(function(err, models) {
+        Models.find({username: req.body.username, password: req.body.password}, function(err, user) {
 
             // if there is an error retrieving, send the error.
             // nothing after res.send(err) will execute
             if (err)
                 res.send(err);
 
-            res.json({response: true}); // return response
+            res.json(user); // return response
         });
     });
 
