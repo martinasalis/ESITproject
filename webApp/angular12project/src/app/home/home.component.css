@@ -2,6 +2,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 th, td {
@@ -9,7 +10,7 @@ th, td {
   padding: 8px;
 }
 
-/*tr:nth-child(even) {background-color: #c0e6d8;}*/
+tr:nth-child(even) {background-color: #c0e6d8;}
 
 * {
   box-sizing: border-box;
@@ -21,15 +22,23 @@ form.search input[type=text] {
   font-size: 17px;
   /*border: 1px solid grey;*/
   float: left;
-  width: 80%;
+  width: 79%;
   /*background: #f1f1f1;*/
+}
+
+form.search input:focus{
+  outline: none !important;
+  border-color: #415b4a;
+  box-shadow: 0 0 10px #415b4a;
 }
 
 /* Style the submit button */
 form.search button {
   float: left;
   width: 20%;
-  padding: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-left: 1%;
   /*background: #04AA6D;
   color: white;*/
   font-size: 17px;
@@ -64,7 +73,7 @@ body {
 .topnav a {
   float: right;
   display: block;
-  /*color: #f2f2f2;*/
+  color: #f2f2f2;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -72,8 +81,13 @@ body {
 
 /* Change color on hover */
 .topnav a:hover {
-  /*background-color: #ddd;
-  color: black;*/
+  color: #20b968;
+}
+
+img {
+  height: 25px;
+  width: 25px;
+
 }
 
 /* Style the content */
@@ -81,4 +95,26 @@ body {
   /*background-color: #f5fbf9;*/
   padding: 10px;
   height: 200px; /* Should be removed. Only for demonstration */
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  margin: 0px;
+  padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.outer {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner {
+  margin: auto;
 }
