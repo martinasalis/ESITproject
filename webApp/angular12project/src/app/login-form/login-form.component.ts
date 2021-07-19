@@ -14,8 +14,8 @@ import {LoginService, User} from "../login.service";
 
 export class LoginFormComponent implements OnInit {
 
-  username = new FormControl('username');
-  password = new FormControl('psw');
+  username = new FormControl('');
+  password = new FormControl('');
   user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
 
   constructor(private service: LoginService, private router: Router) { }
@@ -25,7 +25,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   login(): void {
-    this.service.login(this.username, this.password).subscribe(data => {
+    this.service.login(this.username.value, this.password.value).subscribe(data => {
       this.user = data;
     });
 

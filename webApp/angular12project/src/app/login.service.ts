@@ -20,9 +20,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(uname: FormControl, psw: FormControl) {
-    return this.http.post<User>(`${baseUrl}/login`,
-      JSON.stringify({username: uname.value.username, password: psw.value.password}));
+  login(uname: String, psw: String) {
+    console.log(uname);
+    return this.http.post<User>(`${baseUrl}/login`, JSON.stringify({username: uname, password: psw}));
   }
 
 }

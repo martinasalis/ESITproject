@@ -5,15 +5,15 @@
       <div class="container">
         <mat-form-field>
           <label>Username</label>
-          <input matInput type="text" placeholder="Enter Username" name="username" required>
+          <input matInput type="text" placeholder="Enter Username" name="username" [formControl]="username" required>
         </mat-form-field>
 
         <mat-form-field>
           <label><b>Password</b></label>
-          <input matInput type="password" placeholder="Enter Password" name="psw" required>
+          <input matInput type="password" placeholder="Enter Password" name="psw" [formControl]="password" required>
         </mat-form-field>
 
-        <button mat-button type="submit">Login</button> <!--(click)=getLogin()-->
+        <button mat-button type="submit" (click)=login()>Login</button>
       </div>
 
       <div class="container" style="background-color:#f1f1f1">
