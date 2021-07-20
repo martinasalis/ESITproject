@@ -13,13 +13,15 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { PageInfoComponent } from './page-info/page-info.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     HomeComponent,
-    PageInfoComponent
+    PageInfoComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

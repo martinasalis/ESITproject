@@ -1,6 +1,7 @@
 <div>
-  <div class="topnav">
-    <a href="#"> Nome Cognome <img src="../../../images/profile_image.png"> </a>
+
+  <div *ngIf="navbar">
+    <app-navbar></app-navbar>
   </div>
 
   <div class="content" *ngIf="home_doctor">

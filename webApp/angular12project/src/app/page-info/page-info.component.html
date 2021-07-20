@@ -1,6 +1,7 @@
 <div>
-  <div class="topnav">
-    <a href="#"> Nome Cognome <img src="../../../images/profile_image.png"> </a>
+
+  <div *ngIf="navbar && home_doctor">
+    <app-navbar></app-navbar>
   </div>
 
   <div class="content">
@@ -14,10 +15,10 @@
       <p><b>Codice fiscale:</b> cf </p>
     </div>
 
-    <div class="avviso">
+    <div class="avviso" *ngIf="home_doctor">
       <form>
         <div class="font_el">
-          <p><b>Metodo di avviso:</b></p>
+          <p><b>Parametri di avviso:</b></p>
           <input type="radio" id="contactChoice1"
                  name="contact" value="email">
           <label for="contactChoice1">Email</label>
@@ -27,8 +28,8 @@
           <label for="contactChoice2">Sms</label>
 
           <input type="radio" id="contactChoice3"
-                 name="contact" value="mail">
-          <label for="contactChoice3">Mail</label>
+                 name="contact" value="telegram">
+          <label for="contactChoice3">Telegram</label>
 
           <button><i class="fa fa-save"></i></button>
         </div>
