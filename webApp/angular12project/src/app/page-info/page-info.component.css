@@ -1,0 +1,100 @@
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  color: #20b968;
+}
+
+.topnav img {
+  height: 25px;
+  width: 25px;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+  float: left;
+}
+
+/* Style the content */
+.content {
+  /*background-color: #f5fbf9;*/
+  padding: 10px;
+  height: 200px; /* Should be removed. Only for demonstration */
+  margin: 20px;
+}
+
+.info {
+  float: left;
+  margin-left: 20px;
+  clear: right;
+}
+
+b {
+  color: #04AA6D;
+}
+.avviso {
+  display: block;
+  padding:4px 2px;
+  width: 100%;
+  margin: 5px 0 20px 10px;
+  margin-top: 20px;
+  float: left;
+}
+
+label{
+  margin-right: 15px;
+  line-height: 32px;
+}
+
+.font_el p{
+  float: left;
+  margin: 3px;
+  padding-right: 10px;
+}
+
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+
+  position: relative;
+  top: 4px;
+}
+
+input:checked {
+  border: 6px solid black;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  margin-left: 10px;
+  padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border: none;
+  cursor: pointer;
+}
+

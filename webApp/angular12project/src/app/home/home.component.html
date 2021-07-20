@@ -1,9 +1,9 @@
 <div>
   <div class="topnav">
-    <a href="#"> Nome Cognome <img src="src/app/home/profile_image.png"> </a>
+    <a href="#"> Nome Cognome <img src="../../../images/profile_image.png"> </a>
   </div>
 
-  <div class="content">
+  <div class="content" *ngIf="home_doctor">
     <!-- Load icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -33,7 +33,10 @@
       <button class="inner" mat-button type="submit">Aggiungi paziente</button> <!--(click)=getLogin()-->
     </div>
 
+  </div>
 
+  <div *ngIf="!home_doctor">
+    <app-page-info class="content"></app-page-info>
   </div>
 
 </div>

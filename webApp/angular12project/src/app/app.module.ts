@@ -12,12 +12,14 @@ import { MaterialModule } from './shared/material.module';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
+import { PageInfoComponent } from './page-info/page-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
-    HomeComponent
+    HomeComponent,
+    PageInfoComponent
   ],
   imports: [
     BrowserModule,
