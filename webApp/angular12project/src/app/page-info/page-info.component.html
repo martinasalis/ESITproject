@@ -4,7 +4,7 @@
     <app-navbar></app-navbar>
   </div>
 
-  <div class="content">
+  <div class="content" *ngIf="home_doctor; else Patient">
     <img src="../../../images/profile_image.png">
     <div class="info">
       <p><b>Ruolo:</b> ruolo </p>
@@ -15,7 +15,7 @@
       <p><b>Codice fiscale:</b> cf </p>
     </div>
 
-    <div class="avviso" *ngIf="home_doctor">
+    <div class="avviso">
       <form>
         <div class="font_el">
           <p><b>Parametri di avviso:</b></p>
@@ -36,5 +36,9 @@
       </form>
     </div>
   </div>
+
+  <ng-template #Patient>
+    <app-patient></app-patient>
+  </ng-template>
 
 </div>

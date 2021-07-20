@@ -1,0 +1,16 @@
+.content {
+  /*background-color: #f5fbf9;*/
+  padding: 10px;
+  height: 200px; /* Should be removed. Only for demonstration */
+  margin: 20px;
+}
+
+.info {
+  float: left;
+  margin-left: 20px;
+  clear: right;
+}
+
+b {
+  color: #04AA6D;
+}

@@ -14,6 +14,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { PageInfoComponent } from './page-info/page-info.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PatientComponent } from './patient/patient.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     LoginFormComponent,
     HomeComponent,
     PageInfoComponent,
-    NavbarComponent
+    NavbarComponent,
+    PatientComponent
   ],
   imports: [
     BrowserModule,

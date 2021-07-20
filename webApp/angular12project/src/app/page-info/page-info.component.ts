@@ -9,6 +9,7 @@ export class PageInfoComponent implements OnInit {
 
   navbar = true;
   home_doctor = true;
+
   constructor() { }
 
   ngOnInit(): void {
