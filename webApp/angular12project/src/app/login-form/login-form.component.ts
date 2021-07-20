@@ -1,8 +1,7 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import {LoginService, User} from "../login.service";
+import { LoginService, User } from "../login.service";
 
 @Component({
   selector: 'app-login-form',
@@ -14,7 +13,7 @@ export class LoginFormComponent implements OnInit {
 
   username = new FormControl('');
   password = new FormControl('');
-  user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
+  public user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
 
   constructor(private service: LoginService, private router: Router) { }
 
@@ -25,13 +24,19 @@ export class LoginFormComponent implements OnInit {
   login(): void {
     if(this.username.value != '' && this.password.value != '') {
       this.service.login(this.username.value, this.password.value).subscribe(data => {
-        console.log(data);
-        this.user = data;
+        // @ts-ignore
+        this.user.nome = data[0].nome;
+        // @ts-ignore
+        this.user.cognome = data[0].cognome;
+        // @ts-ignore
+        this.user.cf = data[0].cf;
+        // @ts-ignore
+        this.user.username = data[0].username;
+        // @ts-ignore
+        this.user.password = data[0].password;
+
+        this.router.navigate(['home'], {state: {user: this.user}});
       });
-
-      console.log(this.user);
-
-      this.router.navigate(['home'], {queryParams: {user: this.user}});
     }
   }
 
