@@ -1,9 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms'
-
-import {Observable, of} from "rxjs";
+import { FormControl } from '@angular/forms';
 import {LoginService, User} from "../login.service";
 
 @Component({
@@ -25,11 +23,16 @@ export class LoginFormComponent implements OnInit {
   }
 
   login(): void {
-    this.service.login(this.username.value, this.password.value).subscribe(data => {
-      this.user = data;
-    });
+    if(this.username.value != '' && this.password.value != '') {
+      this.service.login(this.username.value, this.password.value).subscribe(data => {
+        console.log(data);
+        this.user = data;
+      });
 
-    this.router.navigate(['/home'], {queryParams: {user: this.user}});
+      console.log(this.user);
+
+      this.router.navigate(['home'], {queryParams: {user: this.user}});
+    }
   }
 
   logout(): void {

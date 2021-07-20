@@ -5,7 +5,8 @@ import {HomeComponent} from "./home/home.component";
 import {PageInfoComponent} from "./page-info/page-info.component";
 
 const routes: Routes = [
-  {path: '', component: PageInfoComponent},
+  {path: '', component: LoginFormComponent},
+  {path: 'home', component: HomeComponent}
 ];
 
 

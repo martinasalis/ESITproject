@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
+const mongoose = require('mongoose');
 
 app.use(cors());
 
@@ -10,6 +11,7 @@ app.use(cors());
 
 // config files
 const db = require('./config/db');
+mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // set our port
 const port = process.env.PORT || 8080;
@@ -23,12 +25,13 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 
 // routes ==================================================
-require('./app/routes')(app); // configure our routes
+require('./app/routes/user')(app); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080
 app.listen(port, () => {
     console.log('Server is running on port ' + port);
+    console.log(mongoose.connection.readyState);
 });
 
 // expose app
