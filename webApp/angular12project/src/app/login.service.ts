@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { FormControl } from "@angular/forms";
 
 export interface User {
   nome: String,
@@ -21,8 +20,8 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(uname: String, psw: String) {
-    console.log(uname);
-    return this.http.post<User>(`${baseUrl}/login`, JSON.stringify({username: uname, password: psw}));
+    const body = {username: uname, password: psw};
+    return this.http.post<User>(`${baseUrl}/login`, body);
   }
 
 }
