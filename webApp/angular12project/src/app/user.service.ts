@@ -15,13 +15,23 @@ const baseUrl = 'http://localhost:8080';
   providedIn: 'root'
 })
 
-export class LoginService {
+export class UserService {
+
+  private user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
 
   constructor(private http: HttpClient) { }
 
   login(uname: String, psw: String) {
     const body = {username: uname, password: psw};
     return this.http.post<User>(`${baseUrl}/login`, body);
+  }
+
+  getUser() {
+    return this.user;
+  }
+
+  setUser(user: User) {
+    this.user = user;
   }
 
 }

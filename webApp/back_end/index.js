@@ -31,7 +31,6 @@ require('./app/routes/user')(app); // configure our routes
 // startup our app at http://localhost:8080
 app.listen(port, () => {
     console.log('Server is running on port ' + port);
-    console.log(mongoose.connection.readyState);
 });
 
 // expose app

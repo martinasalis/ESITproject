@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { User } from "../login.service";
+import { UserService, User } from "../user.service";
 
 @Component({
   selector: 'app-home',
@@ -13,9 +13,8 @@ export class HomeComponent implements OnInit {
   navbar = true;
   user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
 
-  constructor(private router: Router) {
-    // @ts-ignore
-    this.user = this.router.getCurrentNavigation().extras.state.user;
+  constructor(private router: Router, private userService: UserService) {
+    this.user = this.userService.getUser();
   }
 
   ngOnInit(): void {

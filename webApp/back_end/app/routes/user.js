@@ -9,7 +9,7 @@ exports = module.exports = function(app) {
     // sample api route
     app.post('/login', function(req, res) {
         // use mongoose to check if username and password is true or not
-        User.find({username: req.body.username, password: req.body.password}, function(err, user) {
+        User.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
 
             // if there is an error retrieving, send the error.
             // nothing after res.send(err) will execute

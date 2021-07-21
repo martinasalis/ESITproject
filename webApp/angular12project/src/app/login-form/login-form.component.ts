@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { LoginService, User } from "../login.service";
+import { UserService, User } from "../user.service";
 
 @Component({
   selector: 'app-login-form',
@@ -13,9 +13,9 @@ export class LoginFormComponent implements OnInit {
 
   username = new FormControl('');
   password = new FormControl('');
-  public user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
+  user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
 
-  constructor(private service: LoginService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.login();
@@ -23,19 +23,10 @@ export class LoginFormComponent implements OnInit {
 
   login(): void {
     if(this.username.value != '' && this.password.value != '') {
-      this.service.login(this.username.value, this.password.value).subscribe(data => {
-        // @ts-ignore
-        this.user.nome = data[0].nome;
-        // @ts-ignore
-        this.user.cognome = data[0].cognome;
-        // @ts-ignore
-        this.user.cf = data[0].cf;
-        // @ts-ignore
-        this.user.username = data[0].username;
-        // @ts-ignore
-        this.user.password = data[0].password;
-
-        this.router.navigate(['home'], {state: {user: this.user}});
+      this.userService.login(this.username.value, this.password.value).subscribe((data: User) => {
+        this.userService.setUser(data);
+        this.user = this.userService.getUser();
+        this.router.navigate(['home']);
       });
     }
   }
