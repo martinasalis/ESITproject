@@ -4,7 +4,7 @@
     <app-navbar></app-navbar>
   </div>
 
-  <div class="content" *ngIf="home_doctor">
+  <div class="content" *ngIf="home_doctor; else Info">
     <!-- The form -->
     <form class="search" action="home.component.ts">
       <input type="text" placeholder="Search.." name="search">
@@ -33,8 +33,8 @@
 
   </div>
 
-  <div *ngIf="!home_doctor">
+  <ng-template #Info>
     <app-page-info></app-page-info>
-  </div>
+  </ng-template>
 
 </div>
