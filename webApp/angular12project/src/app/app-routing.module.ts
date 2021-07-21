@@ -7,6 +7,7 @@ import { PageInfoComponent } from "./page-info/page-info.component";
 const routes: Routes = [
   {path: '', component: LoginFormComponent},
   {path: 'home', component: HomeComponent}
+  //{path: 'page-info', component: PageInfoComponent}
 ];
 
 

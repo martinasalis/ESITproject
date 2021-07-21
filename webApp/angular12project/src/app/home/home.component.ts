@@ -9,7 +9,7 @@ import { UserService, User } from "../user.service";
 })
 export class HomeComponent implements OnInit {
 
-  home_doctor = false;
+  home_doctor = true;
   navbar = true;
   user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
 
