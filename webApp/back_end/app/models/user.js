@@ -4,11 +4,12 @@ const Schema = mongoose.Schema;
 
 // define our user schema
 const userSchema = new Schema({
-    nome: {type: String, default: ''},
-    cognome : {type: String, default: ''},
-    cf: {type: String, default: ''},
+    _id: {type: String, default: '', required: true}, // This is the Tax Code
+    name: {type: String, default: ''},
+    surname : {type: String, default: ''},
     username: {type: String, default: ''},
-    password: {type: String, default: ''}
+    password: {type: String, default: ''},
+    type: {type: String, enum: ['DOCTOR', 'PATIENT', 'ADMIN'], default: ''}
 });
 
 // module.exports allows us to pass this to other files when it is called
