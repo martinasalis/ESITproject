@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 export interface User {
-  nome: String,
-  cognome: String,
-  cf: String,
+  _id: String,
+  name: String,
+  surname: String,
   username: String,
-  password: String
+  password: String,
+  type: String
 }
 
 const baseUrl = 'http://localhost:8080';
@@ -17,7 +18,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class UserService {
 
-  private user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
+  private user: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
 
   constructor(private http: HttpClient) { }
 
