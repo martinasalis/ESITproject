@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   home_doctor = true;
   navbar = true;
-  user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
 
   constructor(private router: Router, private userService: UserService) {
     this.user = this.userService.getUser();

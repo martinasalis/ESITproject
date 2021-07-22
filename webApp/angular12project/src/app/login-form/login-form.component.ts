@@ -13,7 +13,7 @@ export class LoginFormComponent implements OnInit {
 
   username = new FormControl('');
   password = new FormControl('');
-  user: User = {nome: '', cognome: '', cf: '', username: '', password: ''};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -25,6 +25,7 @@ export class LoginFormComponent implements OnInit {
     if(this.username.value != '' && this.password.value != '') {
       this.userService.login(this.username.value, this.password.value).subscribe((data: User) => {
         this.userService.setUser(data);
+        console.log(data);
         this.user = this.userService.getUser();
         this.router.navigate(['home']);
       });
