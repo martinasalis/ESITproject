@@ -5,16 +5,16 @@
   </div>
 
   <div class="content">
-    <h1><b>Paziente:</b> cf</h1>
+    <h1><b>Paziente:</b> {{ pat._id }} </h1>
     <div class="info">
-      <p><b>Nome:</b> nome </p>
-      <p><b>Cognome:</b> cognome </p>
-      <p><b>e-mail:</b> email </p>
-      <p><b>Data di nascita:</b> data nascita </p>
-      <p><b>Codice fiscale:</b> cf </p>
-      <p><b>Indirizzo:</b> indirizzo </p>
-      <p><b>Data ricovero:</b> data </p>
-      <p><b>Recapito telefonico:</b> num </p>
+      <p><b>Nome:</b> {{ user.name }} </p>
+      <p><b>Cognome:</b> {{ user.surname }} </p>
+      <p><b>e-mail:</b> {{ pat.mail }} </p>
+      <p><b>Data di nascita:</b> {{ pat.dob }} </p>
+      <p><b>Codice fiscale:</b> {{ user._id }} </p>
+      <p><b>Indirizzo:</b> {{ pat.address }} </p>
+      <p><b>Data ricovero:</b> {{ pat.dor }} </p>
+      <p><b>Recapito telefonico:</b> {{ pat.phone }} </p>
     </div>
   </div>
 

@@ -8,6 +8,7 @@ exports = module.exports = function(app) {
 
     // sample api route
     app.post('/info', function(req, res) {
+        console.log(req.body);
         // use mongoose to check if username and password is true or not
         Doctor.findOne({_id: req.body._id}, function(err, doc) {
 
@@ -15,6 +16,8 @@ exports = module.exports = function(app) {
             // nothing after res.send(err) will execute
             if (err)
                 res.send(err);
+
+            console.log(doc);
 
             res.json(doc); // return response
         });

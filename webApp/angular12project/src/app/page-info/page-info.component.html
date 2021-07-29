@@ -7,12 +7,12 @@
   <div class="content" *ngIf="home_doctor; else Patient">
     <img src="../../../images/profile_image.png">
     <div class="info">
-      <p><b>Ruolo:</b> ruolo </p>
-      <p><b>Nome:</b> nome </p>
-      <p><b>Cognome:</b> cognome </p>
-      <p><b>e-mail:</b> email </p>
-      <p><b>Data di nascita:</b> data nascita </p>
-      <p><b>Codice fiscale:</b> cf </p>
+      <p><b>Ruolo:</b> {{ doc.role }} </p>
+      <p><b>Nome:</b> {{ user.name }} </p>
+      <p><b>Cognome:</b> {{ user.surname }} </p>
+      <p><b>e-mail:</b> {{ doc.mail }} </p>
+      <p><b>Data di nascita:</b> {{ doc.dob }} </p>
+      <p><b>Codice fiscale:</b> {{ user._id }} </p>
     </div>
 
     <div class="avviso">

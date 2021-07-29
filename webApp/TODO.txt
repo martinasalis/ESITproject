@@ -1,2 +1,3 @@
 - Reparto (da aggiungere in paziente)
 - Dottore (da aggiungere in paziente)
+- Parametro avviso (da aggiungere in dottore)

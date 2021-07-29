@@ -26,6 +26,8 @@ app.use(bodyParser.json());
 
 // routes ==================================================
 require('./app/routes/user')(app); // configure our routes
+require('./app/routes/doctor')(app); // configure our routes
+require('./app/routes/patient')(app); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080
