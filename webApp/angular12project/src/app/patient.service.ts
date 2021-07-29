@@ -27,6 +27,16 @@ export class PatientService {
     return this.http.post<Patient>(`${baseUrl}/info`, body);
   }
 
+  getDoctorPatients(doctor: String) {
+    const body = {doctor: doctor};
+    return this.http.post<Patient[]>(`${baseUrl}/patients`, body);
+  }
+
+  getPatientInfo(_id: String) {
+    const body = {_id: _id};
+    return this.http.post<Patient>(`${baseUrl}/infoPatient`, body);
+  }
+
   getPatient() {
     return this.patient;
   }

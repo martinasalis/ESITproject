@@ -19,4 +19,5 @@ exports = module.exports = function(app) {
             res.json(user); // return response
         });
     });
+
 };
