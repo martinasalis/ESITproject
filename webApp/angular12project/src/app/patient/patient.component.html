@@ -4,7 +4,7 @@
     <app-navbar></app-navbar>
   </div>
 
-  <div class="content">
+  <div class="content" *ngIf="page_patient; else Admin">
     <h1><b>Paziente:</b> {{ pat._id }} </h1>
     <div class="info">
       <p><b>Nome:</b> {{ user.name }} </p>
@@ -17,6 +17,16 @@
       <p><b>Recapito telefonico:</b> {{ pat.phone }} </p>
     </div>
   </div>
+
+  <ng-template #Admin>
+    <div class="content">
+      <h1><b>Admin:</b> {{ user._id }} </h1>
+      <div class="info">
+        <p><b>Nome:</b> {{ user.name }} </p>
+        <p><b>Cognome:</b> {{ user.surname }} </p>
+      </div>
+    </div>
+  </ng-template>
 
 </div>
 

@@ -15,6 +15,7 @@ import { MatTableModule } from "@angular/material/table";
 import { PageInfoComponent } from './page-info/page-info.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PatientComponent } from './patient/patient.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -25,18 +26,19 @@ import { PatientComponent } from './patient/patient.component';
     NavbarComponent,
     PatientComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatTableModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatTableModule,
+        MatTabsModule
+    ],
   providers: [
     FormBuilder
   ],

@@ -1,6 +1,6 @@
 <div>
 
-  <div *ngIf="navbar && home_doctor">
+  <div *ngIf="(navbar && home_doctor) || (navbar && home_admin)">
     <app-navbar></app-navbar>
   </div>
 
@@ -27,14 +27,100 @@
     </div>
 
     <div class="outer">
-      <button class="inner" mat-button type="submit">Visualizza</button> <!--(click)=getLogin()-->
-      <button class="inner" mat-button type="submit">Aggiungi paziente</button> <!--(click)=getLogin()-->
+      <button class="inner" mat-button type="submit" (click)=visualize()>Visualizza</button>
+      <button class="inner" mat-button type="submit" (click)=modify()>Aggiungi paziente</button>
     </div>
 
   </div>
 
   <ng-template #Info>
-    <app-page-info></app-page-info>
+    <app-page-info *ngIf="page_info; else Admin"></app-page-info>
+  </ng-template>
+
+  <ng-template #Admin>
+    <mat-tab-group mat-align-tabs="start">
+      <mat-tab label="Dottori">
+        <div class="content">
+          <form class="search" action="home.component.ts">
+            <input type="text" placeholder="Search.." name="search">
+            <button mat-button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+
+          <table>
+            <tr>
+              <th>Codice fiscale</th>
+              <th>Nome</th>
+              <th>Cognome</th>
+            </tr>
+            <tr>
+              <th>cf1</th>
+              <th>nome1</th>
+              <th>cognome1</th>
+            </tr>
+          </table>
+        </div>
+
+        <div class="outer">
+          <button class="inner" mat-button type="submit">Modifica dottore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit">Aggiungi dottore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit">Elimina dottore</button> <!--(click)=getLogin()-->
+        </div>
+      </mat-tab>
+      <mat-tab label="Pazienti">
+        <div class="content">
+          <form class="search" action="home.component.ts">
+            <input type="text" placeholder="Search.." name="search">
+            <button mat-button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+
+          <table>
+            <tr>
+              <th>Codice fiscale</th>
+              <th>Nome</th>
+              <th>Cognome</th>
+            </tr>
+            <tr>
+              <th>cf1</th>
+              <th>nome1</th>
+              <th>cognome1</th>
+            </tr>
+          </table>
+        </div>
+
+        <div class="outer">
+          <button class="inner" mat-button type="submit">Modifica paziente</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit">Aggiungi paziente</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit">Elimina paziente</button> <!--(click)=getLogin()-->
+        </div>
+      </mat-tab>
+      <mat-tab label="Sensori">
+        <div class="content">
+          <form class="search" action="home.component.ts">
+            <input type="text" placeholder="Search.." name="search">
+            <button mat-button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+
+          <table>
+            <tr>
+              <th>ID Sensore</th>
+              <th>Dati</th>
+              <th>Data rilevamento</th>
+            </tr>
+            <tr>
+              <th>id</th>
+              <th>dati</th>
+              <th>data</th>
+            </tr>
+          </table>
+        </div>
+
+        <div class="outer">
+          <button class="inner" mat-button type="submit">Modifica sensore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit">Aggiungi sensore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit">Elimina sensore</button> <!--(click)=getLogin()-->
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </ng-template>
 
 </div>

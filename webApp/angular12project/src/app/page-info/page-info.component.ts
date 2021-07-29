@@ -25,7 +25,6 @@ export class PageInfoComponent implements OnInit {
     if(this.user.type == 'DOCTOR'){
       console.log(this.user);
       this.home_doctor = true;
-      this.navbar = true;
       this.doctorService.info(this.user._id).subscribe((data: Doctor) => {
         this.doctorService.setDoctor(data);
         console.log(data);

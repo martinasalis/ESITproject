@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
 
   home_doctor = false;
   navbar = false;
+  home_admin = false;
+  page_info = false;
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
   //pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};
@@ -27,6 +29,21 @@ export class HomeComponent implements OnInit {
       this.navbar = true;
       this.doc = this.doctorService.getDoctor();
     }
+    else if(this.user.type == 'ADMIN'){
+      this.home_admin = true;
+      this.navbar = true;
+    }
+    else{
+      this.page_info = true;
+    }
+  }
+
+  visualize(): void {
+    this.router.navigate(['']);
+  }
+
+  modify(): void {
+    this.router.navigate(['']);
   }
 
 }
