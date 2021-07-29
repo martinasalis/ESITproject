@@ -32,6 +32,11 @@ export class PatientService {
     return this.http.post<Patient[]>(`${baseUrl}/doctorPatients`, body);
   }
 
+  getAllPatients() {
+    const body = {};
+    return this.http.post<Patient[]>(`${baseUrl}/allPatients`, body);
+  }
+
   update(_id: String, pat: Patient) {
     const body = {_id: _id, info: {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor}};
     return this.http.post(`${baseUrl}/update`, body);

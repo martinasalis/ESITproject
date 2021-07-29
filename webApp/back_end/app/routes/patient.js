@@ -19,12 +19,22 @@ exports = module.exports = function(app) {
     app.post('/doctorPatients', function(req, res) {
         // Get all patients of a doctor
         Patient.find({doctor: req.body.doctor}, function(err, pats) {
-
             // Send the error occurred
             if(err)
                 res.send(err);
 
             // Send the patients of a doctor (from 0 to N)
+            res.json(pats);
+        });
+    });
+
+    app.post('/allPatients', function(req, res) {
+        // Get all patients
+        Patient.find({}, function(err, pats) {
+            // Error occurred
+            if(err)
+                res.send(err);
+
             res.json(pats);
         });
     });
