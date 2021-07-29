@@ -3,24 +3,51 @@ const Doctor = require('../models/doctor')
 exports = module.exports = function(app) {
 
     // server routes ===========================================================
-    // handle things like api calls
-    // authentication routes
 
-    // sample api route
     app.post('/info', function(req, res) {
-        console.log(req.body);
-        // use mongoose to check if username and password is true or not
+        // Get info of a specific doctor
         Doctor.findOne({_id: req.body._id}, function(err, doc) {
 
-            // if there is an error retrieving, send the error.
-            // nothing after res.send(err) will execute
-            if (err)
+            // If there is an error retrieving, send the error.
+            if(err)
                 res.send(err);
 
-            console.log(doc);
-
-            res.json(doc); // return response
+            res.json(doc); // Return response
         });
+    });
+
+    // Update doctor info
+    app.post('/update', function(req, res) {
+        let updateData = req.body.info;
+
+        // Update info of a specific doctor
+        Doctor.updateOne({_id: req.body._id},
+            {_id: updateData._id, mail: updateData.mail, phone: updateData.mail, dob: updateData.dob, role: updateData.role},
+            function(err, doc) {
+            if(err) // Error occurred in update
+                res.send(err);
+
+            res.json(doc.ok);
+        });
+    });
+
+    // Delete a doctor
+    app.post('/delete', function (req, res) {
+        // Delete a specific doctor
+        Doctor.deleteOne({_id: req.body._id}, function (err, doc) {
+            // Error occurred in delete
+            if(err)
+                res.send(err);
+
+            res.json(doc.ok);
+        });
+    });
+
+    app.post('/insert', function (req, res) {
+        // Insert a new doctor
+        Doctor.insertMany([{_id: req.body._id, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, role: req.body.role}])
+            .then(res.json({ok: 1}))
+            .catch(res.json({ok: 0}));
     });
 
 };

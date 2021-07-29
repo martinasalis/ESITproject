@@ -29,12 +29,22 @@ export class PatientService {
 
   getDoctorPatients(doctor: String) {
     const body = {doctor: doctor};
-    return this.http.post<Patient[]>(`${baseUrl}/patients`, body);
+    return this.http.post<Patient[]>(`${baseUrl}/doctorPatients`, body);
   }
 
-  getPatientInfo(_id: String) {
+  update(_id: String, pat: Patient) {
+    const body = {_id: _id, info: {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor}};
+    return this.http.post(`${baseUrl}/update`, body);
+  }
+
+  delete(_id: String) {
     const body = {_id: _id};
-    return this.http.post<Patient>(`${baseUrl}/infoPatient`, body);
+    return this.http.post(`${baseUrl}/delete`, body);
+  }
+
+  insert(pat: Patient) {
+    const body = {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor};
+    return this.http.post(`${baseUrl}/insert`, body);
   }
 
   getPatient() {

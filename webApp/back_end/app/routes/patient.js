@@ -3,25 +3,20 @@ const Patient = require('../models/patient')
 exports = module.exports = function(app) {
 
     // server routes ===========================================================
-    // handle things like api calls
-    // authentication routes
 
-    // sample api route
     app.post('/info', function(req, res) {
-        // use mongoose to check if username and password is true or not
+        // Get patient info
         Patient.findOne({_id: req.body._id}, function(err, pat) {
 
-            // If there is an error retrieving, send the error.
-            // Nothing after res.send(err) will execute
+            // Error
             if (err)
                 res.send(err);
 
-            res.json(pat); // return response
+            res.json(pat);
         });
     });
 
-    app.post('/patients', function(req, res) {
-
+    app.post('/doctorPatients', function(req, res) {
         // Get all patients of a doctor
         Patient.find({doctor: req.body.doctor}, function(err, pats) {
 
@@ -34,18 +29,36 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('/infoPatient', function(req, res) {
+    app.post('/update', function(req, res) {
+        let updateData = req.body.info;
 
-        // Get all info of a specific patient of a doctor
-        Patient.findOne({_id: req.body._id}, function(err, pat) {
+        // Update a specific patient
+        Patient.updateOne({_id: req.body._id},
+            {_id: updateData._id, mail: updateData.mail, phone: updateData.phone, dob: updateData.dob, address: updateData.address, dor: updateData.dor},
+            function (err, pat) {
+            if(err) // Error in update patient
+                res.send(err);
 
-            // Send error occurred
+            res.json(pat.ok);
+        });
+    });
+
+    app.post('/delete', function(req, res) {
+        // Delete a specific patient
+        Patient.deleteOne({_id: req.body._id}, function(err, pat) {
+            // Error occurred
             if(err)
                 res.send(err);
 
-            // Send patient info
-            res.json(pat);
+            res.json(pat.ok);
         });
+    });
+
+    app.post('insert', function(req, res) {
+        // Insert a new patient
+        Patient.insertMany([{_id: req.body._id, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, address: req.body.address, dor: req.body.dor}])
+            .then(res.json({ok: 1}))
+            .catch(res.json({ok: 0}));
     });
 
 };

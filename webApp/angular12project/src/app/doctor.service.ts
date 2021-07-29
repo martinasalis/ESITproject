@@ -26,6 +26,21 @@ export class DoctorService {
     return this.http.post<Doctor>(`${baseUrl}/info`, body);
   }
 
+  update(_id: String, doc: Doctor) {
+    const body = {_id: _id, info: {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role}};
+    return this.http.post(`${baseUrl}/update`, body);
+  }
+
+  delete(_id: String) {
+    const body = {_id: _id};
+    return this.http.post(`${baseUrl}/delete`, body);
+  }
+
+  insert(doc: Doctor) {
+    const body = {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role};
+    return this.http.post(`${baseUrl}/insert`, body);
+  }
+
   getDoctor() {
     return this.doctor;
   }

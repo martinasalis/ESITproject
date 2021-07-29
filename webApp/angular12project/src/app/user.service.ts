@@ -27,6 +27,21 @@ export class UserService {
     return this.http.post<User>(`${baseUrl}/login`, body);
   }
 
+  update(_id: String, user: User) {
+    const body = {_id: _id, info: {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type}};
+    return this.http.post(`${baseUrl}/update`, body);
+  }
+
+  delete(_id: String) {
+    const body = {_id: _id};
+    return this.http.post(`${baseUrl}/delete`, body);
+  }
+
+  insert(user: User) {
+    const body = {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type};
+    return this.http.post(`${baseUrl}/insert`, body);
+  }
+
   getUser() {
     return this.user;
   }
