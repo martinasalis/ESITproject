@@ -4,7 +4,7 @@ exports = module.exports = function(app) {
 
     // server routes ===========================================================
 
-    app.post('/info', function(req, res) {
+    app.post('/infoDoctor', function(req, res) {
         // Get info of a specific doctor
         Doctor.findOne({_id: req.body._id}, function(err, doc) {
 
@@ -17,7 +17,7 @@ exports = module.exports = function(app) {
     });
 
     // Update doctor info
-    app.post('/update', function(req, res) {
+    app.post('/updateDoctor', function(req, res) {
         let updateData = req.body.info;
 
         // Update info of a specific doctor
@@ -32,7 +32,7 @@ exports = module.exports = function(app) {
     });
 
     // Delete a doctor
-    app.post('/delete', function (req, res) {
+    app.post('/deleteDoctor', function (req, res) {
         // Delete a specific doctor
         Doctor.deleteOne({_id: req.body._id}, function (err, doc) {
             // Error occurred in delete
@@ -43,7 +43,7 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('/insert', function (req, res) {
+    app.post('/insertDoctor', function (req, res) {
         // Insert a new doctor
         Doctor.insertMany([{_id: req.body._id, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, role: req.body.role}])
             .then(res.json({ok: 1}))

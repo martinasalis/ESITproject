@@ -24,7 +24,7 @@ export class PatientService {
 
   info(_id: String) {
     const body = {_id: _id};
-    return this.http.post<Patient>(`${baseUrl}/info`, body);
+    return this.http.post<Patient>(`${baseUrl}/infoPatient`, body);
   }
 
   getDoctorPatients(doctor: String) {
@@ -39,17 +39,17 @@ export class PatientService {
 
   update(_id: String, pat: Patient) {
     const body = {_id: _id, info: {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor}};
-    return this.http.post(`${baseUrl}/update`, body);
+    return this.http.post(`${baseUrl}/updatePatient`, body);
   }
 
   delete(_id: String) {
     const body = {_id: _id};
-    return this.http.post(`${baseUrl}/delete`, body);
+    return this.http.post(`${baseUrl}/deletePatient`, body);
   }
 
   insert(pat: Patient) {
     const body = {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor};
-    return this.http.post(`${baseUrl}/insert`, body);
+    return this.http.post(`${baseUrl}/insertPatient`, body);
   }
 
   getPatient() {

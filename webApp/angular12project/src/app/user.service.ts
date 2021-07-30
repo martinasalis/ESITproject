@@ -29,17 +29,17 @@ export class UserService {
 
   update(_id: String, user: User) {
     const body = {_id: _id, info: {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type}};
-    return this.http.post(`${baseUrl}/update`, body);
+    return this.http.post(`${baseUrl}/updateUser`, body);
   }
 
   delete(_id: String) {
     const body = {_id: _id};
-    return this.http.post(`${baseUrl}/delete`, body);
+    return this.http.post(`${baseUrl}/deleteUser`, body);
   }
 
   insert(user: User) {
     const body = {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type};
-    return this.http.post(`${baseUrl}/insert`, body);
+    return this.http.post(`${baseUrl}/insertUser`, body);
   }
 
   getUser() {

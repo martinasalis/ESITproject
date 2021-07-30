@@ -16,7 +16,7 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('/update', function(req, res) {
+    app.post('/updateUser', function(req, res) {
         let updateData = req.body.info;
 
         // Update user
@@ -30,7 +30,7 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('/delete', function(req, res) {
+    app.post('/deleteUser', function(req, res) {
         // Delete a specific user
         User.deleteOne({_id: req.body._id}, function(err, user) {
             // Error
@@ -41,7 +41,7 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('/insert', function(req, res) {
+    app.post('/insertUser', function(req, res) {
         // Insert new user
         User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: req.body.password, type: req.body.type}])
             .then(res.json({ok: 1}))
