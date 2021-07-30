@@ -18,6 +18,7 @@ import { PatientComponent } from './patient/patient.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
+import { NoticeDialogComponent } from './notice-dialog/notice-dialog.component';
 import { ModifyFormComponent } from './modify-form/modify-form.component';
 
 @NgModule({
@@ -28,7 +29,9 @@ import { ModifyFormComponent } from './modify-form/modify-form.component';
     PageInfoComponent,
     NavbarComponent,
     PatientComponent,
-    ModifyFormComponent
+    ModifyFormComponent,
+    PatientComponent,
+    NoticeDialogComponent
   ],
   imports: [
     BrowserModule,
