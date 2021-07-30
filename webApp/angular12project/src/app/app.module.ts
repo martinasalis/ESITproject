@@ -20,6 +20,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import { NoticeDialogComponent } from './notice-dialog/notice-dialog.component';
 import { ModifyFormComponent } from './modify-form/modify-form.component';
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -33,21 +34,22 @@ import { ModifyFormComponent } from './modify-form/modify-form.component';
     PatientComponent,
     NoticeDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatIconModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatTableModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatInputModule
+    ],
   providers: [
     FormBuilder
   ],

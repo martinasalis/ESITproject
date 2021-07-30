@@ -1,41 +1,41 @@
 <div>
   <div>
-  <app-navbar></app-navbar>
+    <app-navbar></app-navbar>
   </div>
 
-  <div class="grandParentContainer">
+  <div class="grandParentContainer" *ngIf="modify_doctor; else Patient">
     <h1><b>Modifica Dottore</b></h1>
     <div class="parentContainer">
-      <form action="modify-form.component.ts" method="post" id="login_form"> <!--[formGroup]="angForm" novalidate-->
+      <form action="modify-form.component.ts" method="post" id="modify_form"> <!--[formGroup]="angForm" novalidate-->
 
         <div class="container">
           <mat-form-field>
-            <label>Username</label>
+            <mat-label>Username</mat-label>
             <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
           </mat-form-field>
 
           <mat-form-field>
-            <label>Nome</label>
+            <mat-label>Nome</mat-label>
             <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
           </mat-form-field>
 
           <mat-form-field>
-            <label>Cognome</label>
+            <mat-label>Cognome</mat-label>
             <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
           </mat-form-field>
 
           <mat-form-field>
-            <label>e-mail</label>
+            <mat-label>e-mail</mat-label>
             <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
           </mat-form-field>
 
           <mat-form-field>
-            <label>Data di nascita</label>
+            <mat-label>Data di nascita</mat-label>
             <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
           </mat-form-field>
 
           <mat-form-field>
-            <label>Codice fiscale</label>
+            <mat-label>Codice fiscale</mat-label>
             <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
           </mat-form-field>
 
@@ -45,5 +45,70 @@
       </form>
     </div>
   </div>
+
+  <!--pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};-->
+
+  <ng-template #Patient>
+    <div class="grandParentContainer" *ngIf="modify_patient; else Sensor">
+      <h1><b>Modifica Paziente</b></h1>
+      <div class="parentContainer">
+        <form action="modify-form.component.ts" method="post" id="modify_form_patient"> <!--[formGroup]="angForm" novalidate-->
+
+          <div class="container">
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Cognome</mat-label>
+              <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>e-mail</mat-label>
+              <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Data di nascita</mat-label>
+              <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Codice fiscale</mat-label>
+              <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Recapito telefonico</mat-label>
+              <input matInput type="number" placeholder="" name="phone" [formControl]="phone" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Data di ricovero</mat-label>
+              <input matInput type="date" placeholder="" name="dor" [formControl]="dor" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Indirizzo</mat-label>
+              <input matInput type="text" placeholder="" name="address" [formControl]="address" required>
+            </mat-form-field>
+
+            <button mat-button type="submit">Salva</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #Sensor>
+  </ng-template>
 
 </div>
