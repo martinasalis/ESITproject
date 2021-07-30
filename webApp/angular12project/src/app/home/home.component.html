@@ -28,7 +28,7 @@
 
     <div class="outer">
       <button class="inner" mat-button type="submit" (click)=visualize()>Visualizza</button>
-      <button class="inner" mat-button type="submit" (click)=modify()>Aggiungi paziente</button>
+      <button class="inner" mat-button type="submit" (click)=add()>Aggiungi paziente</button>
     </div>
 
   </div>
@@ -61,7 +61,7 @@
         </div>
 
         <div class="outer">
-          <button class="inner" mat-button type="submit">Modifica dottore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit" (click)=modify()>Modifica dottore</button> <!--(click)=getLogin()-->
           <button class="inner" mat-button type="submit">Aggiungi dottore</button> <!--(click)=getLogin()-->
           <button class="inner" mat-button type="submit">Elimina dottore</button> <!--(click)=getLogin()-->
         </div>
@@ -88,7 +88,7 @@
         </div>
 
         <div class="outer">
-          <button class="inner" mat-button type="submit">Modifica paziente</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit" (click)=modify()>Modifica paziente</button> <!--(click)=getLogin()-->
           <button class="inner" mat-button type="submit">Aggiungi paziente</button> <!--(click)=getLogin()-->
           <button class="inner" mat-button type="submit">Elimina paziente</button> <!--(click)=getLogin()-->
         </div>

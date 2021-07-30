@@ -1,0 +1,49 @@
+<div>
+  <div>
+  <app-navbar></app-navbar>
+  </div>
+
+  <div class="grandParentContainer">
+    <h1><b>Modifica Dottore</b></h1>
+    <div class="parentContainer">
+      <form action="modify-form.component.ts" method="post" id="login_form"> <!--[formGroup]="angForm" novalidate-->
+
+        <div class="container">
+          <mat-form-field>
+            <label>Username</label>
+            <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label>Nome</label>
+            <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label>Cognome</label>
+            <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label>e-mail</label>
+            <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label>Data di nascita</label>
+            <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <label>Codice fiscale</label>
+            <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
+          </mat-form-field>
+
+          <button mat-button type="submit">Salva</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>

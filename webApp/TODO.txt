@@ -1,3 +1,10 @@
 - Reparto (da aggiungere in paziente)
 - Dottore (da aggiungere in paziente)
 - Parametro avviso (da aggiungere in dottore)
+
+Martina:
+- Pagina di modifica dati Dottore e Paziente
+- Pagina di aggiunta Dottore e Paziente
+
+Luca:
+- Dialog conferma operazioni

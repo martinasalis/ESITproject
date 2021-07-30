@@ -18,6 +18,7 @@ import { PatientComponent } from './patient/patient.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
+import { ModifyFormComponent } from './modify-form/modify-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatIconModule} from "@angular/material/icon";
     HomeComponent,
     PageInfoComponent,
     NavbarComponent,
-    PatientComponent
+    PatientComponent,
+    ModifyFormComponent
   ],
   imports: [
     BrowserModule,

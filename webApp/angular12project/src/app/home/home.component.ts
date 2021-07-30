@@ -43,6 +43,10 @@ export class HomeComponent implements OnInit {
   }
 
   modify(): void {
+    this.router.navigate(['modify-form']);
+  }
+
+  add(): void {
     this.router.navigate(['']);
   }
 
