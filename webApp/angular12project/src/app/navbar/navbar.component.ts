@@ -25,4 +25,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['page-info'], {state: {user: this.user}});
   }
 
+  home(): void {
+    this.router.navigate(['home'], {state: {user: this.user}});
+  }
+
 }

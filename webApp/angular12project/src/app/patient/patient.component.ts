@@ -27,6 +27,7 @@ export class PatientComponent implements OnInit {
       this.patientService.info(this.user._id).subscribe((data: Patient) => {
         this.patientService.setPatient(data);
         this.pat = this.patientService.getPatient();
+        console.log(data);
       });
     }
   }

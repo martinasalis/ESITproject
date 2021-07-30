@@ -24,13 +24,17 @@ export class PageInfoComponent implements OnInit {
   ngOnInit(): void {
     if(this.user.type == 'DOCTOR'){
       console.log(this.user);
+      this.navbar = true;
       this.home_doctor = true;
       this.doctorService.info(this.user._id).subscribe((data: Doctor) => {
         this.doctorService.setDoctor(data);
         console.log(data);
         this.doc = this.doctorService.getDoctor();
       });
-
+    }
+    else if(this.user.type == 'ADMIN'){
+      this.navbar = true;
+      this.home_doctor = true;
     }
   }
 

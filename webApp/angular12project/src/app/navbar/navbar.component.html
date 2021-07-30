@@ -1,5 +1,13 @@
-<div>
-  <div class="topnav">
-    <a (click)="page_info()"><i style='font-size:20px' class='fas'>&#xf406;</i> {{ user.name }} {{ user.surname }}</a>
-  </div>
-</div>
+<p>
+  <mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon (click)="home()">home</mat-icon>
+    </button>
+    <span>My App</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon (click)="page_info()">account_circle</mat-icon>
+    </button>
+    <span>{{ user.name }} {{ user.surname }}</span>
+  </mat-toolbar>
+</p>

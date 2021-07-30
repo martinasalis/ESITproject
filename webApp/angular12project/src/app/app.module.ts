@@ -16,6 +16,8 @@ import { PageInfoComponent } from './page-info/page-info.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PatientComponent } from './patient/patient.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -26,19 +28,21 @@ import {MatTabsModule} from "@angular/material/tabs";
     NavbarComponent,
     PatientComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        MatTableModule,
-        MatTabsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatIconModule
+  ],
   providers: [
     FormBuilder
   ],

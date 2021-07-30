@@ -7,11 +7,12 @@ exports = module.exports = function(app) {
     app.post('/info', function(req, res) {
         // Get patient info
         Patient.findOne({_id: req.body._id}, function(err, pat) {
-
+            console.log(req.body);
             // Error
             if (err)
                 res.send(err);
 
+            console.log(pat);
             res.json(pat);
         });
     });
