@@ -1,1 +1,6 @@
-<p>notice-dialog works!</p>
+<div *ngIf="data.res; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock><mat-icon class="icon_result">done_outline</mat-icon></ng-template>
+<ng-template #elseBlock><mat-icon class="icon_result">report_problem</mat-icon></ng-template>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true">OK</button>
+</mat-dialog-actions>

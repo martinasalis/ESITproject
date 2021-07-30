@@ -15,12 +15,13 @@ import { MatTableModule } from "@angular/material/table";
 import { PageInfoComponent } from './page-info/page-info.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PatientComponent } from './patient/patient.component';
-import {MatTabsModule} from "@angular/material/tabs";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconModule} from "@angular/material/icon";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatIconModule } from "@angular/material/icon";
 import { NoticeDialogComponent } from './notice-dialog/notice-dialog.component';
 import { ModifyFormComponent } from './modify-form/modify-form.component';
-import {MatInputModule} from "@angular/material/input";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatInputModule } from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatInputModule} from "@angular/material/input";
         MatTabsModule,
         MatToolbarModule,
         MatIconModule,
+        MatDialogModule,
         MatInputModule
     ],
   providers: [

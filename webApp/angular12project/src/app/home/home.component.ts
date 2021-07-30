@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService, User } from "../user.service";
-import {Doctor, DoctorService} from "../doctor.service";
-import {Patient, PatientService} from "../patient.service";
+import { Doctor, DoctorService } from "../doctor.service";
+import { Patient, PatientService } from "../patient.service";
+import { NoticeDialogComponent, Result } from "../notice-dialog/notice-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,8 @@ export class HomeComponent implements OnInit {
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
   //pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};
 
-  constructor(private router: Router, private userService: UserService, private doctorService: DoctorService, private patintService: PatientService) {
+  constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
+              private patientService: PatientService, public dialog: MatDialog) {
     this.user = this.userService.getUser();
   }
 
@@ -36,6 +39,17 @@ export class HomeComponent implements OnInit {
     else{
       this.page_info = true;
     }
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(NoticeDialogComponent, {
+      width: '250px',
+      data: {res: false}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   visualize(): void {
