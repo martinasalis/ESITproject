@@ -11,20 +11,33 @@
       <button mat-button type="submit"><i class="fa fa-search"></i></button>
     </form>
 
-    <div class="table" style="overflow-x:auto;">
-      <table>
-        <tr>
-          <th>Codice fiscale</th>
-          <th>Nome</th>
-          <th>Cognome</th>
-        </tr>
-        <tr>
-          <th>cf1</th>
-          <th>nome1</th>
-          <th>cognome1</th>
-        </tr>
-      </table>
-    </div>
+    <table mat-table [dataSource]="pats" class="mat-elevation-z8 pats_table" style="overflow-x: auto;">
+      <!-- Tax Code -->
+      <ng-container matColumnDef="_id">
+        <th mat-header-cell *matHeaderCellDef>Codice Fiscale</th>
+        <td mat-cell *matCellDef="let element">{{ element._id }}</td>
+      </ng-container>
+
+      <!-- Name -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Surname -->
+      <ng-container matColumnDef="surname">
+        <th mat-header-cell *matHeaderCellDef>Cognome</th>
+        <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        (click)="selectPatient(row)"
+        class="row-is-clicked" tabindex="1"
+        *matRowDef="let row; columns: displayedColumns;"
+      ></tr>
+    </table>
 
     <div class="outer">
       <button class="inner" mat-button type="submit" (click)=visualize()>Visualizza</button>
@@ -123,6 +136,8 @@
     </mat-tab-group>
   </ng-template>
 
+  <!--
   <button mat-button (click)="openDialog()">Open Dialog</button>
+  -->
 
 </div>

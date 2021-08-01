@@ -19,6 +19,7 @@ const baseUrl = 'http://localhost:8080';
 export class PatientService {
 
   private patient: Patient = {_id: '', mail: '', phone: '', dob: Date.prototype, address: '', dor: Date.prototype};
+  private patients: Patient[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -58,6 +59,14 @@ export class PatientService {
 
   setPatient(patient: Patient) {
     this.patient = patient;
+  }
+
+  getPatients() {
+    return this.patients;
+  }
+
+  setPatients(patients: Patient[]) {
+    this.patients = patients;
   }
 
 }

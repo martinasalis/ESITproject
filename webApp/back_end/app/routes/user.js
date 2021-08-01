@@ -7,12 +7,22 @@ exports = module.exports = function(app) {
     app.post('/login', function(req, res) {
         // Login
         User.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
-
             // Error occurred in login
-            if (err)
+            if(err)
                 res.send(err);
 
             res.json(user);
+        });
+    });
+
+    app.post('/usersData', function(req, res) {
+        // Get all users data
+        User.find({_id: {$in:req.body._ids}}, function(err, users) {
+            // Error occurred
+            if(err)
+                res.send(err);
+
+            res.json(users);
         });
     });
 

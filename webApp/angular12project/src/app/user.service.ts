@@ -19,12 +19,18 @@ const baseUrl = 'http://localhost:8080';
 export class UserService {
 
   private user: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
+  private users: User[] = [];
 
   constructor(private http: HttpClient) { }
 
   login(uname: String, psw: String) {
     const body = {username: uname, password: psw};
     return this.http.post<User>(`${baseUrl}/login`, body);
+  }
+
+  getUsersData(_ids: String[]) {
+    const body = {_ids: _ids};
+    return this.http.post<User[]>(`${baseUrl}/usersData`, body);
   }
 
   update(_id: String, user: User) {
@@ -48,6 +54,14 @@ export class UserService {
 
   setUser(user: User) {
     this.user = user;
+  }
+
+  getUsers() {
+    return this.users;
+  }
+
+  setUsers(users: User[]) {
+    this.users = users;
   }
 
 }
