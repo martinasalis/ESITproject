@@ -15,7 +15,7 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('/usersData', function(req, res) {
+    app.post('/patientsData', function(req, res) {
         // Get all users data
         User.find({_id: {$in:req.body._ids}}, function(err, users) {
             // Error occurred

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { UserService, User } from "../user.service";
+import { UserService, User, Type } from "../user.service";
 import { Doctor, DoctorService } from "../doctor.service";
 import { Patient, PatientService } from "../patient.service";
-import { NoticeDialogComponent, Result } from "../notice-dialog/notice-dialog.component";
+import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 
 @Component({
@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
   home_admin = false;
   page_info = false;
   displayedColumns: String[] = ['_id', 'name', 'surname'];
-  clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
+  clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
   pats: User[] = [];
 
@@ -30,19 +30,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.user.type == 'DOCTOR'){
+    if(this.user.type == Type.DOCTOR){
       this.home_doctor = true;
       this.navbar = true;
       this.doc = this.doctorService.getDoctor();
-      this.patientService.getAllPatients().subscribe((data: Patient[]) => {
+      this.patientService.allPatients().subscribe((data: Patient[]) => {
         let pats_id = data.map(({ _id }) => _id);
-        this.userService.getUsersData(pats_id).subscribe((data: User[]) => {
-          this.userService.setUsers(data);
-          this.pats = this.userService.getUsers();
+        this.userService.patientsData(pats_id).subscribe((data: User[]) => {
+          this.userService.setPatients(data);
+          this.pats = this.userService.getPatients();
         });
       });
     }
-    else if(this.user.type == 'ADMIN'){
+    else if(this.user.type == Type.ADMIN){
       this.home_admin = true;
       this.navbar = true;
     }
@@ -62,7 +62,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  selectPatient(clicked: User) {
+  /**
+   * This function get the patient selected by the user in the table
+   * @param {User} clicked - Patient selected
+   */
+  selectedPatient(clicked: User) {
     this.clickedRow = clicked;
   }
 

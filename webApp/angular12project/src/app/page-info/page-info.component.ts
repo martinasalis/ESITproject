@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {User, UserService} from "../user.service";
-import {Router} from "@angular/router";
-import {Doctor, DoctorService} from "../doctor.service";
-import {Patient, PatientService} from "../patient.service";
+import { User, UserService, Type } from "../user.service";
+import { Router } from "@angular/router";
+import { Doctor, DoctorService } from "../doctor.service";
+import { Patient, PatientService } from "../patient.service";
 
 @Component({
   selector: 'app-page-info',
@@ -13,26 +13,26 @@ export class PageInfoComponent implements OnInit {
 
   navbar = false;
   home_doctor = false;
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
-  //pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};
 
-  constructor(private router: Router, private userService: UserService, private doctorService: DoctorService, private patientService: PatientService) {
+  constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
+              private patientService: PatientService) {
     this.user = this.userService.getUser();
   }
 
   ngOnInit(): void {
-    if(this.user.type == 'DOCTOR'){
+    if(this.user.type == Type.DOCTOR){
       console.log(this.user);
       this.navbar = true;
       this.home_doctor = true;
       this.doctorService.info(this.user._id).subscribe((data: Doctor) => {
         this.doctorService.setDoctor(data);
-        console.log(data);
         this.doc = this.doctorService.getDoctor();
       });
     }
-    else if(this.user.type == 'ADMIN'){
+    else if(this.user.type == Type.ADMIN){
       this.navbar = true;
       this.home_doctor = true;
     }

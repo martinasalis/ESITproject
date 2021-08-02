@@ -21,30 +21,56 @@ export class DoctorService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * This function get doctor data
+   * @param {String} _id - Doctor ID
+   * @return {Doctor} - Doctor data
+   */
   info(_id: String) {
     const body = {_id: _id};
     return this.http.post<Doctor>(`${baseUrl}/infoDoctor`, body);
   }
 
+  /**
+   * This function update doctor data
+   * @param {Doctor} _id - Doctor ID
+   * @param {Doctor} doc - New data
+   */
   update(_id: String, doc: Doctor) {
     const body = {_id: _id, info: {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role}};
     return this.http.post(`${baseUrl}/updateDoctor`, body);
   }
 
+  /**
+   * This function delete a doctor
+   * @param {Doctor} _id - Doctor ID
+   */
   delete(_id: String) {
     const body = {_id: _id};
     return this.http.post(`${baseUrl}/deleteDoctor`, body);
   }
 
+  /**
+   * This function insert a new doctor
+   * @param {Doctor} doc - New doctor data
+   */
   insert(doc: Doctor) {
     const body = {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role};
     return this.http.post(`${baseUrl}/insertDoctor`, body);
   }
 
+  /**
+   * Get doctor data
+   * @return {Doctor} - Doctor data
+   */
   getDoctor() {
     return this.doctor;
   }
 
+  /**
+   * Set doctor data
+   * @param {Doctor} doctor - Doctor data
+   */
   setDoctor(doctor: Doctor) {
     this.doctor = doctor;
   }

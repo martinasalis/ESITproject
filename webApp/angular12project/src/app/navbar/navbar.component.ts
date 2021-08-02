@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, User} from "../user.service";
+import { UserService, User, Type } from "../user.service";
 import { Router } from "@angular/router";
-import {Doctor, DoctorService} from "../doctor.service";
-import {Patient, PatientService} from "../patient.service";
+import { Doctor, DoctorService } from "../doctor.service";
+import { Patient, PatientService } from "../patient.service";
 
 @Component({
   selector: 'app-navbar',
@@ -11,9 +11,10 @@ import {Patient, PatientService} from "../patient.service";
 })
 export class NavbarComponent implements OnInit {
 
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: ''};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
-  constructor(private router: Router, private userService: UserService, private doctorService: DoctorService, private patintService: PatientService) {
+  constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
+              private patientService: PatientService) {
     this.user = this.userService.getUser();
   }
 
@@ -22,11 +23,11 @@ export class NavbarComponent implements OnInit {
   }
 
   page_info(): void {
-    this.router.navigate(['page-info'], {state: {user: this.user}});
+    this.router.navigate(['page-info'], {state: {user: this.user}}).then();
   }
 
   home(): void {
-    this.router.navigate(['home'], {state: {user: this.user}});
+    this.router.navigate(['home'], {state: {user: this.user}}).then();
   }
 
 }
