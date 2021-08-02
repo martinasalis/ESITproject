@@ -45,6 +45,15 @@ export class HomeComponent implements OnInit {
     else if(this.user.type == Type.ADMIN){
       this.home_admin = true;
       this.navbar = true;
+      this.patientService.allPatients().subscribe((data: Patient[]) => {
+        let pats_id = data.map(({ _id }) => _id);
+        this.userService.patientsData(pats_id).subscribe((data: User[]) => {
+          this.userService.setPatients(data);
+          this.pats = this.userService.getPatients();
+        });
+      });
+
+
     }
     else{
       this.page_info = true;
@@ -52,14 +61,38 @@ export class HomeComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(NoticeDialogComponent, {
-      width: '250px',
-      data: {res: false}
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    if (this.clickedRow.type == Type.DOCTOR) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 1}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else if (this.clickedRow.type == Type.PATIENT) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 2}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+        this.userService.delete(this.clickedRow._id);
+      });
+    }
+    else{
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 3}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      })
+    }
   }
 
   /**

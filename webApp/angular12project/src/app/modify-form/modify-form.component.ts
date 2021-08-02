@@ -28,9 +28,11 @@ export class ModifyFormComponent implements OnInit {
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};
+  clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
               private patientService: PatientService) {
+    this.clickedRow = this.userService.getUser();
     this.user = this.userService.getUser();
   }
 
@@ -43,22 +45,21 @@ export class ModifyFormComponent implements OnInit {
     //controllare negli if se l'utente selezionato è paziente o dottore
     // il controllo presente è sbagliato
 
-    if(this.user.type == Type.DOCTOR) {
+    if(this.clickedRow.type == Type.DOCTOR) {
       this.modify_doctor = true;
-      this.doctorService.info(this.user._id).subscribe((data: Doctor) => {
-        this.doctorService.update(this.user._id, data);
+      this.doctorService.info(this.clickedRow._id).subscribe((data: Doctor) => {
+        this.doctorService.update(this.clickedRow._id, data);
         console.log(data);
-        this.doc = this.doctorService.getDoctor();
       });
     }
-    else if(this.user.type == Type.PATIENT) {
+    else if(this.clickedRow.type == Type.PATIENT) {
       this.modify_patient = true;
-      this.patientService.info(this.user._id).subscribe((data: Patient) => {
-        this.patientService.update(this.user._id, data);
+      this.patientService.info(this.clickedRow._id).subscribe((data: Patient) => {
+        this.patientService.update(this.clickedRow._id, data);
         console.log(data);
-        this.pat = this.patientService.getPatient();
       });
     }
   }
+
 
 }
