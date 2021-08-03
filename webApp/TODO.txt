@@ -8,7 +8,7 @@ Martina:
 - Terminare eliminazione Dottore
 
 Luca:
-- DB, modello e servizio sensori
+- DB sensori
 - Modifica parametri avviso dottore
 - Componente sensore
 - Conponente info sensore
