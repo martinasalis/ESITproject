@@ -7,7 +7,8 @@ export interface Patient {
   phone: String,
   dob: Date,
   address: String,
-  dor: Date
+  dor: Date,
+  doctor: String
 }
 
 const baseUrl = 'http://localhost:8080';
@@ -18,7 +19,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class PatientService {
 
-  private patient: Patient = {_id: '', mail: '', phone: '', dob: Date.prototype, address: '', dor: Date.prototype};
+  private patient: Patient = {_id: '', mail: '', phone: '', dob: Date.prototype, address: '', dor: Date.prototype, doctor: ''};
   private patients: Patient[] = [];
 
   constructor(private http: HttpClient) { }

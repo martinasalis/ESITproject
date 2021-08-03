@@ -3,8 +3,12 @@
 - Parametro avviso (da aggiungere in dottore)
 
 Martina:
-- Pagina di modifica dati Dottore e Paziente
+- Terminare pagina di modifica dati Dottore
 - Pagina di aggiunta Dottore e Paziente
+- Terminare eliminazione Dottore
 
 Luca:
-- Dialog conferma operazioni
+- DB, modello e servizio sensori
+- Modifica parametri avviso dottore
+- Componente sensore
+- Conponente info sensore

@@ -87,7 +87,7 @@
 
             <mat-form-field>
               <mat-label>Recapito telefonico</mat-label>
-              <input matInput type="number" placeholder="" name="phone" [formControl]="phone" required>
+              <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
             </mat-form-field>
 
             <mat-form-field>
@@ -100,7 +100,7 @@
               <input matInput type="text" placeholder="" name="address" [formControl]="address" required>
             </mat-form-field>
 
-            <button mat-button type="submit">Salva</button>
+            <button mat-button (click)="save()">Salva</button>
           </div>
 
         </form>

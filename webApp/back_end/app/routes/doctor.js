@@ -16,6 +16,18 @@ exports = module.exports = function(app) {
         });
     });
 
+    // Get all doctors
+    app.post('/allDoctors', function(req, res) {
+        // Get all doctors data
+        Doctor.find({}, function(err, docs) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(docs);
+        });
+    });
+
     // Update doctor info
     app.post('/updateDoctor', function(req, res) {
         let updateData = req.body.info;

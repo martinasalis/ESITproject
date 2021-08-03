@@ -80,7 +80,12 @@ export class HomeComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-        this.userService.delete(this.clickedRow._id);
+        this.userService.delete(this.clickedRow._id).subscribe(data => {
+          console.log(data);
+        });
+        this.patientService.delete(this.clickedRow._id).subscribe(data => {
+          console.log(data);
+        });
       });
     }
     else{
@@ -104,15 +109,15 @@ export class HomeComponent implements OnInit {
   }
 
   visualize(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['']).then();
   }
 
   modify(): void {
-    this.router.navigate(['modify-form']);
+    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow}}).then();
   }
 
   add(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['']).then();
   }
 
 }

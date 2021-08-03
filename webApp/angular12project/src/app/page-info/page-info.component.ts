@@ -15,7 +15,7 @@ export class PageInfoComponent implements OnInit {
   home_doctor = false;
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService) {

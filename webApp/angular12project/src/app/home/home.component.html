@@ -4,6 +4,7 @@
     <app-navbar></app-navbar>
   </div>
 
+  <!-- Home page doctor -->
   <div class="content" *ngIf="home_doctor; else Info">
     <!-- The form -->
     <form class="search" action="home.component.ts">
@@ -46,10 +47,12 @@
 
   </div>
 
+  <!-- Home page patient -->
   <ng-template #Info>
     <app-page-info *ngIf="page_info; else Admin"></app-page-info>
   </ng-template>
 
+  <!-- Home page admin -->
   <ng-template #Admin>
     <mat-tab-group mat-align-tabs="start">
       <mat-tab label="Dottori">

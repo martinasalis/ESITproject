@@ -14,7 +14,7 @@ export class PatientComponent implements OnInit {
   navbar = false;
   page_patient = false;
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService) {

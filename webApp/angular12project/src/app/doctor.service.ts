@@ -32,6 +32,15 @@ export class DoctorService {
   }
 
   /**
+   * This function return all doctors
+   * @return {Doctor} - All doctors
+   */
+  allDoctors() {
+    const body = {};
+    return this.http.post<Doctor[]>(`${baseUrl}/allDoctors`, body);
+  }
+
+  /**
    * This function update doctor data
    * @param {Doctor} _id - Doctor ID
    * @param {Doctor} doc - New data

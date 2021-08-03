@@ -11,7 +11,7 @@
       <p><b>Nome:</b> {{ user.name }} </p>
       <p><b>Cognome:</b> {{ user.surname }} </p>
       <p><b>e-mail:</b> {{ doc.mail }} </p>
-      <p><b>Data di nascita:</b> {{ doc.dob }} </p>
+      <p><b>Data di nascita:</b> {{ doc.dob | date: 'dd/MM/yyyy' }} </p>
       <p><b>Codice fiscale:</b> {{ user._id }} </p>
     </div>
 

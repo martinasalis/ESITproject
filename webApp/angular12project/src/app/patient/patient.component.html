@@ -10,10 +10,10 @@
       <p><b>Nome:</b> {{ user.name }} </p>
       <p><b>Cognome:</b> {{ user.surname }} </p>
       <p><b>e-mail:</b> {{ pat.mail }} </p>
-      <p><b>Data di nascita:</b> {{ pat.dob }} </p>
+      <p><b>Data di nascita:</b> {{ pat.dob | date: 'dd/MM/yyyy' }} </p>
       <p><b>Codice fiscale:</b> {{ user._id }} </p>
       <p><b>Indirizzo:</b> {{ pat.address }} </p>
-      <p><b>Data ricovero:</b> {{ pat.dor }} </p>
+      <p><b>Data ricovero:</b> {{ pat.dor | date: 'dd/MM/yyyy' }} </p>
       <p><b>Recapito telefonico:</b> {{ pat.phone }} </p>
     </div>
   </div>
