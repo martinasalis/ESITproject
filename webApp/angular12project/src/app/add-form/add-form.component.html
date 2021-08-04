@@ -1,0 +1,125 @@
+<div>
+  <div>
+    <app-navbar></app-navbar>
+  </div>
+
+  <div class="grandParentContainer" *ngIf="add_doctor; else Patient">
+    <h1><b>Aggiunta Dottore</b></h1>
+    <div class="parentContainer">
+      <form action="add-form.component.ts" method="post" id="add_form"> <!--[formGroup]="angForm" novalidate-->
+
+        <div class="container">
+          <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Cognome</mat-label>
+            <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>e-mail</mat-label>
+            <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Data di nascita</mat-label>
+            <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Codice fiscale</mat-label>
+            <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Ruolo</mat-label>
+            <input matInput type="text" placeholder="" name="role" [formControl]="role" required>
+          </mat-form-field>
+
+          <button mat-button type="submit" (click)="add()">Aggiungi</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!--pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};-->
+
+  <ng-template #Patient>
+    <div class="grandParentContainer" *ngIf="add_patient; else Sensor">
+      <h1><b>Aggiunta Paziente</b></h1>
+      <div class="parentContainer">
+        <form action="add-form.component.ts" method="post" id="add_form_patient"> <!--[formGroup]="angForm" novalidate-->
+
+          <div class="container">
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Cognome</mat-label>
+              <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>e-mail</mat-label>
+              <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Data di nascita</mat-label>
+              <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Codice fiscale</mat-label>
+              <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Recapito telefonico</mat-label>
+              <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Data di ricovero</mat-label>
+              <input matInput type="date" placeholder="" name="dor" [formControl]="dor" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Indirizzo</mat-label>
+              <input matInput type="text" placeholder="" name="address" [formControl]="address" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Dottore</mat-label>
+              <input matInput type="text" placeholder="" name="doctor" [formControl]="doctor" required>
+            </mat-form-field>
+
+            <button mat-button (click)="add()">Aggiungi</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #Sensor>
+  </ng-template>
+
+</div>
+

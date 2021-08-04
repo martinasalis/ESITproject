@@ -47,6 +47,7 @@ export class HomeComponent implements OnInit {
       this.home_admin = true;
       this.navbar = true;
 
+
       this.patientService.allPatients().subscribe((data: Patient[]) => {
         let pats_id = data.map(({ _id }) => _id);
         this.userService.patientsData(pats_id).subscribe((data: User[]) => {
@@ -79,6 +80,12 @@ export class HomeComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
+        this.userService.delete(this.clickedRow._id).subscribe(data => {
+          console.log(data);
+        });
+        this.doctorService.delete(this.clickedRow._id).subscribe(data => {
+          console.log(data);
+        });
       });
     }
     else if (this.clickedRow.type == Type.PATIENT) {
@@ -126,7 +133,7 @@ export class HomeComponent implements OnInit {
   }
 
   add(): void {
-    this.router.navigate(['']).then();
+    this.router.navigate(['add-form']).then();
   }
 
 }

@@ -22,7 +22,8 @@ import { NoticeDialogComponent } from './notice-dialog/notice-dialog.component';
 import { ModifyFormComponent } from './modify-form/modify-form.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
-import { MatRadioModule } from "@angular/material/radio";
+import {AddFormComponent} from "./add-form/add-form.component";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatRadioModule } from "@angular/material/radio";
     PatientComponent,
     ModifyFormComponent,
     PatientComponent,
-    NoticeDialogComponent
+    NoticeDialogComponent,
+    AddFormComponent
   ],
     imports: [
         BrowserModule,

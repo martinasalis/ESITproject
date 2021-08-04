@@ -1,0 +1,77 @@
+
+form {
+  /*border: 3px solid #f1f1f1;*/
+  width: 500px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  /*margin: 8px 0;*/
+  display: inline-block;
+  /*border: 1px solid #ccc;*/
+  box-sizing: border-box;
+}
+
+.mat-form-field {
+  display: block;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  /*background-color: #f44336;*/
+}
+
+span.psw {
+  padding-top: 16px;
+}
+
+
+@media screen and (max-width: 500px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+}
+
+container{
+  padding: 16px;
+  display: table;
+  width: 100%;
+}
+
+#add_form_doctor, #add_form_patient{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.grandParentContainer{
+  /*height: 100%;
+  margin: 0 auto;*/
+  padding: 10px;
+  height: 700px;
+  margin: 20px;
+}
+
+.parentContainer{
+  display: table-cell;
+  vertical-align: middle;
+  margin-bottom: 20px;
+}
+
