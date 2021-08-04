@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
+export enum Notice {
+  DEFAULT = 'DEFAULT',
+  MAIL = 'E-MAIL',
+  SMS = 'SMS',
+  TELEGRAM = 'TELEGRAM'
+}
+
 export interface Doctor {
   _id: String,
   mail: String,
   phone: String,
   dob: Date,
-  role: String
+  role: String,
+  notice: Notice
 }
 
 const baseUrl = 'http://localhost:8080';
@@ -17,7 +25,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class DoctorService {
 
-  private doctor: Doctor = {_id: '', mail: '', phone: '', dob: Date.prototype, role: ''};
+  private doctor: Doctor = {_id: '', mail: '', phone: '', dob: Date.prototype, role: '', notice: Notice.DEFAULT};
 
   constructor(private http: HttpClient) { }
 
@@ -38,6 +46,16 @@ export class DoctorService {
   allDoctors() {
     const body = {};
     return this.http.post<Doctor[]>(`${baseUrl}/allDoctors`, body);
+  }
+
+  /**
+   * This function update the notice selected by the doctor
+   * @param {String} _id - Doctor ID
+   * @param {String} notice - Notice selected
+   */
+  updateNotice(_id: String, notice: String) {
+    const body = {_id: _id, notice: notice};
+    return this.http.post(`${baseUrl}/updateNotice`, body);
   }
 
   /**

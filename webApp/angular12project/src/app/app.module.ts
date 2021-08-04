@@ -22,6 +22,7 @@ import { NoticeDialogComponent } from './notice-dialog/notice-dialog.component';
 import { ModifyFormComponent } from './modify-form/modify-form.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
+import { MatRadioModule } from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { MatInputModule } from "@angular/material/input";
         MatToolbarModule,
         MatIconModule,
         MatDialogModule,
-        MatInputModule
+        MatInputModule,
+        MatRadioModule
     ],
   providers: [
     FormBuilder

@@ -7,12 +7,22 @@ exports = module.exports = function(app) {
     app.post('/infoDoctor', function(req, res) {
         // Get info of a specific doctor
         Doctor.findOne({_id: req.body._id}, function(err, doc) {
-
             // If there is an error retrieving, send the error.
             if(err)
                 res.send(err);
 
             res.json(doc); // Return response
+        });
+    });
+
+    app.post('/updateNotice', function(req, res) {
+        // Update doctor notice choice
+        Doctor.updateOne({_id: req.body._id}, {notice: req.body.notice}, function(err, doc) {
+            // Error occurred
+            if(err)
+                res.send(err);
+
+            res.json(doc.ok);
         });
     });
 
@@ -34,7 +44,7 @@ exports = module.exports = function(app) {
 
         // Update info of a specific doctor
         Doctor.updateOne({_id: req.body._id},
-            {_id: updateData._id, mail: updateData.mail, phone: updateData.mail, dob: updateData.dob, role: updateData.role},
+            {_id: updateData._id, mail: updateData.mail, phone: updateData.mail, dob: updateData.dob, role: updateData.role, notice: updateData.notice},
             function(err, doc) {
             if(err) // Error occurred in update
                 res.send(err);

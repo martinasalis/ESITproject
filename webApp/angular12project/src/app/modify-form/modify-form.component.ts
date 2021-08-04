@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from "@angular/forms";
-import { Type, User, UserService } from "../user.service";
-import { Doctor, DoctorService } from "../doctor.service";
-import { Router } from "@angular/router";
-import { Patient, PatientService } from "../patient.service";
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from "@angular/forms";
+import {Type, User, UserService} from "../user.service";
+import {Doctor, DoctorService, Notice} from "../doctor.service";
+import {Router} from "@angular/router";
+import {Patient, PatientService} from "../patient.service";
 import * as moment from "moment";
 
 @Component({
@@ -28,9 +28,10 @@ export class ModifyFormComponent implements OnInit {
   role = new FormControl('');
 
   patientDoctor: String = '';
+  doctorNotice: Notice = Notice.DEFAULT;
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
@@ -55,6 +56,7 @@ export class ModifyFormComponent implements OnInit {
         this.dob.setValue(moment(new Date(data.dob)).format('YYYY-MM-DD'));
         this.mail.setValue(data.mail);
         this.phone.setValue(data.phone);
+        this.doctorNotice = data.notice;
       });
     }
     else if(this.clickedRow.type == Type.PATIENT) {
@@ -86,7 +88,7 @@ export class ModifyFormComponent implements OnInit {
     // Check if the user is a patient or a doctor
     if(this.clickedRow.type == Type.DOCTOR) {
       let newDoctor: Doctor = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,
-        phone: this.phone.value, role: this.role.value};
+        phone: this.phone.value, role: this.role.value, notice: this.doctorNotice};
       this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
         console.log(data);
       });

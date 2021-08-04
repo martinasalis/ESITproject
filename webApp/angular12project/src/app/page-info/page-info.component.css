@@ -22,18 +22,25 @@ b {
   color: #04AA6D;
 }
 
-.avviso {
+.notice {
   display: block;
   padding:4px 2px;
   width: 100%;
-  margin: 5px 0 20px 10px;
-  margin-top: 20px;
+  margin: 20px 0 20px 10px;
   float: left;
 }
 
 label{
   margin-right: 15px;
   line-height: 32px;
+}
+
+.selected-notice-group {
+  margin: 20px 0px;
+}
+
+.selected-notice-button {
+  margin: 10px
 }
 
 .font_el p{
@@ -67,10 +74,7 @@ button {
   background-color: #04AA6D;
   color: white;
   margin-left: 10px;
-  padding: 5px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 5px 10px 5px 10px;
   border: none;
   cursor: pointer;
 }
-

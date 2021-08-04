@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService, User, Type } from "../user.service";
-import { Doctor, DoctorService } from "../doctor.service";
+import { Doctor, DoctorService, Notice } from "../doctor.service";
 import { Patient, PatientService } from "../patient.service";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   displayedColumns: String[] = ['_id', 'name', 'surname'];
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
   pats: User[] = [];
   docs: User[] = [];
 

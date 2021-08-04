@@ -15,23 +15,17 @@
       <p><b>Codice fiscale:</b> {{ user._id }} </p>
     </div>
 
-    <div class="avviso">
+    <div class="notice">
       <form>
         <div class="font_el">
-          <p><b>Parametri di avviso:</b></p>
-          <input type="radio" id="contactChoice1"
-                 name="contact" value="email">
-          <label for="contactChoice1">Email</label>
+          <label id="notice-label"><b>Parametri di avviso:</b></label>
+          <mat-radio-group aria-labelledby="notice-label" class="selected-notice-group">
+            <mat-radio-button class="selected-notice-button" *ngFor="let notice of noticeOptions" [value]="notice" (change)="changeNotice(notice)">
+              {{ notice }}
+            </mat-radio-button>
+          </mat-radio-group>
 
-          <input type="radio" id="contactChoice2"
-                 name="contact" value="sms">
-          <label for="contactChoice2">Sms</label>
-
-          <input type="radio" id="contactChoice3"
-                 name="contact" value="telegram">
-          <label for="contactChoice3">Telegram</label>
-
-          <button><i class="fa fa-save"></i></button>
+          <button (click)="saveNotice()"><i class="fa fa-save"></i></button>
         </div>
       </form>
     </div>
