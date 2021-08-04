@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Type, User, UserService} from "../user.service";
-import {Router} from "@angular/router";
-import {Doctor, DoctorService, Notice} from "../doctor.service";
-import {Patient, PatientService} from "../patient.service";
+import { Component, OnInit } from '@angular/core';
+import { Type, User, UserService } from "../user.service";
+import { Router } from "@angular/router";
+import { Doctor, DoctorService, Notice } from "../doctor.service";
+import { Patient, PatientService } from "../patient.service";
+import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-page-info',
@@ -18,6 +19,7 @@ export class PageInfoComponent implements OnInit {
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
   selectedNotice: String = '';
   noticeOptions: String[] = ['E-mail', 'SMS', 'Telegram'];
+  noticeGroup: FormGroup = new FormGroup({});
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService) {
@@ -31,16 +33,18 @@ export class PageInfoComponent implements OnInit {
       this.doctorService.info(this.user._id).subscribe((data: Doctor) => {
         this.doctorService.setDoctor(data);
         this.doc = this.doctorService.getDoctor();
-      });
 
-      if(this.doc.notice == Notice.MAIL)
-        this.selectedNotice = this.noticeOptions[0];
-      else if(this.doc.notice == Notice.SMS)
-        this.selectedNotice = this.noticeOptions[1];
-      else if(this.doc.notice == Notice.TELEGRAM)
-        this.selectedNotice = this.noticeOptions[2];
-      else
-        this.selectedNotice = '';
+        // Set default value of radio button
+        if(this.doc.notice == Notice.MAIL) {
+          this.noticeGroup.addControl("notice", new FormControl(this.noticeOptions[0]));
+        }
+        else if(this.doc.notice == Notice.SMS) {
+          this.noticeGroup.addControl("notice", new FormControl(this.noticeOptions[1]));
+        }
+        else {
+          this.noticeGroup.addControl("notice", new FormControl(this.noticeOptions[2]));
+        }
+      });
     }
     else if(this.user.type == Type.ADMIN){
       this.navbar = true;

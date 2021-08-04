@@ -9,6 +9,5 @@ Martina:
 
 Luca:
 - DB sensori
-- Modifica parametri avviso dottore
 - Componente sensore
 - Conponente info sensore

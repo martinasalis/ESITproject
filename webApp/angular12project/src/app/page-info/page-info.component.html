@@ -17,9 +17,9 @@
 
     <div class="notice">
       <form>
-        <div class="font_el">
+        <div class="font_el" [formGroup]="noticeGroup">
           <label id="notice-label"><b>Parametri di avviso:</b></label>
-          <mat-radio-group aria-labelledby="notice-label" class="selected-notice-group">
+          <mat-radio-group aria-labelledby="notice-label" class="selected-notice-group" formControlName="notice">
             <mat-radio-button class="selected-notice-button" *ngFor="let notice of noticeOptions" [value]="notice" (change)="changeNotice(notice)">
               {{ notice }}
             </mat-radio-button>
