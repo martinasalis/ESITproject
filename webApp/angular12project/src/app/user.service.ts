@@ -27,6 +27,7 @@ export class UserService {
 
   private user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   private patients: User[] = [];
+  private doctors: User[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -49,6 +50,16 @@ export class UserService {
   patientsData(_ids: String[]) {
     const body = {_ids: _ids};
     return this.http.post<User[]>(`${baseUrl}/patientsData`, body);
+  }
+
+  /**
+   * This function return a list of doctors based by your id
+   * @param {String} _ids - IDs of doctors
+   * @return {User} - Array of doctors data
+   */
+  doctorsData(_ids: String[]) {
+    const body = {_ids: _ids};
+    return this.http.post<User[]>(`${baseUrl}/doctorsData`, body);
   }
 
   /**
@@ -110,5 +121,22 @@ export class UserService {
   setPatients(patients: User[]) {
     this.patients = patients;
   }
+
+  /**
+   * Get doctors data
+   * @return {User} - Data of the doctors
+   */
+  getDoctors() {
+    return this.doctors;
+  }
+
+  /**
+   * Set doctors data
+   * @param {User} doctors - Data of the doctors
+   */
+  setDoctors(doctors: User[]) {
+    this.doctors = doctors;
+  }
+
 
 }

@@ -25,6 +25,7 @@ export class ModifyFormComponent implements OnInit {
   phone = new FormControl('');
   dor = new FormControl('');
   address = new FormControl('');
+  role = new FormControl('');
 
   patientDoctor: String = '';
 
@@ -84,6 +85,11 @@ export class ModifyFormComponent implements OnInit {
 
     // Check if the user is a patient or a doctor
     if(this.clickedRow.type == Type.DOCTOR) {
+      let newDoctor: Doctor = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,
+        phone: this.phone.value, role: this.role.value};
+      this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
+        console.log(data);
+      });
     }
     else if(this.clickedRow.type == Type.PATIENT) {
       let newPatient: Patient = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,

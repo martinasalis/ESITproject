@@ -90,7 +90,7 @@ img {
 .content {
   /*background-color: #f5fbf9;*/
   padding: 10px;
-  height: 200px; /* Should be removed. Only for demonstration */
+  height: 100%; /* Should be removed. Only for demonstration */
 }
 
 button {

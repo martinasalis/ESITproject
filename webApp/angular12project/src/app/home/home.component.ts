@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: ''};
   pats: User[] = [];
+  docs: User[] = [];
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog) {
@@ -45,6 +46,7 @@ export class HomeComponent implements OnInit {
     else if(this.user.type == Type.ADMIN){
       this.home_admin = true;
       this.navbar = true;
+
       this.patientService.allPatients().subscribe((data: Patient[]) => {
         let pats_id = data.map(({ _id }) => _id);
         this.userService.patientsData(pats_id).subscribe((data: User[]) => {
@@ -53,6 +55,13 @@ export class HomeComponent implements OnInit {
         });
       });
 
+      this.doctorService.allDoctors().subscribe((data: Doctor[]) => {
+        let docs_id = data.map(({ _id }) => _id);
+        this.userService.doctorsData(docs_id).subscribe((data: User[]) => {
+          this.userService.setDoctors(data);
+          this.docs = this.userService.getDoctors();
+        });
+      });
 
     }
     else{
@@ -101,10 +110,10 @@ export class HomeComponent implements OnInit {
   }
 
   /**
-   * This function get the patient selected by the user in the table
-   * @param {User} clicked - Patient selected
+   * This function get the user (patient or doctor) selected by the user in the table
+   * @param {User} clicked - User selected
    */
-  selectedPatient(clicked: User) {
+  selectedUser(clicked: User) {
     this.clickedRow = clicked;
   }
 

@@ -26,6 +26,17 @@ exports = module.exports = function(app) {
         });
     });
 
+    app.post('/doctorsData', function(req, res) {
+        // Get all users data
+        User.find({_id: {$in:req.body._ids}}, function(err, users) {
+            // Error occurred
+            if(err)
+                res.send(err);
+
+            res.json(users);
+        });
+    });
+
     app.post('/updateUser', function(req, res) {
         let updateData = req.body.info;
 
