@@ -5,6 +5,7 @@ import { Doctor, DoctorService, Notice } from "../doctor.service";
 import { Patient, PatientService } from "../patient.service";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,8 @@ export class HomeComponent implements OnInit {
   navbar = false;
   home_admin = false;
   page_info = false;
+  selected = new FormControl(0);
+
   displayedColumns: String[] = ['_id', 'name', 'surname'];
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
@@ -46,7 +49,6 @@ export class HomeComponent implements OnInit {
     else if(this.user.type == Type.ADMIN){
       this.home_admin = true;
       this.navbar = true;
-
 
       this.patientService.allPatients().subscribe((data: Patient[]) => {
         let pats_id = data.map(({ _id }) => _id);
@@ -133,7 +135,7 @@ export class HomeComponent implements OnInit {
   }
 
   add(): void {
-    this.router.navigate(['add-form']).then();
+    this.router.navigate(['add-form'], {state: {data: this.selected.value}}).then();
   }
 
 }
