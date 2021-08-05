@@ -66,7 +66,7 @@ export class AddFormComponent implements OnInit {
         console.log(data);
       });
 
-      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.DEFAULT};
+      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS};
       this.doctorService.insert(newDoctor).subscribe(data => {
         console.log(data);
       });

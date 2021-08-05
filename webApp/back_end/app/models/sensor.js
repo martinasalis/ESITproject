@@ -6,6 +6,6 @@ const sensorSchema = new Schema({
     name: {type: String, default: ''},
     um: {type: String, default: ''},    //  Unit of measure
     threshold: {type: Number, default: 0.0}
-});
+}, {versionKey: false});
 
 exports = module.exports = mongoose.model('Sensor', sensorSchema);

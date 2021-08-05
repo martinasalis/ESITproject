@@ -9,8 +9,8 @@ const userSchema = new Schema({
     surname : {type: String, default: ''},
     username: {type: String, default: ''},
     password: {type: String, default: ''},
-    type: {type: String, enum: ['DOCTOR', 'PATIENT', 'ADMIN'], default: ''}
-});
+    type: {type: String, enum: ['DEFAULT', 'DOCTOR', 'PATIENT', 'ADMIN'], default: 'DEFAULT'}
+}, {versionKey: false});
 
 // module.exports allows us to pass this to other files when it is called
 exports = module.exports = mongoose.model('User', userSchema);

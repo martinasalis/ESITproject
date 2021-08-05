@@ -11,7 +11,7 @@ const patientSchema = new Schema({
     address: {type: String, default: ''},
     dor: {type: Date, default: Date.now},
     doctor: {type: String, default: ''}
-});
+}, {versionKey: false});
 
 // module.exports allows us to pass this to other files when it is called
 exports = module.exports = mongoose.model('Patient', patientSchema);

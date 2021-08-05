@@ -64,9 +64,13 @@ exports = module.exports = function(app) {
 
     app.post('/insertUser', function(req, res) {
         // Insert new user
-        User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: req.body.password, type: req.body.type}])
-            .then(res.json({ok: 1}))
-            .catch(res.json({ok: 0}));
+        User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: req.body.password, type: req.body.type}], function(err, user) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(user);
+        });
     });
 
 };
