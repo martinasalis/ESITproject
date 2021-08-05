@@ -1,11 +1,7 @@
-- Reparto (da aggiungere in paziente)
-- Dottore (da aggiungere in paziente)
-- Parametro avviso (da aggiungere in dottore)
-
 Martina:
-- Terminare pagina di modifica dati Dottore
-- Pagina di aggiunta Dottore e Paziente
-- Terminare eliminazione Dottore
+- Inserire dialog conferma aggiunta e salvataggio pazienti e dottori
+- Aggiunta collegamenti pagina home dottore e pulsanti
+- Inserie dialog salvataggio notifica dottore
 
 Luca:
 - DB sensori

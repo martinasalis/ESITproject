@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
     if (this.clickedRow.type == Type.DOCTOR) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
-        data: {res: 1}
+        data: {res: 1, flag: 1}
       });
 
       dialogRef.afterClosed().subscribe(result => {
