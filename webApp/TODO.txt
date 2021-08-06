@@ -1,14 +1,10 @@
 Martina:
-- Inserire dialog conferma aggiunta e salvataggio pazienti e dottori OK
 - Aggiunta collegamenti pagina home dottore e pulsanti
 - Inserire dialog salvataggio notifica dottore
+- Campo descrizione su tabella pazienti
 
 Luca:
 - DB sensori
 - Componente sensore
 - Componente info sensore
-
-
-- Accessi non autorizzati
-- Campo descrizione su tabella pazienti
 - Ricerca pagina home dottore e admin
