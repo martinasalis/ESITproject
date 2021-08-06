@@ -48,22 +48,34 @@
 </ng-template>
 
 <ng-template #modify>
-  <div *ngIf="data.res == 1; else thenBlock">
-    <mat-icon class="icon_result">report_problem</mat-icon>
-    <p>L'aggiunta del dottore è stata effettuata con successo</p>
-  </div>
-
-  <ng-template #thenBlock>
-    <div *ngIf="data.res == 2; else elseBlock">
-      <mat-icon class="icon_result">done_outline</mat-icon>
-      <p>L'aggiunta del paziente è stata effettuata con successo</p>
+  <div *ngIf="data.flag == 3; else login">
+    <div *ngIf="data.res == 1; else thenBlock">
+      <mat-icon class="icon_result">report_problem</mat-icon>
+      <p>L'aggiunta del dottore è stata effettuata con successo</p>
     </div>
-  </ng-template>
 
-  <ng-template #elseBlock>
-    <mat-icon class="icon_result">report_problem</mat-icon>
-    <p>L'aggiunta del sensore è stata effettuata con successo</p>
-  </ng-template>
+    <ng-template #thenBlock>
+      <div *ngIf="data.res == 2; else elseBlock">
+        <mat-icon class="icon_result">done_outline</mat-icon>
+        <p>L'aggiunta del paziente è stata effettuata con successo</p>
+      </div>
+    </ng-template>
+
+    <ng-template #elseBlock>
+      <mat-icon class="icon_result">report_problem</mat-icon>
+      <p>L'aggiunta del sensore è stata effettuata con successo</p>
+    </ng-template>
+
+    <div mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]="true">OK</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #login>
+  <div>
+    <mat-icon class="icon_result">done_outline</mat-icon>
+    <p>Nome utente o password errati. Inseriscili nuovamente.</p>
+  </div>
 
   <div mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="true">OK</button>
