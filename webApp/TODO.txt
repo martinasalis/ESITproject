@@ -1,5 +1,5 @@
 Martina:
-- Inserire dialog conferma aggiunta e salvataggio pazienti e dottori
+- Inserire dialog conferma aggiunta e salvataggio pazienti e dottori OK
 - Aggiunta collegamenti pagina home dottore e pulsanti
 - Inserie dialog salvataggio notifica dottore
 

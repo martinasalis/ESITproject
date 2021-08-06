@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
     else if (this.clickedRow.type == Type.PATIENT) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
-        data: {res: 2}
+        data: {res: 2, flag: 1}
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit {
     else{
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
-        data: {res: 3}
+        data: {res: 3, flag: 1}
       });
 
       dialogRef.afterClosed().subscribe(result => {

@@ -1,18 +1,71 @@
-<div *ngIf="data.res == 1; else thenBlock">
-  <mat-icon class="icon_result">report_problem</mat-icon>
-  <p>Vuoi eliminare definitivamente il dottore?</p>
+<div *ngIf="data.flag == 1; else save">
+  <div *ngIf="data.res == 1; else thenBlock">
+    <mat-icon class="icon_result">report_problem</mat-icon>
+    <p>Vuoi eliminare definitivamente il dottore?</p>
+  </div>
+
+  <ng-template #thenBlock>
+    <div *ngIf="data.res == 2; else elseBlock">
+      <mat-icon class="icon_result">done_outline</mat-icon>
+      <p>Vuoi eliminare definitivamente il paziente?</p>
+    </div>
+  </ng-template>
+
+  <ng-template #elseBlock>
+    <mat-icon class="icon_result">report_problem</mat-icon>
+    <p>Vuoi eliminare definitivamente il sensore?</p>
+  </ng-template>
+
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">No</button>
+    <button mat-button [mat-dialog-close]="true">OK</button>
+  </div>
 </div>
-<ng-template #thenBlock>
-  <div *ngIf="data.res == 2; else elseBlock">
-    <mat-icon class="icon_result">done_outline</mat-icon>
-    <p>Vuoi eliminare definitivamente il paziente?</p>
+
+<ng-template #save>
+  <div *ngIf="data.flag == 2; else modify">
+    <div *ngIf="data.res == 1; else thenBlock">
+      <mat-icon class="icon_result">report_problem</mat-icon>
+      <p>La modifica del dottore è stata salvata con successo</p>
+    </div>
+
+    <ng-template #thenBlock>
+      <div *ngIf="data.res == 2; else elseBlock">
+        <mat-icon class="icon_result">done_outline</mat-icon>
+        <p>La modifica del paziente è stata salvata con successo</p>
+      </div>
+    </ng-template>
+
+    <ng-template #elseBlock>
+      <mat-icon class="icon_result">report_problem</mat-icon>
+      <p>La modifica del sensore è stata salvata con successo</p>
+    </ng-template>
+
+    <div mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]="true">OK</button>
+    </div>
   </div>
 </ng-template>
-<ng-template #elseBlock>
-  <mat-icon class="icon_result">report_problem</mat-icon>
-  <p>Vuoi eliminare definitivamente il sensore?</p>
+
+<ng-template #modify>
+  <div *ngIf="data.res == 1; else thenBlock">
+    <mat-icon class="icon_result">report_problem</mat-icon>
+    <p>L'aggiunta del dottore è stata effettuata con successo</p>
+  </div>
+
+  <ng-template #thenBlock>
+    <div *ngIf="data.res == 2; else elseBlock">
+      <mat-icon class="icon_result">done_outline</mat-icon>
+      <p>L'aggiunta del paziente è stata effettuata con successo</p>
+    </div>
+  </ng-template>
+
+  <ng-template #elseBlock>
+    <mat-icon class="icon_result">report_problem</mat-icon>
+    <p>L'aggiunta del sensore è stata effettuata con successo</p>
+  </ng-template>
+
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true">OK</button>
+  </div>
 </ng-template>
-<div mat-dialog-actions align="end">
-  <button mat-button (click)="onNoClick()">No</button>
-  <button mat-button [mat-dialog-close]="true">OK</button>
-</div>

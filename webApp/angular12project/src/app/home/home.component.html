@@ -42,7 +42,7 @@
 
     <div class="outer">
       <button class="inner" mat-button type="submit" (click)=visualize()>Visualizza</button>
-      <button #buttonPatient class="inner" mat-button type="submit" >Aggiungi paziente</button>
+      <button class="inner" mat-button type="submit" >Aggiungi paziente</button>
     </div>
 
     <div *ngFor="let num of [1, 2, 3, 4, 5]"><app-sensor></app-sensor></div>
@@ -97,7 +97,7 @@
 
         <div class="outer">
           <button class="inner" mat-button type="submit" (click)=modify()>Modifica dottore</button> <!--(click)=getLogin()-->
-          <button #buttonDoctor class="inner" mat-button type="submit" (click)="add()">Aggiungi dottore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit" (click)="add()">Aggiungi dottore</button> <!--(click)=getLogin()-->
           <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina dottore</button> <!--(click)=getLogin()-->
         </div>
       </mat-tab>
@@ -138,7 +138,7 @@
 
           <div class="outer">
             <button class="inner" mat-button type="submit" (click)=modify()>Modifica paziente</button> <!--(click)=getLogin()-->
-            <button #buttonPatient class="inner" mat-button type="submit" (click)="add()">Aggiungi paziente</button> <!--(click)=getLogin()-->
+            <button class="inner" mat-button type="submit" (click)="add()">Aggiungi paziente</button> <!--(click)=getLogin()-->
             <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina paziente</button> <!--(click)=getLogin()-->
           </div>
 
@@ -167,7 +167,7 @@
 
         <div class="outer">
           <button class="inner" mat-button type="submit">Modifica sensore</button> <!--(click)=getLogin()-->
-          <button #buttonSensor class="inner" mat-button type="submit">Aggiungi sensore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit">Aggiungi sensore</button> <!--(click)=getLogin()-->
           <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina sensore</button> <!--(click)=getLogin()-->
         </div>
       </mat-tab>
