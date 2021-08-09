@@ -31,6 +31,13 @@
         <p><b>Data ricovero:</b> {{ pat.dor | date: 'dd/MM/yyyy' }} </p>
         <p><b>Recapito telefonico:</b> {{ pat.phone }} </p>
       </div>
+
+
+      <div class="outer">
+        <button class="inner" mat-button type="submit" (click)=modify()>Modifica paziente</button> <!--(click)=getLogin()-->
+        <button class="inner" mat-button type="submit" (click)="add_sensor()">Aggiungi sensore</button> <!--(click)=getLogin()-->
+        <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina paziente</button> <!--(click)=getLogin()-->
+      </div>
     </div>
   </ng-template>
 

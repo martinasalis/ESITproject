@@ -1,5 +1,5 @@
 Martina:
-- Aggiunta collegamenti pagina home dottore e pulsanti
+- Aggiunta collegamenti pagina home dottore e pulsanti OK
 - Inserire dialog salvataggio radio button per tipologia di avviso
 - Campo descrizione su tabella pazienti
 
