@@ -37,6 +37,34 @@ exports = module.exports = function(app) {
         });
     });
 
+    app.post('/searchDoctorUsers', function(req, res) {
+        let param = req.body.param;
+
+        // Get a user that match with param and type
+        User.find({$and: [{$or: [{_id: {$regex: param, $options: 'i'}}, {name: {$regex: param, $options: 'i'}}, {surname: {$regex: param, $options: 'i'}}]}, {type: req.body.type}, {_id: {$in:req.body._ids}}]},
+            function(err, users) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(users);
+        });
+    });
+
+    app.post('/searchUsers', function(req, res) {
+        let param = req.body.param;
+
+        // Get a user that match with param and type
+        User.find({$and: [{$or: [{_id: {$regex: param, $options: 'i'}}, {name: {$regex: param, $options: 'i'}}, {surname: {$regex: param, $options: 'i'}}]}, {type: req.body.type}]},
+            function(err, users) {
+                // Error
+                if(err)
+                    res.send(err);
+
+                res.json(users);
+            });
+    });
+
     app.post('/updateUser', function(req, res) {
         let updateData = req.body.info;
 

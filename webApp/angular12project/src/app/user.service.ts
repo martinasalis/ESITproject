@@ -91,6 +91,29 @@ export class UserService {
   }
 
   /**
+   * This function search all User of a doctor witch matches the param with a specific type
+   * @param {String} param - Query parameter
+   * @param {String} type - Type of the user
+   * @param {String} _ids - IDs of doctor's patients
+   * @return {User} - All user that match
+   */
+  searchDoctorPatient(param: String, type: String, _ids: String[]) {
+    const body = {param: param, type: type, _ids: _ids};
+    return this.http.post<User[]>(`${baseUrl}/searchDoctorUsers`, body);
+  }
+
+  /**
+   * This function search all User witch matches the param with a specific type
+   * @param {String} param - Query parameter
+   * @param {String} type - Type of the user
+   * @return {User} - All user that match
+   */
+  searchAll(param: String, type: String) {
+    const body = {param: param, type: type};
+    return this.http.post<User[]>(`${baseUrl}/searchUsers`, body);
+  }
+
+  /**
    * Get user's data
    * @return {User} - User's data
    */

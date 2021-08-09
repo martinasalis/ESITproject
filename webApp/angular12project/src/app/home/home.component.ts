@@ -5,7 +5,7 @@ import { Doctor, DoctorService, Notice } from "../doctor.service";
 import { Patient, PatientService } from "../patient.service";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
-import {FormControl} from "@angular/forms";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: 'app-home',
@@ -20,6 +20,9 @@ export class HomeComponent implements OnInit {
   home_admin = false;
   page_info = false;
   selected = new FormControl(0);
+  searchString = new FormControl('');
+  pats_id: any;
+  docs_id: any;
 
   displayedColumns: String[] = ['_id', 'name', 'surname'];
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
@@ -38,9 +41,9 @@ export class HomeComponent implements OnInit {
       this.home_doctor = true;
       this.navbar = true;
       this.doc = this.doctorService.getDoctor();
-      this.patientService.allPatients().subscribe((data: Patient[]) => {
-        let pats_id = data.map(({ _id }) => _id);
-        this.userService.patientsData(pats_id).subscribe((data: User[]) => {
+      this.patientService.doctorPatients(this.user._id).subscribe((data: Patient[]) => {
+        this.pats_id = data.map(({ _id }) => _id);
+        this.userService.patientsData(this.pats_id).subscribe((data: User[]) => {
           this.userService.setPatients(data);
           this.pats = this.userService.getPatients();
         });
@@ -51,16 +54,16 @@ export class HomeComponent implements OnInit {
       this.navbar = true;
 
       this.patientService.allPatients().subscribe((data: Patient[]) => {
-        let pats_id = data.map(({ _id }) => _id);
-        this.userService.patientsData(pats_id).subscribe((data: User[]) => {
+        this.pats_id = data.map(({ _id }) => _id);
+        this.userService.patientsData(this.pats_id).subscribe((data: User[]) => {
           this.userService.setPatients(data);
           this.pats = this.userService.getPatients();
         });
       });
 
       this.doctorService.allDoctors().subscribe((data: Doctor[]) => {
-        let docs_id = data.map(({ _id }) => _id);
-        this.userService.doctorsData(docs_id).subscribe((data: User[]) => {
+        this.docs_id = data.map(({ _id }) => _id);
+        this.userService.doctorsData(this.docs_id).subscribe((data: User[]) => {
           this.userService.setDoctors(data);
           this.docs = this.userService.getDoctors();
         });
@@ -124,6 +127,36 @@ export class HomeComponent implements OnInit {
    */
   selectedUser(clicked: User) {
     this.clickedRow = clicked;
+  }
+
+  /**
+   * This function search a patient of a doctor in the database which matches with param
+   */
+  searchPatient() {
+    this.userService.searchDoctorPatient(this.searchString.value, Type.PATIENT, this.pats_id).subscribe((data: User[]) => {
+      this.userService.setPatients(data);
+      this.pats = this.userService.getPatients();
+    });
+  }
+
+  /**
+   * This function search a patient in the database which matches with param
+   */
+  searchAllPatient() {
+    this.userService.searchAll(this.searchString.value, Type.PATIENT).subscribe((data: User[]) => {
+      this.userService.setPatients(data);
+      this.pats = this.userService.getPatients();
+    });
+  }
+
+  /**
+   * This function search a doctor in the database which matches with param
+   */
+  searchAllDoctor() {
+    this.userService.searchAll(this.searchString.value, Type.DOCTOR).subscribe((data: User[]) => {
+      this.userService.setDoctors(data);
+      this.docs = this.userService.getDoctors();
+    });
   }
 
   visualize(): void {

@@ -7,4 +7,3 @@ Luca:
 - DB sensori
 - Componente sensore
 - Componente info sensore
-- Ricerca pagina home dottore e admin
