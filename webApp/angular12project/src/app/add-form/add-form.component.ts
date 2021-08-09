@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import * as moment from "moment";
 import {MatButton} from "@angular/material/button";
 import {findAttributeOnElementWithTag} from "@angular/cdk/schematics";
+import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-form',
@@ -40,7 +42,7 @@ export class AddFormComponent implements OnInit {
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
-              private patientService: PatientService) {
+              private patientService: PatientService, public dialog: MatDialog) {
     this.user = this.userService.getUser();
     this.button = this.router.getCurrentNavigation()?.extras.state?.data;
   }
@@ -86,6 +88,40 @@ export class AddFormComponent implements OnInit {
     }
     else{
 
+    }
+  }
+
+  openDialog() {
+
+    if (this.clickedRow.type == Type.DOCTOR) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 1, flag: 3}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else if (this.clickedRow.type == Type.PATIENT) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 2, flag: 3}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else{
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 3, flag: 3}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      })
     }
   }
 

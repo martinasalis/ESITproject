@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { Doctor, DoctorService, Notice } from "../doctor.service";
 import { Patient, PatientService } from "../patient.service";
 import { FormControl, FormGroup } from "@angular/forms";
+import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-page-info',
@@ -22,7 +24,7 @@ export class PageInfoComponent implements OnInit {
   noticeGroup: FormGroup = new FormGroup({});
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
-              private patientService: PatientService) {
+              private patientService: PatientService, public dialog: MatDialog) {
     this.user = this.userService.getUser();
   }
 
@@ -57,18 +59,35 @@ export class PageInfoComponent implements OnInit {
   }
 
   saveNotice() {
-    if(this.selectedNotice == this.noticeOptions[0])
+    if(this.selectedNotice == this.noticeOptions[0]) {
       this.doctorService.updateNotice(this.user._id, Notice.MAIL).subscribe(data => {
         console.log(data);
       });
-    else if(this.selectedNotice == this.noticeOptions[1])
+      this.openDialog();
+    }
+    else if(this.selectedNotice == this.noticeOptions[1]) {
       this.doctorService.updateNotice(this.user._id, Notice.SMS).subscribe(data => {
         console.log(data);
       });
-    else
+      this.openDialog();
+    }
+    else {
       this.doctorService.updateNotice(this.user._id, Notice.TELEGRAM).subscribe(data => {
         console.log(data);
       });
+      this.openDialog();
+    }
+  }
+
+  openDialog(){
+    const dialogRef = this.dialog.open(NoticeDialogComponent, {
+      width: '250px',
+      data: {res: 4, flag: 2}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }

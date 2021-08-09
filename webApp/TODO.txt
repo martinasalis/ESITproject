@@ -1,5 +1,4 @@
 Martina:
-- Inserire dialog salvataggio radio button per tipologia di avviso
 - Campo descrizione su tabella pazienti
 
 Luca:
