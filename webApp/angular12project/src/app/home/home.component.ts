@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
           this.pats = this.userService.getPatients();
         });
       });
+
     }
     else if(this.user.type == Type.ADMIN){
       this.home_admin = true;
@@ -85,12 +86,14 @@ export class HomeComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-        this.userService.delete(this.clickedRow._id).subscribe(data => {
-          console.log(data);
-        });
-        this.doctorService.delete(this.clickedRow._id).subscribe(data => {
-          console.log(data);
-        });
+        if(result) {
+          this.userService.delete(this.clickedRow._id).subscribe(data => {
+            console.log(data);
+          });
+          this.doctorService.delete(this.clickedRow._id).subscribe(data => {
+            console.log(data);
+          });
+        }
       });
     }
     else if (this.clickedRow.type == Type.PATIENT) {
@@ -101,12 +104,14 @@ export class HomeComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-        this.userService.delete(this.clickedRow._id).subscribe(data => {
-          console.log(data);
-        });
-        this.patientService.delete(this.clickedRow._id).subscribe(data => {
-          console.log(data);
-        });
+        if(result) {
+          this.userService.delete(this.clickedRow._id).subscribe(data => {
+            console.log(data);
+          });
+          this.patientService.delete(this.clickedRow._id).subscribe(data => {
+            console.log(data);
+          });
+        }
       });
     }
     else{
@@ -168,8 +173,8 @@ export class HomeComponent implements OnInit {
   }
 
   add(): void {
-    if(this.selected.value == 0){
-      this.router.navigate(['add-form'], {state: {data: 2}}).then();
+    if(this.selected.value == 0 && this.home_doctor){
+      this.router.navigate(['add-form'], {state: {data: 1}}).then();
     }
     else {
       this.router.navigate(['add-form'], {state: {data: this.selected.value}}).then();

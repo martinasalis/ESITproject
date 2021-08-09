@@ -56,9 +56,13 @@
 
   <!-- Home page admin -->
   <ng-template #Admin>
+    <mat-form-field appearance="fill">
+      <mat-label>Selected tab index</mat-label>
+      <input matInput type="number" [formControl]="selected">
+    </mat-form-field>
 
     <mat-tab-group mat-align-tabs="start" [selectedIndex]="selected.value"
-                   (selectedIndexChange)="selected.setValue($event+1)">
+                   (selectedIndexChange)="selected.setValue($event)">
       <mat-tab label="Dottori">
         <div class="content">
           <form class="search" action="home.component.ts" >
