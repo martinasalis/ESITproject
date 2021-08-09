@@ -85,11 +85,12 @@ export class HomeComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
         if(result) {
+          // Delete user
           this.userService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
+          // Delete doctor
           this.doctorService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
@@ -103,26 +104,26 @@ export class HomeComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
         if(result) {
+          // Delete user
           this.userService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
+          // Delete patient
           this.patientService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
         }
       });
     }
-    else{
+    else {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 3, flag: 1}
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      })
+      });
     }
   }
 
