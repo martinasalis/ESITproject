@@ -1,10 +1,10 @@
 <div>
 
-  <div *ngIf="navbar && page_patient">
+  <div *ngIf="(navbar && page_patient) || (page_info && navbar)">
     <app-navbar></app-navbar>
   </div>
 
-  <div class="content" *ngIf="page_patient; else Admin">
+  <div class="content" *ngIf="page_patient; else page_info_patient">
     <h1><b>Paziente:</b> {{ pat._id }} </h1>
     <div class="info">
       <p><b>Nome:</b> {{ user.name }} </p>
@@ -17,6 +17,22 @@
       <p><b>Recapito telefonico:</b> {{ pat.phone }} </p>
     </div>
   </div>
+
+  <ng-template #page_info_patient>
+    <div class="content" *ngIf="page_info; else Admin">
+      <h1><b>Paziente:</b> {{ pat._id }} </h1>
+      <div class="info">
+        <p><b>Nome:</b> {{ clickedRow.name }} </p>
+        <p><b>Cognome:</b> {{ clickedRow.surname }} </p>
+        <p><b>e-mail:</b> {{ pat.mail }} </p>
+        <p><b>Data di nascita:</b> {{ pat.dob | date: 'dd/MM/yyyy' }} </p>
+        <p><b>Codice fiscale:</b> {{ clickedRow._id }} </p>
+        <p><b>Indirizzo:</b> {{ pat.address }} </p>
+        <p><b>Data ricovero:</b> {{ pat.dor | date: 'dd/MM/yyyy' }} </p>
+        <p><b>Recapito telefonico:</b> {{ pat.phone }} </p>
+      </div>
+    </div>
+  </ng-template>
 
   <ng-template #Admin>
     <div class="content">

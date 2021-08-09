@@ -7,7 +7,7 @@
   <!-- Home page doctor -->
   <div class="content" *ngIf="home_doctor; else Info">
     <!-- The form -->
-    <form class="search" action="home.component.ts">
+    <form class="search" action="home.component.ts" >
       <input type="text" placeholder="Search..." name="search" [formControl]="searchString">
       <button mat-button (click)="searchPatient()"><i class="fa fa-search"></i></button>
     </form>
@@ -42,7 +42,7 @@
 
     <div class="outer">
       <button class="inner" mat-button type="submit" (click)=visualize()>Visualizza</button>
-      <button class="inner" mat-button type="submit" >Aggiungi paziente</button>
+      <button class="inner" mat-button type="submit" (click)="add()">Aggiungi paziente</button>
     </div>
 
     <div *ngFor="let num of [1, 2, 3, 4, 5]"><app-sensor></app-sensor></div>
@@ -58,7 +58,7 @@
   <ng-template #Admin>
 
     <mat-tab-group mat-align-tabs="start" [selectedIndex]="selected.value"
-                   (selectedIndexChange)="selected.setValue($event)">
+                   (selectedIndexChange)="selected.setValue($event+1)">
       <mat-tab label="Dottori">
         <div class="content">
           <form class="search" action="home.component.ts" >

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import {Patient} from "./patient.service";
 
 export interface User {
   _id: String,
@@ -30,6 +31,17 @@ export class UserService {
   private doctors: User[] = [];
 
   constructor(private http: HttpClient) { }
+
+  /**
+   * This function get the data of a specific user
+   * @param {String} _id - User ID
+   * @return {User} - User data
+   */
+  info(_id: String) {
+    const body = {_id: _id};
+    return this.http.post<User>(`${baseUrl}/infoUser`, body);
+  }
+
 
   /**
    * This function perform login to the system

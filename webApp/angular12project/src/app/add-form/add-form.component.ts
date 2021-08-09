@@ -47,9 +47,9 @@ export class AddFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.button == 0){
+    if(this.button == 1){
       this.add_doctor = true;
-    }else if(this.button == 1){
+    }else if(this.button == 2){
       this.add_patient = true;
     }else{
       this.add_sensor = true;

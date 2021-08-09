@@ -160,7 +160,7 @@ export class HomeComponent implements OnInit {
   }
 
   visualize(): void {
-    this.router.navigate(['']).then();
+    this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}}).then();
   }
 
   modify(): void {
@@ -168,7 +168,12 @@ export class HomeComponent implements OnInit {
   }
 
   add(): void {
-    this.router.navigate(['add-form'], {state: {data: this.selected.value}}).then();
+    if(this.selected.value == 0){
+      this.router.navigate(['add-form'], {state: {data: 2}}).then();
+    }
+    else {
+      this.router.navigate(['add-form'], {state: {data: this.selected.value}}).then();
+    }
   }
 
 }
