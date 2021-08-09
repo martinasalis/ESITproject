@@ -10,7 +10,8 @@ const patientSchema = new Schema({
     dob: {type: Date, default: Date.now},
     address: {type: String, default: ''},
     dor: {type: Date, default: Date.now},
-    doctor: {type: String, default: ''}
+    doctor: {type: String, default: ''},
+    description: {type: String, default: ''}
 }, {versionKey: false});
 
 // module.exports allows us to pass this to other files when it is called

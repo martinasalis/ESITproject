@@ -33,12 +33,13 @@ export class AddFormComponent implements OnInit {
   address = new FormControl('');
   role = new FormControl('');
   doctor = new FormControl('');
+  description = new FormControl('');
 
   patientDoctor: String = '';
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
@@ -81,7 +82,7 @@ export class AddFormComponent implements OnInit {
       });
 
 
-      let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value};
+      let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, description: this.description.value};
       this.patientService.insert(newPatient).subscribe(data => {
         console.log(data);
       });

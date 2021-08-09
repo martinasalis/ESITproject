@@ -19,7 +19,7 @@ export class PatientComponent implements OnInit {
   page_info = false;
   selected = new FormControl(0);
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,

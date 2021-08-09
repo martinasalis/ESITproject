@@ -1,0 +1,24 @@
+.icon_error{
+  color: #c30626;
+}
+
+.icon_modify{
+  color: #0d9604;
+}
+
+.icon_warning{
+  color: #d5a61b;
+}
+
+.icon_save{
+  color: #0d9604;
+}
+
+mat-icon{
+  float: left;
+  padding: 20px;
+}
+
+p{
+  display: flex;
+}

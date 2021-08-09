@@ -18,7 +18,7 @@ export class PageInfoComponent implements OnInit {
   home_doctor = false;
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   selectedNotice: String = '';
   noticeOptions: String[] = ['E-mail', 'SMS', 'Telegram'];
   noticeGroup: FormGroup = new FormGroup({});

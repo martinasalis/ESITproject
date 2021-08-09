@@ -28,13 +28,14 @@ export class ModifyFormComponent implements OnInit {
   dor = new FormControl('');
   address = new FormControl('');
   role = new FormControl('');
+  description = new  FormControl('');
 
   patientDoctor: String = '';
   doctorNotice: Notice = Notice.DEFAULT;
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
@@ -98,7 +99,7 @@ export class ModifyFormComponent implements OnInit {
     }
     else if(this.clickedRow.type == Type.PATIENT) {
       let newPatient: Patient = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,
-        phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.patientDoctor};
+        phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.patientDoctor, description: this.description.value};
       this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
         console.log(data);
       });
