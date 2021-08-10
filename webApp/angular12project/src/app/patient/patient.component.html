@@ -34,10 +34,14 @@
 
 
       <div class="outer">
-        <button class="inner" mat-button type="submit" (click)=modify()>Modifica paziente</button> <!--(click)=getLogin()-->
-        <button class="inner" mat-button type="submit" (click)="add_sensor()">Aggiungi sensore</button> <!--(click)=getLogin()-->
-        <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina paziente</button> <!--(click)=getLogin()-->
+        <button class="inner" mat-button type="submit" (click)=modify()>Modifica paziente</button>
+        <button class="inner" mat-button type="submit" (click)="add_sensor()">Aggiungi sensore</button>
+        <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina paziente</button>
       </div>
+
+      <h3><b>Sensori Paziente</b></h3>
+      <div *ngFor="let num of [1, 2, 3, 4, 5]"><app-sensor></app-sensor></div>
+
     </div>
   </ng-template>
 

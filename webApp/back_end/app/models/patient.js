@@ -15,4 +15,4 @@ const patientSchema = new Schema({
 }, {versionKey: false});
 
 // module.exports allows us to pass this to other files when it is called
-exports = module.exports = mongoose.model('Patient', patientSchema);
+exports = module.exports = mongoose.model('Patient', patientSchema, 'patients');
