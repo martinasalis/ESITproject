@@ -65,12 +65,14 @@ export class PatientComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-        this.userService.delete(this.clickedRow._id).subscribe(data => {
-          console.log(data);
-        });
-        this.doctorService.delete(this.clickedRow._id).subscribe(data => {
-          console.log(data);
-        });
+        if(result) {
+          this.userService.delete(this.clickedRow._id).subscribe(data => {
+            console.log(data);
+          });
+          this.doctorService.delete(this.clickedRow._id).subscribe(data => {
+            console.log(data);
+          });
+        }
       });
     }
     else if (this.clickedRow.type == Type.PATIENT) {
@@ -81,12 +83,14 @@ export class PatientComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-        this.userService.delete(this.clickedRow._id).subscribe(data => {
-          console.log(data);
-        });
-        this.patientService.delete(this.clickedRow._id).subscribe(data => {
-          console.log(data);
-        });
+        if(result) {
+          this.userService.delete(this.clickedRow._id).subscribe(data => {
+            console.log(data);
+          });
+          this.patientService.delete(this.clickedRow._id).subscribe(data => {
+            console.log(data);
+          });
+        }
       });
     }
     else{
