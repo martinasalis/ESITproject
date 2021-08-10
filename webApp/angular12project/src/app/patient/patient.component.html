@@ -39,8 +39,10 @@
         <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina paziente</button>
       </div>
 
-      <h3><b>Sensori Paziente</b></h3>
-      <div *ngFor="let num of [1, 2, 3, 4, 5]"><app-sensor></app-sensor></div>
+      <div class="sensor">
+        <h1><b>Sensori Paziente</b></h1>
+        <div *ngFor="let num of [1, 2, 3, 4, 5]"><app-sensor></app-sensor></div>
+      </div>
 
     </div>
   </ng-template>
