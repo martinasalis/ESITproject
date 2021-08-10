@@ -1,6 +1,4 @@
 Martina:
 
 Luca:
-- DB sensori
-- Componente sensore
-- Componente info sensore
+

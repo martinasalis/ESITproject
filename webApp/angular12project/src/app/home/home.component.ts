@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
   pats_id: any;
   docs_id: any;
 
-  displayedColumns: String[] = ['_id', 'name', 'surname', 'description'];
+  displayedColumnsDesc: String[] = ['_id', 'name', 'surname', 'description'];
+  displayedColumns: String[] = ['_id', 'name', 'surname'];
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
