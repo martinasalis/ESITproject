@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
 
 export interface Sensor {
   _id: String,
   name: String,
   um: String,
-  threshold: Number
+  min_threshold: Number,
+  max_threshold: Number
 }
 
 const baseUrl = 'http://localhost:8080';
@@ -16,7 +17,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class SensorService {
 
-  private sensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0};
+  private sensor: Sensor = {_id: '', name: '', um: '', min_threshold: 0.0, max_threshold: 0.0};
   private sensors: Sensor[] = [];
 
   constructor(private http: HttpClient) { }
@@ -46,7 +47,7 @@ export class SensorService {
    * @param {Sensor} snr - New data
    */
   update(_id: String, snr: Sensor) {
-    const body = {_id: _id, info: {_id: snr._id, name: snr.name, um: snr.um, threshold: snr.threshold}};
+    const body = {_id: _id, info: {_id: snr._id, name: snr.name, um: snr.um, min_threshold: snr.min_threshold, max_threshold: snr.max_threshold}};
     return this.http.post(`${baseUrl}/updateSensor`, body);
   }
 
@@ -64,7 +65,7 @@ export class SensorService {
    * @param {Sensor} snr - New sensor data
    */
   insert(snr: Sensor) {
-    const body = {name: snr.name, um: snr.um, threshold: snr.threshold};
+    const body = {name: snr.name, um: snr.um, min_threshold: snr.min_threshold, max_threshold: snr.max_threshold};
     return this.http.post(`${baseUrl}/insertSensor`, body);
   }
 

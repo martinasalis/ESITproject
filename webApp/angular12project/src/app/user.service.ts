@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import {Patient} from "./patient.service";
 
 export interface User {
   _id: String,
@@ -30,6 +31,17 @@ export class UserService {
   private doctors: User[] = [];
 
   constructor(private http: HttpClient) { }
+
+  /**
+   * This function get the data of a specific user
+   * @param {String} _id - User ID
+   * @return {User} - User data
+   */
+  info(_id: String) {
+    const body = {_id: _id};
+    return this.http.post<User>(`${baseUrl}/infoUser`, body);
+  }
+
 
   /**
    * This function perform login to the system
@@ -88,6 +100,29 @@ export class UserService {
   insert(user: User) {
     const body = {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type};
     return this.http.post(`${baseUrl}/insertUser`, body);
+  }
+
+  /**
+   * This function search all User of a doctor witch matches the param with a specific type
+   * @param {String} param - Query parameter
+   * @param {String} type - Type of the user
+   * @param {String} _ids - IDs of doctor's patients
+   * @return {User} - All user that match
+   */
+  searchDoctorPatient(param: String, type: String, _ids: String[]) {
+    const body = {param: param, type: type, _ids: _ids};
+    return this.http.post<User[]>(`${baseUrl}/searchDoctorUsers`, body);
+  }
+
+  /**
+   * This function search all User witch matches the param with a specific type
+   * @param {String} param - Query parameter
+   * @param {String} type - Type of the user
+   * @return {User} - All user that match
+   */
+  searchAll(param: String, type: String) {
+    const body = {param: param, type: type};
+    return this.http.post<User[]>(`${baseUrl}/searchUsers`, body);
   }
 
   /**

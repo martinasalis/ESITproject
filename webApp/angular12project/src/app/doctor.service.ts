@@ -82,7 +82,7 @@ export class DoctorService {
    * @param {Doctor} doc - New doctor data
    */
   insert(doc: Doctor) {
-    const body = {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role};
+    const body = {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role, notice: doc.notice};
     return this.http.post(`${baseUrl}/insertDoctor`, body);
   }
 

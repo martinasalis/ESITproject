@@ -66,10 +66,15 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertDoctor', function (req, res) {
+        console.log(req.body);
         // Insert a new doctor
-        Doctor.insertMany([{_id: req.body._id, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, role: req.body.role}])
-            .then(res.json({ok: 1}))
-            .catch(res.json({ok: 0}));
+        Doctor.insertMany([{_id: req.body._id, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, role: req.body.role, notice: req.body.notice}], function(err, doc) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(doc);
+        });
     });
 
 };

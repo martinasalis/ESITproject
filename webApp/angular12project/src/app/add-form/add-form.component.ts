@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import * as moment from "moment";
 import {MatButton} from "@angular/material/button";
 import {findAttributeOnElementWithTag} from "@angular/cdk/schematics";
+import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-form',
@@ -31,25 +33,26 @@ export class AddFormComponent implements OnInit {
   address = new FormControl('');
   role = new FormControl('');
   doctor = new FormControl('');
+  description = new FormControl('');
 
   patientDoctor: String = '';
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
-              private patientService: PatientService) {
+              private patientService: PatientService, public dialog: MatDialog) {
     this.user = this.userService.getUser();
     this.button = this.router.getCurrentNavigation()?.extras.state?.data;
   }
 
   ngOnInit(): void {
 
-    if(this.button == 0){
+    if(this.button == 1){
       this.add_doctor = true;
-    }else if(this.button == 1){
+    }else if(this.button == 2){
       this.add_patient = true;
     }else{
       this.add_sensor = true;
@@ -66,7 +69,7 @@ export class AddFormComponent implements OnInit {
         console.log(data);
       });
 
-      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.DEFAULT};
+      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS};
       this.doctorService.insert(newDoctor).subscribe(data => {
         console.log(data);
       });
@@ -79,13 +82,47 @@ export class AddFormComponent implements OnInit {
       });
 
 
-      let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value};
+      let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, description: this.description.value};
       this.patientService.insert(newPatient).subscribe(data => {
         console.log(data);
       });
     }
     else{
 
+    }
+  }
+
+  openDialog() {
+
+    if (this.clickedRow.type == Type.DOCTOR) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 1, flag: 3}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else if (this.clickedRow.type == Type.PATIENT) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 2, flag: 3}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else{
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 3, flag: 3}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      })
     }
   }
 

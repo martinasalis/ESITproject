@@ -8,9 +8,9 @@ const doctorSchema = new Schema({
     mail: {type: String, default: ''},
     phone: {type: String, default: ''},
     dob: {type: Date, default: Date.now},
-    role: {type: String, enum: ['DOCTOR', 'PATIENT', 'ADMIN'], default: ''},
-    notice: {type: String, enum: ['E-MAIL', 'SMS', 'TELEGRAM'], default: ''}
-});
+    role: {type: String, default: ''},
+    notice: {type: String, enum: ['DEFAULT', 'E-MAIL', 'SMS', 'TELEGRAM'], default: ''}
+}, {versionKey: false});
 
 // module.exports allows us to pass this to other files when it is called
-exports = module.exports = mongoose.model('Doctor', doctorSchema);
+exports = module.exports = mongoose.model('Doctor', doctorSchema, 'doctors');

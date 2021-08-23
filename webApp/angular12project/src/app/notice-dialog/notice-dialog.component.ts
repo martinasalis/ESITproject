@@ -1,8 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 export interface Result {
-  res: number
+  res: number,
+  flag: number
 }
 
 @Component({
@@ -12,11 +14,12 @@ export interface Result {
 })
 export class NoticeDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<NoticeDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Result) {
+  constructor(private router: Router, public dialogRef: MatDialogRef<NoticeDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Result) {
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+    this.router.navigate(['home']).then();
   }
 
 }

@@ -7,9 +7,9 @@
   <!-- Home page doctor -->
   <div class="content" *ngIf="home_doctor; else Info">
     <!-- The form -->
-    <form class="search" action="home.component.ts">
-      <input type="text" placeholder="Search.." name="search">
-      <button mat-button type="submit"><i class="fa fa-search"></i></button>
+    <form class="search" action="home.component.ts" >
+      <input type="text" placeholder="Search..." name="search" [formControl]="searchString">
+      <button mat-button (click)="searchPatient()"><i class="fa fa-search"></i></button>
     </form>
 
     <table mat-table [dataSource]="pats" class="mat-elevation-z8 pats_table" style="overflow-x: auto;">
@@ -31,18 +31,24 @@
         <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- Description -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Descrizione</th>
+        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsDesc"></tr>
       <tr
         mat-row
         (click)="selectedUser(row)"
         class="row-is-clicked" tabindex="1"
-        *matRowDef="let row; columns: displayedColumns;"
+        *matRowDef="let row; columns: displayedColumnsDesc;"
       ></tr>
     </table>
 
     <div class="outer">
       <button class="inner" mat-button type="submit" (click)=visualize()>Visualizza</button>
-      <button #buttonPatient class="inner" mat-button type="submit" >Aggiungi paziente</button>
+      <button class="inner" mat-button type="submit" (click)="add()">Aggiungi paziente</button>
     </div>
 
   </div>
@@ -60,8 +66,8 @@
       <mat-tab label="Dottori">
         <div class="content">
           <form class="search" action="home.component.ts" >
-            <input type="text" placeholder="Search.." name="search">
-            <button mat-button type="submit"><i class="fa fa-search"></i></button>
+            <input type="text" placeholder="Search.." name="search" [formControl]="searchString">
+            <button mat-button (click)="searchAllDoctor()"><i class="fa fa-search"></i></button>
           </form>
 
           <table mat-table [dataSource]="docs" class="mat-elevation-z8 pats_table" style="overflow-x: auto;">
@@ -95,15 +101,16 @@
 
         <div class="outer">
           <button class="inner" mat-button type="submit" (click)=modify()>Modifica dottore</button> <!--(click)=getLogin()-->
-          <button #buttonDoctor class="inner" mat-button type="submit" (click)="add()">Aggiungi dottore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit" (click)="add()">Aggiungi dottore</button> <!--(click)=getLogin()-->
           <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina dottore</button> <!--(click)=getLogin()-->
         </div>
       </mat-tab>
+
       <mat-tab label="Pazienti">
         <div class="content">
           <form class="search" action="home.component.ts">
-            <input type="text" placeholder="Search.." name="search">
-            <button mat-button type="submit"><i class="fa fa-search"></i></button>
+            <input type="text" placeholder="Search.." name="search" [formControl]="searchString">
+            <button mat-button (click)="searchAllPatient()"><i class="fa fa-search"></i></button>
           </form>
 
           <table mat-table [dataSource]="pats" class="mat-elevation-z8 pats_table" style="overflow-x: auto;">
@@ -136,7 +143,7 @@
 
           <div class="outer">
             <button class="inner" mat-button type="submit" (click)=modify()>Modifica paziente</button> <!--(click)=getLogin()-->
-            <button #buttonPatient class="inner" mat-button type="submit" (click)="add()">Aggiungi paziente</button> <!--(click)=getLogin()-->
+            <button class="inner" mat-button type="submit" (click)="add()">Aggiungi paziente</button> <!--(click)=getLogin()-->
             <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina paziente</button> <!--(click)=getLogin()-->
           </div>
 
@@ -165,7 +172,7 @@
 
         <div class="outer">
           <button class="inner" mat-button type="submit">Modifica sensore</button> <!--(click)=getLogin()-->
-          <button #buttonSensor class="inner" mat-button type="submit">Aggiungi sensore</button> <!--(click)=getLogin()-->
+          <button class="inner" mat-button type="submit">Aggiungi sensore</button> <!--(click)=getLogin()-->
           <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina sensore</button> <!--(click)=getLogin()-->
         </div>
       </mat-tab>

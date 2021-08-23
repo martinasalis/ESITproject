@@ -63,11 +63,16 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('insertPatient', function(req, res) {
+    app.post('/insertPatient', function(req, res) {
+        console.log(req.body);
         // Insert a new patient
-        Patient.insertMany([{_id: req.body._id, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, address: req.body.address, dor: req.body.dor}])
-            .then(res.json({ok: 1}))
-            .catch(res.json({ok: 0}));
+        Patient.insertMany([{_id: req.body._id, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, address: req.body.address, dor: req.body.dor}], function(err, user) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(user);
+        });
     });
 
 };

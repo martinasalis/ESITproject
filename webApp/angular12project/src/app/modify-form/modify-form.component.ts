@@ -5,6 +5,8 @@ import {Doctor, DoctorService, Notice} from "../doctor.service";
 import {Router} from "@angular/router";
 import {Patient, PatientService} from "../patient.service";
 import * as moment from "moment";
+import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-modify-form',
@@ -26,17 +28,18 @@ export class ModifyFormComponent implements OnInit {
   dor = new FormControl('');
   address = new FormControl('');
   role = new FormControl('');
+  description = new  FormControl('');
 
   patientDoctor: String = '';
   doctorNotice: Notice = Notice.DEFAULT;
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: ''};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
-              private patientService: PatientService) {
+              private patientService: PatientService, public dialog: MatDialog) {
     this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
     this.user = this.userService.getUser();
   }
@@ -92,13 +95,49 @@ export class ModifyFormComponent implements OnInit {
       this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
         console.log(data);
       });
+      this.openDialog();
     }
     else if(this.clickedRow.type == Type.PATIENT) {
       let newPatient: Patient = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,
-        phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.patientDoctor};
+        phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.patientDoctor, description: this.description.value};
       this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
         console.log(data);
       });
+      this.openDialog();
+    }
+  }
+
+  openDialog() {
+
+    if (this.clickedRow.type == Type.DOCTOR) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 1, flag: 2}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else if (this.clickedRow.type == Type.PATIENT) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 2, flag: 2}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else{
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {res: 3, flag: 2}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      })
     }
   }
 

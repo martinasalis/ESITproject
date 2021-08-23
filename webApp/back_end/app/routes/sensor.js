@@ -29,7 +29,7 @@ exports = module.exports = function(app) {
     app.post('/updateSensor', function(req, res) {
         // Update sensor data
         Sensor.updateOne({_id: req.body._id},
-            {_id: req.body.info._id, name: req.body.info.name, um: req.body.info.um, threshold: req.body.info.threshold},
+            {_id: req.body.info._id, name: req.body.info.name, um: req.body.info.um, min_threshold: req.body.info.min_threshold, max_threshold: req.body.max_threshold},
             function(err, snr) {
             if(err) // Error
                 res.send(err);
@@ -51,9 +51,13 @@ exports = module.exports = function(app) {
 
     app.post('/insertSensor', function(req, res) {
         // Insert a new sensor
-        Sensor.insertMany([{name: req.body.name, um: req.body.um, threshold: req.body.threshold}])
-            .then(res.json({ok: 1}))
-            .catch(res.json({ok: 0}));
+        Sensor.insertMany([{name: req.body.name, um: req.body.um, min_threshold: req.body.info.min_threshold, max_threshold: req.body.max_threshold}], function(err, snr) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(snr);
+        });
     });
 
 };

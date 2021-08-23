@@ -1,13 +1,5 @@
-- Reparto (da aggiungere in paziente)
-- Dottore (da aggiungere in paziente)
-- Parametro avviso (da aggiungere in dottore)
-
 Martina:
-- Terminare pagina di modifica dati Dottore
-- Pagina di aggiunta Dottore e Paziente
-- Terminare eliminazione Dottore
+- Css sensori
 
 Luca:
-- DB sensori
-- Componente sensore
-- Conponente info sensore
+

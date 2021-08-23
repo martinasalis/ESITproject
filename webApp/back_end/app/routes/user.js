@@ -37,6 +37,34 @@ exports = module.exports = function(app) {
         });
     });
 
+    app.post('/searchDoctorUsers', function(req, res) {
+        let param = req.body.param;
+
+        // Get a user that match with param and type
+        User.find({$and: [{$or: [{_id: {$regex: param, $options: 'i'}}, {name: {$regex: param, $options: 'i'}}, {surname: {$regex: param, $options: 'i'}}]}, {type: req.body.type}, {_id: {$in:req.body._ids}}]},
+            function(err, users) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(users);
+        });
+    });
+
+    app.post('/searchUsers', function(req, res) {
+        let param = req.body.param;
+
+        // Get a user that match with param and type
+        User.find({$and: [{$or: [{_id: {$regex: param, $options: 'i'}}, {name: {$regex: param, $options: 'i'}}, {surname: {$regex: param, $options: 'i'}}]}, {type: req.body.type}]},
+            function(err, users) {
+                // Error
+                if(err)
+                    res.send(err);
+
+                res.json(users);
+            });
+    });
+
     app.post('/updateUser', function(req, res) {
         let updateData = req.body.info;
 
@@ -64,9 +92,13 @@ exports = module.exports = function(app) {
 
     app.post('/insertUser', function(req, res) {
         // Insert new user
-        User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: req.body.password, type: req.body.type}])
-            .then(res.json({ok: 1}))
-            .catch(res.json({ok: 0}));
+        User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: req.body.password, type: req.body.type}], function(err, user) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(user);
+        });
     });
 
 };
