@@ -9,3 +9,8 @@ node_modules/
 *.launch
 .settings/
 *.sublime-workspace
+
+# freeRTOS SDK
+aws-iot-device-sdk-embedded-C/
+esp-open-sdk/
+
