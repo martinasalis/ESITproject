@@ -50,9 +50,9 @@ export class AddFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.button == 1){
+    if(this.button == 0){
       this.add_doctor = true;
-    }else if(this.button == 2){
+    }else if(this.button == 1){
       this.add_patient = true;
     }else{
       this.add_sensor = true;
@@ -73,6 +73,7 @@ export class AddFormComponent implements OnInit {
       this.doctorService.insert(newDoctor).subscribe(data => {
         console.log(data);
       });
+      this.openDialog();
     }
     else if(this.add_patient) {
 
@@ -86,9 +87,10 @@ export class AddFormComponent implements OnInit {
       this.patientService.insert(newPatient).subscribe(data => {
         console.log(data);
       });
+      this.openDialog();
     }
     else{
-
+      this.openDialog();
     }
   }
 

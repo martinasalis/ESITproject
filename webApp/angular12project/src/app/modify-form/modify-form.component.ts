@@ -73,6 +73,7 @@ export class ModifyFormComponent implements OnInit {
         this.dor.setValue(moment(new Date(data.dor)).format('YYYY-MM-DD'));
         this.address.setValue(data.address);
         this.patientDoctor = data.doctor;
+        this.description.setValue(data.description);
       });
     }
   }
