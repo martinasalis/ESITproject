@@ -48,10 +48,8 @@ export class PageInfoComponent implements OnInit {
         }
       });
     }
-    else if(this.user.type == Type.ADMIN){
-      this.navbar = true;
-      this.home_doctor = true;
-    }
+
+
   }
 
   changeNotice(notice: String) {

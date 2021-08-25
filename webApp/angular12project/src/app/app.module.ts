@@ -25,6 +25,7 @@ import { MatInputModule } from "@angular/material/input";
 import { AddFormComponent } from "./add-form/add-form.component";
 import { MatRadioModule } from "@angular/material/radio";
 import { SensorComponent } from './sensor/sensor.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -40,24 +41,25 @@ import { SensorComponent } from './sensor/sensor.component';
     AddFormComponent,
     SensorComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        MatTableModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatDialogModule,
-        MatInputModule,
-        MatRadioModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatDialogModule,
+    MatInputModule,
+    MatRadioModule,
+    MatMenuModule
+  ],
   providers: [
     FormBuilder
   ],

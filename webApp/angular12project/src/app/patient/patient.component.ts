@@ -17,6 +17,8 @@ export class PatientComponent implements OnInit {
   navbar = false;
   page_patient = false;
   page_info = false;
+  page_admin = false;
+
   selected = new FormControl(0);
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
@@ -37,6 +39,10 @@ export class PatientComponent implements OnInit {
         this.pat = this.patientService.getPatient();
       });
 
+    }
+    else if(this.user.type == Type.ADMIN){
+      this.page_admin = true;
+      this.navbar = true;
     }
 
     if(this.clickedRow.type == Type.PATIENT){

@@ -1,6 +1,6 @@
 <div>
 
-  <div *ngIf="(navbar && page_patient) || (page_info && navbar)">
+  <div *ngIf="(navbar && page_patient) || (page_info && navbar) || (page_admin && navbar)">
     <app-navbar></app-navbar>
   </div>
 
@@ -48,7 +48,7 @@
   </ng-template>
 
   <ng-template #Admin>
-    <div class="content">
+    <div class="content" *ngIf="page_admin">
       <h1><b>Admin:</b> {{ user._id }} </h1>
       <div class="info">
         <p><b>Nome:</b> {{ user.name }} </p>

@@ -4,10 +4,13 @@
       <mat-icon (click)="home()">home</mat-icon>
     </button>
     <span>My App</span>
+
     <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon (click)="page_info()">account_circle</mat-icon>
-    </button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon"> <mat-icon>account_circle</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="page_info()"> Pagina Personale </button>
+        <button mat-menu-item> Logout </button>
+      </mat-menu>
     <span>{{ user.name }} {{ user.surname }}</span>
   </mat-toolbar>
 </p>
