@@ -34,7 +34,7 @@
  */
 
 /* Include header that defines log levels. */
-#include "logging_levels.h"
+#include "../../../aws-iot-device-sdk-embedded-C/demos/logging-stack/logging_levels.h"
 
 /* Logging configuration for the Demo. */
 #ifndef LIBRARY_LOG_NAME
@@ -44,7 +44,7 @@
     #define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
-#include "logging_stack.h"
+#include "../../../aws-iot-device-sdk-embedded-C/demos/logging-stack/logging_stack.h"
 
 /************ End of logging configuration ****************/
 
@@ -54,9 +54,10 @@
  *
  * @note Your AWS IoT Core endpoint can be found in the AWS IoT console under
  * Settings/Custom Endpoint, or using the describe-endpoint API.
- *
- * #define AWS_IOT_ENDPOINT               "...insert here..."
  */
+#ifndef AWS_IOT_ENDPOINT
+	#define AWS_IOT_ENDPOINT "a1hf40f8xh2m7f-ats.iot.us-east-2.amazonaws.com"
+#endif
 
 /**
  * @brief AWS IoT MQTT broker port number.
@@ -86,7 +87,7 @@
  * ROOT_CA_CERT_PATH to the absolute path if this demo is executed from elsewhere.
  */
 #ifndef ROOT_CA_CERT_PATH
-    #define ROOT_CA_CERT_PATH    "certificates/AmazonRootCA1.crt"
+    #define ROOT_CA_CERT_PATH "/home/parallels/Desktop/Certificati/AmazonRootCA1.pem"
 #endif
 
 /**
@@ -97,9 +98,10 @@
  * https://docs.aws.amazon.com/iot/latest/developerguide/client-authentication.html
  *
  * @note This certificate should be PEM-encoded.
- *
- * #define CLIENT_CERT_PATH    "...insert here..."
  */
+#ifndef CLIENT_CERT_PATH
+	#define CLIENT_CERT_PATH "/home/parallels/Desktop/Certificati/c8be4a3652-certificate.pem"
+ #endif
 
 /**
  * @brief Path of the file containing the client's private key.
@@ -109,9 +111,10 @@
  * https://docs.aws.amazon.com/iot/latest/developerguide/client-authentication.html
  *
  * @note This private key should be PEM-encoded.
- *
- * #define CLIENT_PRIVATE_KEY_PATH    "...insert here..."
  */
+#ifndef CLIENT_PRIVATE_KEY_PATH
+	#define CLIENT_PRIVATE_KEY_PATH "/home/parallels/Desktop/Certificati/c8be4a3652-private.pem"
+#endif
 
 /**
  * @brief The username value for authenticating client to MQTT broker when
@@ -166,27 +169,27 @@
  * The current value is given as an example. Please update for your specific
  * operating system.
  */
-#define OS_NAME                   "Ubuntu"
+#define OS_NAME                   "RTOS"
 
 /**
  * @brief The version of the operating system that the application is running
  * on. The current value is given as an example. Please update for your specific
  * operating system version.
  */
-#define OS_VERSION                "18.04 LTS"
+#define OS_VERSION                "10.2.0"
 
 /**
  * @brief The name of the hardware platform the application is running on. The
  * current value is given as an example. Please update for your specific
  * hardware platform.
  */
-#define HARDWARE_PLATFORM_NAME    "PC"
+#define HARDWARE_PLATFORM_NAME    "ESP8266"
 
 /**
  * @brief The name of the MQTT library used and its version, following an "@"
  * symbol.
  */
-#include "core_mqtt.h"
+#include "../../../aws-iot-device-sdk-embedded-C/project/include/core_mqtt.h"
 #define MQTT_LIB    "core-mqtt@" MQTT_LIBRARY_VERSION
 
 #endif /* ifndef DEMO_CONFIG_H_ */

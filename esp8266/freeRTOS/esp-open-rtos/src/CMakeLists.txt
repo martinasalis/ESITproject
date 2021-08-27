@@ -1,4 +1,7 @@
-set( DEMO_NAME "mqtt_tls" )
+cmake_minimum_required(VERSION 3.9)
+
+set( DEMO_NAME "main" )
+set( CMAKE_SOURCE_DIR "/home/parallels/WebstormProjects/ESITproject/esp8266/freeRTOS/aws-iot-device-sdk-embedded-C")
 
 # Include MQTT library's source and header path variables.
 include( ${CMAKE_SOURCE_DIR}/libraries/standard/coreMQTT/mqttFilePaths.cmake )
@@ -34,9 +37,17 @@ target_include_directories(
         ${LOGGING_INCLUDE_DIRS}
 )
 
-set_macro_definitions(TARGETS ${DEMO_NAME}
+add_definitions(TARGETS ${DEMO_NAME}
                       REQUIRED
+                        "AWS_IOT_ENDPOINT"
                         "ROOT_CA_CERT_PATH"
-                        "BROKER_ENDPOINT"
+                        "CLIENT_CERT_PATH"
+                        "CLIENT_PRIVATE_KEY_PATH"
                         "CLIENT_IDENTIFIER"
-                        "BROKER_PORT")
+                      OPTIONAL
+                        "CLIENT_USERNAME"
+                        "CLIENT_PASSWORD"
+                        "OS_NAME"
+                        "OS_VERSION"
+                        "HARDWARE_PLATFORM_NAME"
+)
