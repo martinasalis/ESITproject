@@ -10,7 +10,6 @@ node_modules/
 .settings/
 *.sublime-workspace
 
-# freeRTOS SDK
-aws-iot-device-sdk-embedded-C/
-esp-open-sdk/
+# esp8266
+esp8266/main/configuration.h
 
