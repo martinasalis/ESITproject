@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { UserService, User, Type } from "../user.service";
-import {MatDialog} from "@angular/material/dialog";
-import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 
 @Component({
   selector: 'app-login-form',
@@ -30,8 +30,8 @@ export class LoginFormComponent implements OnInit {
     if(this.username.value != '' && this.password.value != '') {
       this.userService.login(this.username.value, this.password.value).subscribe((data: User) => {
         if(data != null) {
-          this.userService.setUser(data);
-          this.user = this.userService.getUser();
+          sessionStorage.setItem('user', JSON.stringify(data));
+          sessionStorage.setItem('login', JSON.stringify(true));
           this.router.navigate(['home']).then();
         }
         else{

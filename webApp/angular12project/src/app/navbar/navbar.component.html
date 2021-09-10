@@ -9,7 +9,7 @@
     <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon"> <mat-icon>account_circle</mat-icon></button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="page_info()"> Pagina Personale </button>
-        <button mat-menu-item> Logout </button>
+        <button mat-menu-item (click)="logout()"> Logout </button>
       </mat-menu>
     <span>{{ user.name }} {{ user.surname }}</span>
   </mat-toolbar>

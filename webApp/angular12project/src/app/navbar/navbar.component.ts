@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, User, Type } from "../user.service";
+import { User, Type } from "../user.service";
 import { Router } from "@angular/router";
-import { Doctor, DoctorService } from "../doctor.service";
-import { Patient, PatientService } from "../patient.service";
 
 @Component({
   selector: 'app-navbar',
@@ -13,9 +11,13 @@ export class NavbarComponent implements OnInit {
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
-  constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
-              private patientService: PatientService) {
-    this.user = this.userService.getUser();
+  constructor(private router: Router) {
+    if(JSON.parse(sessionStorage.getItem('login')!)) {
+      this.user = JSON.parse(sessionStorage.getItem('user')!);
+    }
+    else {
+      this.router.navigate(['']).then();
+    }
   }
 
   ngOnInit(): void {
@@ -23,11 +25,16 @@ export class NavbarComponent implements OnInit {
   }
 
   page_info(): void {
-    this.router.navigate(['page-info'], {state: {user: this.user}}).then();
+    this.router.navigate(['page-info']).then();
   }
 
   home(): void {
-    this.router.navigate(['home'], {state: {user: this.user}}).then();
+    this.router.navigate(['home']).then();
+  }
+
+  logout(): void {
+    sessionStorage.clear();
+    this.router.navigate(['']).then();
   }
 
 }

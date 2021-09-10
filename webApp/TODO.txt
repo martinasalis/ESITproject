@@ -4,5 +4,4 @@ Martina:
 - Modifica css (margin, padding, ecc)
 
 Luca:
-- Logout
 - Variabili di sessione

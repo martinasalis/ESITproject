@@ -34,7 +34,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog) {
-    this.user = this.userService.getUser();
+    if(JSON.parse(sessionStorage.getItem('login')!)) {
+      this.user = JSON.parse(sessionStorage.getItem('user')!);
+    }
+    else {
+      this.router.navigate(['']).then();
+    }
   }
 
   ngOnInit(): void {

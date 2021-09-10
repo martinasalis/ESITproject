@@ -40,8 +40,13 @@ export class ModifyFormComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog) {
-    this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
-    this.user = this.userService.getUser();
+    if(JSON.parse(sessionStorage.getItem('login')!)) {
+      this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
+      this.user = JSON.parse(sessionStorage.getItem('user')!);
+    }
+    else {
+      this.router.navigate(['']).then();
+    }
   }
 
   ngOnInit(): void {

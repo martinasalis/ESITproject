@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import {Patient} from "./patient.service";
+import { Observable, of } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
 
 export interface User {
   _id: String,
@@ -32,6 +33,27 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  private log(message: string) {
+
+  }
+
+  /**
+   * Handle http operation that failed and let the app continue
+   * @param operation - Name of the operation that failed
+   * @param result - Optional value to return as the observable result
+   * @private
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // Print the error
+      console.error(error);
+
+      // Let the app keep running by returning an empty result
+      return of(result as T);
+    };
+  }
+
   /**
    * This function get the data of a specific user
    * @param {String} _id - User ID
@@ -49,9 +71,11 @@ export class UserService {
    * @param {String} psw - Password og the user
    * @return {User} - Data of authenticated user
    */
-  login(uname: String, psw: String) {
+  login(uname: String, psw: String): Observable<User> {
     const body = {username: uname, password: psw};
-    return this.http.post<User>(`${baseUrl}/login`, body);
+    return this.http.post<User>(`${baseUrl}/login`, body).pipe(
+      catchError(this.handleError<User>('login'))
+    );
   }
 
   /**
