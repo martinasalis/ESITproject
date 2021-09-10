@@ -1,5 +1,8 @@
 Martina:
-- Css sensori
+- Pagina sensori (prova grafici)
+- Campo indirizzo MAC della board
+- Modifica css (margin, padding, ecc)
 
 Luca:
-
+- Logout
+- Variabili di sessione
