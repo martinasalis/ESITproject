@@ -6,6 +6,7 @@ import { PageInfoComponent } from "./page-info/page-info.component";
 import { PatientComponent } from "./patient/patient.component";
 import { ModifyFormComponent } from "./modify-form/modify-form.component";
 import { AddFormComponent } from "./add-form/add-form.component";
+import {PageSensorComponent} from "./page-sensor/page-sensor.component";
 
 const routes: Routes = [
   {path: '', component: LoginFormComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'page-info', component: PageInfoComponent},
   {path: 'patient', component: PatientComponent},
   {path: 'modify-form', component: ModifyFormComponent},
-  {path: 'add-form', component: AddFormComponent}
+  {path: 'add-form', component: AddFormComponent},
+  {path: 'page-sensor', component: PageSensorComponent}
 ];
 
 

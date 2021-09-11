@@ -26,6 +26,7 @@ import { AddFormComponent } from "./add-form/add-form.component";
 import { MatRadioModule } from "@angular/material/radio";
 import { SensorComponent } from './sensor/sensor.component';
 import {MatMenuModule} from "@angular/material/menu";
+import { PageSensorComponent } from './page-sensor/page-sensor.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatMenuModule} from "@angular/material/menu";
     PatientComponent,
     NoticeDialogComponent,
     AddFormComponent,
-    SensorComponent
+    SensorComponent,
+    PageSensorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 Martina:
-- Pagina sensori (prova grafici)
+- link template grafici: https://www.htmlelements.com/angular/?gclid=CjwKCAjwp_GJBhBmEiwALWBQky6weTekRnCjsEkvIxHlMYxpnei04Ixfhg11WLR1j4WFYQJSNOBcXxoC6NMQAvD_BwE
 - Campo indirizzo MAC della board
 - Modifica css (margin, padding, ecc)
 
