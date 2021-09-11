@@ -1,0 +1,22 @@
+<div>
+  <div>
+    <app-navbar></app-navbar>
+  </div>
+
+  <div class="grandParentContainer">
+    <div class="parentContainer">
+      <form action="mac-address.component.ts" method="post" id="mac_form"> <!--[formGroup]="angForm" novalidate-->
+
+        <div class="container">
+          <mat-form-field appearance="legacy">
+            <mat-label>Indirizzo MAC</mat-label>
+            <input matInput type="text" placeholder="Inserisci l'indirizzo MAC della board" name="mac" [formControl]="mac" required>
+          </mat-form-field>
+
+          <button mat-button type="submit"(click)=insert()>Inserisci</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

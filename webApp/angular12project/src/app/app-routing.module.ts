@@ -7,6 +7,7 @@ import { PatientComponent } from "./patient/patient.component";
 import { ModifyFormComponent } from "./modify-form/modify-form.component";
 import { AddFormComponent } from "./add-form/add-form.component";
 import {PageSensorComponent} from "./page-sensor/page-sensor.component";
+import {MACAddressComponent} from "./mac-address/mac-address.component";
 
 const routes: Routes = [
   {path: '', component: LoginFormComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'patient', component: PatientComponent},
   {path: 'modify-form', component: ModifyFormComponent},
   {path: 'add-form', component: AddFormComponent},
-  {path: 'page-sensor', component: PageSensorComponent}
+  {path: 'page-sensor', component: PageSensorComponent},
+  {path: 'mac-address', component: MACAddressComponent}
 ];
 
 

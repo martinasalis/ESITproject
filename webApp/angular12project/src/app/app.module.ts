@@ -27,6 +27,7 @@ import { MatRadioModule } from "@angular/material/radio";
 import { SensorComponent } from './sensor/sensor.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { PageSensorComponent } from './page-sensor/page-sensor.component';
+import { MACAddressComponent } from './mac-address/mac-address.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PageSensorComponent } from './page-sensor/page-sensor.component';
     NoticeDialogComponent,
     AddFormComponent,
     SensorComponent,
-    PageSensorComponent
+    PageSensorComponent,
+    MACAddressComponent
   ],
   imports: [
     BrowserModule,

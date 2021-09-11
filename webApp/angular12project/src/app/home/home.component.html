@@ -61,6 +61,10 @@
   <!-- Home page admin -->
   <ng-template #Admin>
 
+    <div class="outer">
+      <button class="inner" mat-button type="submit" (click)="insert_mac()"> Inserisci indirizzo MAC della board</button> <!--(click)=getLogin()-->
+    </div>
+
     <mat-tab-group mat-align-tabs="start" [selectedIndex]="selected.value"
                    (selectedIndexChange)="selected.setValue($event)">
       <mat-tab label="Dottori">

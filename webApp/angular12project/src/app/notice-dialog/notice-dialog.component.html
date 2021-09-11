@@ -1,3 +1,4 @@
+<!-- Delete dialog -->
 <div *ngIf="data.flag == 1; else save">
   <div *ngIf="data.res == 1; else thenBlock">
     <mat-icon class="icon_warning">warning</mat-icon>
@@ -22,6 +23,7 @@
   </div>
 </div>
 
+<!-- Save dialog -->
 <ng-template #save>
   <div *ngIf="data.flag == 2; else modify">
     <div *ngIf="data.res == 1; else thenBlock">
@@ -54,6 +56,7 @@
   </div>
 </ng-template>
 
+<!-- Modified dialog -->
 <ng-template #modify>
   <div *ngIf="data.flag == 3; else login">
     <div *ngIf="data.res == 1; else thenBlock">
@@ -78,13 +81,26 @@
     </div>
   </div>
 </ng-template>
+
+<!-- Login dialog -->
 <ng-template #login>
+  <div *ngIf="data.flag == 4; else mac_address">
+    <div>
+      <mat-icon class="icon_error">error</mat-icon>
+      <p>Nome utente o password errati. Inseriscili nuovamente.</p>
+    </div>
+
+    <div mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]="true">OK</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- MAC dialog -->
+<ng-template #mac_address>
   <div>
-    <mat-icon class="icon_error">error</mat-icon>
-    <p>Nome utente o password errati. Inseriscili nuovamente.</p>
+    <mat-icon class="icon_save">check_circle</mat-icon>
+    <p>L'indirizzo MAC è stato inserito con successo.</p>
   </div>
 
-  <div mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true">OK</button>
-  </div>
 </ng-template>

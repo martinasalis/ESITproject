@@ -188,4 +188,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  insert_mac(): void {
+    this.router.navigate(['mac-address']);
+  }
+
 }
