@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {Type, User, UserService} from "../user.service";
-import {Doctor, DoctorService, Notice} from "../doctor.service";
-import {Router} from "@angular/router";
-import {Patient, PatientService} from "../patient.service";
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from "@angular/forms";
+import { Type, User, UserService } from "../user.service";
+import { Doctor, DoctorService, Notice } from "../doctor.service";
+import { Router } from "@angular/router";
+import { Patient, PatientService } from "../patient.service";
 import * as moment from "moment";
-import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
+import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-modify-form',

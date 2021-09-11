@@ -137,14 +137,14 @@ export class HomeComponent implements OnInit {
    * This function get the user (patient or doctor) selected by the user in the table
    * @param {User} clicked - User selected
    */
-  selectedUser(clicked: User) {
+  selectedUser(clicked: User): void {
     this.clickedRow = clicked;
   }
 
   /**
    * This function search a patient of a doctor in the database which matches with param
    */
-  searchPatient() {
+  searchPatient(): void {
     this.userService.searchDoctorPatient(this.searchString.value, Type.PATIENT, this.pats_id).subscribe((data: User[]) => {
       this.userService.setPatients(data);
       this.pats = this.userService.getPatients();
@@ -154,7 +154,7 @@ export class HomeComponent implements OnInit {
   /**
    * This function search a patient in the database which matches with param
    */
-  searchAllPatient() {
+  searchAllPatient(): void {
     this.userService.searchAll(this.searchString.value, Type.PATIENT).subscribe((data: User[]) => {
       this.userService.setPatients(data);
       this.pats = this.userService.getPatients();
@@ -164,7 +164,7 @@ export class HomeComponent implements OnInit {
   /**
    * This function search a doctor in the database which matches with param
    */
-  searchAllDoctor() {
+  searchAllDoctor(): void {
     this.userService.searchAll(this.searchString.value, Type.DOCTOR).subscribe((data: User[]) => {
       this.userService.setDoctors(data);
       this.docs = this.userService.getDoctors();
@@ -189,7 +189,7 @@ export class HomeComponent implements OnInit {
   }
 
   insert_mac(): void {
-    this.router.navigate(['mac-address']);
+    this.router.navigate(['mac-address']).then();
   }
 
 }

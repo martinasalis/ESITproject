@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Observable, of } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 export interface User {
   _id: String,
@@ -34,28 +33,11 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Handle http operation that failed and let the app continue
-   * @param operation - Name of the operation that failed
-   * @param result - Optional value to return as the observable result
-   * @private
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // Print the error
-      console.error(error);
-
-      // Let the app keep running by returning an empty result
-      return of(result as T);
-    };
-  }
-
-  /**
    * This function get the data of a specific user
    * @param {String} _id - User ID
    * @return {User} - User data
    */
-  info(_id: String) {
+  info(_id: String): Observable<User> {
     const body = {_id: _id};
     return this.http.post<User>(`${baseUrl}/infoUser`, body);
   }
@@ -69,17 +51,15 @@ export class UserService {
    */
   login(uname: String, psw: String): Observable<User> {
     const body = {username: uname, password: psw};
-    return this.http.post<User>(`${baseUrl}/login`, body).pipe(
-      catchError(this.handleError<User>('login'))
-    );
+    return this.http.post<User>(`${baseUrl}/login`, body);
   }
 
   /**
    * This function return a list of patients based by your id
    * @param {String} _ids - IDs of patients
-   * @return {User} - Array of patients data
+   * @return {User[]} - Patients data
    */
-  patientsData(_ids: String[]) {
+  patientsData(_ids: String[]): Observable<User[]> {
     const body = {_ids: _ids};
     return this.http.post<User[]>(`${baseUrl}/patientsData`, body);
   }
@@ -87,9 +67,9 @@ export class UserService {
   /**
    * This function return a list of doctors based by your id
    * @param {String} _ids - IDs of doctors
-   * @return {User} - Array of doctors data
+   * @return {User[]} - Doctors data
    */
-  doctorsData(_ids: String[]) {
+  doctorsData(_ids: String[]): Observable<User[]> {
     const body = {_ids: _ids};
     return this.http.post<User[]>(`${baseUrl}/doctorsData`, body);
   }
@@ -99,7 +79,7 @@ export class UserService {
    * @param {String} _id - ID of the user
    * @param {User} user - New user data
    */
-  update(_id: String, user: User) {
+  update(_id: String, user: User): Observable<any> {
     const body = {_id: _id, info: {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type}};
     return this.http.post(`${baseUrl}/updateUser`, body);
   }
@@ -108,7 +88,7 @@ export class UserService {
    * This function delete a user
    * @param {String} _id - ID of the user
    */
-  delete(_id: String) {
+  delete(_id: String): Observable<any> {
     const body = {_id: _id};
     return this.http.post(`${baseUrl}/deleteUser`, body);
   }
@@ -117,7 +97,7 @@ export class UserService {
    * This function insert a new user
    * @param {User} user - Data of the new user
    */
-  insert(user: User) {
+  insert(user: User): Observable<any> {
     const body = {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type};
     return this.http.post(`${baseUrl}/insertUser`, body);
   }
@@ -127,9 +107,9 @@ export class UserService {
    * @param {String} param - Query parameter
    * @param {String} type - Type of the user
    * @param {String} _ids - IDs of doctor's patients
-   * @return {User} - All user that match
+   * @return {User[]} - All user that match
    */
-  searchDoctorPatient(param: String, type: String, _ids: String[]) {
+  searchDoctorPatient(param: String, type: String, _ids: String[]): Observable<User[]> {
     const body = {param: param, type: type, _ids: _ids};
     return this.http.post<User[]>(`${baseUrl}/searchDoctorUsers`, body);
   }
@@ -138,9 +118,9 @@ export class UserService {
    * This function search all User witch matches the param with a specific type
    * @param {String} param - Query parameter
    * @param {String} type - Type of the user
-   * @return {User} - All user that match
+   * @return {User[]} - All user that match
    */
-  searchAll(param: String, type: String) {
+  searchAll(param: String, type: String): Observable<User[]> {
     const body = {param: param, type: type};
     return this.http.post<User[]>(`${baseUrl}/searchUsers`, body);
   }

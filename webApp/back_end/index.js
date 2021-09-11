@@ -29,8 +29,8 @@ require('./app/routes/user')(app);
 require('./app/routes/doctor')(app);
 require('./app/routes/patient')(app);
 require('./app/routes/sensor')(app);
-require('./app/routes/board_sensor')(app);
-require('./app/routes/board')(app);
+//require('./app/routes/board_sensor')(app);
+//require('./app/routes/board')(app);
 
 // start app ===============================================
 // startup our app at http://localhost:8080
