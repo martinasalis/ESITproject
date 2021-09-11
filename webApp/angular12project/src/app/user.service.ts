@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
-import { catchError, map, tap } from "rxjs/operators";
+import { catchError } from "rxjs/operators";
 
 export interface User {
   _id: String,
@@ -32,10 +32,6 @@ export class UserService {
   private doctors: User[] = [];
 
   constructor(private http: HttpClient) { }
-
-  private log(message: string) {
-
-  }
 
   /**
    * Handle http operation that failed and let the app continue

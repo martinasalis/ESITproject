@@ -25,9 +25,12 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 
 // routes ==================================================
-require('./app/routes/user')(app); // configure our routes
-require('./app/routes/doctor')(app); // configure our routes
-require('./app/routes/patient')(app); // configure our routes
+require('./app/routes/user')(app);
+require('./app/routes/doctor')(app);
+require('./app/routes/patient')(app);
+require('./app/routes/sensor')(app);
+require('./app/routes/board_sensor')(app);
+require('./app/routes/board')(app);
 
 // start app ===============================================
 // startup our app at http://localhost:8080

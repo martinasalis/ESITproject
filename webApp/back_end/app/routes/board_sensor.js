@@ -1,4 +1,4 @@
-const PatientSensor = require('../models/patient_sensor')
+const PatientSensor = require('../models/board_sensor')
 
 exports = module.exports = function(app) {
 
