@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import {Observable} from "rxjs";
 
 export enum Notice {
   DEFAULT = 'DEFAULT',
@@ -34,16 +35,16 @@ export class DoctorService {
    * @param {String} _id - Doctor ID
    * @return {Doctor} - Doctor data
    */
-  info(_id: String) {
+  info(_id: String): Observable<Doctor> {
     const body = {_id: _id};
     return this.http.post<Doctor>(`${baseUrl}/infoDoctor`, body);
   }
 
   /**
    * This function return all doctors
-   * @return {Doctor} - All doctors
+   * @return {Doctor[]} - All doctors
    */
-  allDoctors() {
+  allDoctors(): Observable<Doctor[]> {
     const body = {};
     return this.http.post<Doctor[]>(`${baseUrl}/allDoctors`, body);
   }
@@ -53,7 +54,7 @@ export class DoctorService {
    * @param {String} _id - Doctor ID
    * @param {String} notice - Notice selected
    */
-  updateNotice(_id: String, notice: String) {
+  updateNotice(_id: String, notice: String): Observable<any> {
     const body = {_id: _id, notice: notice};
     return this.http.post(`${baseUrl}/updateNotice`, body);
   }
@@ -63,7 +64,7 @@ export class DoctorService {
    * @param {Doctor} _id - Doctor ID
    * @param {Doctor} doc - New data
    */
-  update(_id: String, doc: Doctor) {
+  update(_id: String, doc: Doctor): Observable<any> {
     const body = {_id: _id, info: {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role}};
     return this.http.post(`${baseUrl}/updateDoctor`, body);
   }
@@ -72,7 +73,7 @@ export class DoctorService {
    * This function delete a doctor
    * @param {Doctor} _id - Doctor ID
    */
-  delete(_id: String) {
+  delete(_id: String): Observable<any> {
     const body = {_id: _id};
     return this.http.post(`${baseUrl}/deleteDoctor`, body);
   }
@@ -81,7 +82,7 @@ export class DoctorService {
    * This function insert a new doctor
    * @param {Doctor} doc - New doctor data
    */
-  insert(doc: Doctor) {
+  insert(doc: Doctor): Observable<any> {
     const body = {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role, notice: doc.notice};
     return this.http.post(`${baseUrl}/insertDoctor`, body);
   }
@@ -90,7 +91,7 @@ export class DoctorService {
    * Get doctor data
    * @return {Doctor} - Doctor data
    */
-  getDoctor() {
+  getDoctor(): Doctor {
     return this.doctor;
   }
 
@@ -98,7 +99,7 @@ export class DoctorService {
    * Set doctor data
    * @param {Doctor} doctor - Doctor data
    */
-  setDoctor(doctor: Doctor) {
+  setDoctor(doctor: Doctor): void {
     this.doctor = doctor;
   }
 

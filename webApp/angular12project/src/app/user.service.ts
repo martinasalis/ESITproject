@@ -129,7 +129,7 @@ export class UserService {
    * Get user's data
    * @return {User} - User's data
    */
-  getUser() {
+  getUser(): User {
     return this.user;
   }
 
@@ -137,15 +137,15 @@ export class UserService {
    * Set user's data
    * @param {User} user - User's data
    */
-  setUser(user: User) {
+  setUser(user: User): void {
     this.user = user;
   }
 
   /**
    * Get patients data of a specific doctor
-   * @return {User} - Data of the patients
+   * @return {User[]} - Data of the patients
    */
-  getPatients() {
+  getPatients(): User[] {
     return this.patients;
   }
 
@@ -153,15 +153,15 @@ export class UserService {
    * Set patients data of a specific doctor
    * @param {User} patients - Data of the patients
    */
-  setPatients(patients: User[]) {
+  setPatients(patients: User[]): void {
     this.patients = patients;
   }
 
   /**
    * Get doctors data
-   * @return {User} - Data of the doctors
+   * @return {User[]} - Data of the doctors
    */
-  getDoctors() {
+  getDoctors(): User[] {
     return this.doctors;
   }
 
@@ -169,9 +169,8 @@ export class UserService {
    * Set doctors data
    * @param {User} doctors - Data of the doctors
    */
-  setDoctors(doctors: User[]) {
+  setDoctors(doctors: User[]): void {
     this.doctors = doctors;
   }
-
 
 }

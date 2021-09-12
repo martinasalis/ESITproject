@@ -6,7 +6,7 @@ exports = module.exports = function(app) {
 
     app.post('/insertBoard', function(req, res) {
         // Insert a new board
-        Board.insertMany([{mac: req.body.mac, patient: req.body.patient}], function(err, board) {
+        Board.insertMany([{mac: req.body.board, patient: req.body.patient}], function(err, board) {
             // Error occurred
             if(err)
                 res.send(err);

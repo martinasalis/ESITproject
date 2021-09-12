@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {Observable} from "rxjs";
 
 export interface Sensor {
   _id: String,
@@ -27,16 +28,16 @@ export class SensorService {
    * @param {String} _id - ID of the sensor
    * @return {Sensor} - Sensor data
    */
-  info(_id: String) {
+  info(_id: String): Observable<Sensor> {
     const body = {_id: _id};
     return this.http.post<Sensor>(`${baseUrl}/infoSensor`, body);
   }
 
   /**
    * This function return the data of all sensors
-   * @return {Sensor} - Sensors data
+   * @return {Sensor[]} - Sensors data
    */
-  allSensors() {
+  allSensors(): Observable<Sensor[]> {
     const body = {};
     return this.http.post<Sensor[]>(`${baseUrl}/allSensors`, body);
   }
@@ -46,7 +47,7 @@ export class SensorService {
    * @param {String} _id - ID of the sensor
    * @param {Sensor} snr - New data
    */
-  update(_id: String, snr: Sensor) {
+  update(_id: String, snr: Sensor): Observable<any> {
     const body = {_id: _id, info: {_id: snr._id, name: snr.name, um: snr.um, min_threshold: snr.min_threshold, max_threshold: snr.max_threshold}};
     return this.http.post(`${baseUrl}/updateSensor`, body);
   }
@@ -55,7 +56,7 @@ export class SensorService {
    * This function delete a sensor
    * @param {String} _id - ID of the sensor
    */
-  delete(_id: String) {
+  delete(_id: String): Observable<any> {
     const body = {_id: _id};
     return this.http.post(`${baseUrl}/deleteSensor`, body);
   }
@@ -64,7 +65,7 @@ export class SensorService {
    * This function insert a new sensor
    * @param {Sensor} snr - New sensor data
    */
-  insert(snr: Sensor) {
+  insert(snr: Sensor): Observable<any> {
     const body = {name: snr.name, um: snr.um, min_threshold: snr.min_threshold, max_threshold: snr.max_threshold};
     return this.http.post(`${baseUrl}/insertSensor`, body);
   }
@@ -73,7 +74,7 @@ export class SensorService {
    * Get sensor data
    * @return {Sensor} - Sensor data
    */
-  getSensor() {
+  getSensor(): Sensor {
     return this.sensor;
   }
 
@@ -81,15 +82,15 @@ export class SensorService {
    * Set sensor data
    * @param {Sensor} snr - Sensor data
    */
-  setSensor(snr: Sensor) {
+  setSensor(snr: Sensor): void {
     this.sensor = snr;
   }
 
   /**
    * Get sensors data
-   * @return {Sensor} - Sensors data
+   * @return {Sensor[]} - Sensors data
    */
-  getSensors() {
+  getSensors(): Sensor[] {
     return this.sensors;
   }
 
@@ -97,7 +98,7 @@ export class SensorService {
    * Set sensors data
    * @param {Sensor} snr - Sensors data
    */
-  setSensors(snr: Sensor[]) {
+  setSensors(snr: Sensor[]): void {
     this.sensors = snr;
   }
 

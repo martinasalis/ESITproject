@@ -21,7 +21,7 @@ export class PageInfoComponent implements OnInit {
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   selectedNotice: String = '';
   noticeOptions: String[] = ['E-mail', 'SMS', 'Telegram'];
-  noticeGroup: FormGroup = new FormGroup({});
+  noticeGroup: FormGroup = new FormGroup({notice: new FormControl()});
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog) {
@@ -43,13 +43,13 @@ export class PageInfoComponent implements OnInit {
 
         // Set default value of radio button
         if(this.doc.notice == Notice.MAIL) {
-          this.noticeGroup.addControl("notice", new FormControl(this.noticeOptions[0]));
+          this.noticeGroup.setControl("notice", new FormControl(this.noticeOptions[0]));
         }
         else if(this.doc.notice == Notice.SMS) {
-          this.noticeGroup.addControl("notice", new FormControl(this.noticeOptions[1]));
+          this.noticeGroup.setControl("notice", new FormControl(this.noticeOptions[1]));
         }
         else {
-          this.noticeGroup.addControl("notice", new FormControl(this.noticeOptions[2]));
+          this.noticeGroup.setControl("notice", new FormControl(this.noticeOptions[2]));
         }
       });
     }
