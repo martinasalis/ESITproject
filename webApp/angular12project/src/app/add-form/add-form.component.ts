@@ -6,6 +6,7 @@ import { Patient, PatientService } from "../patient.service";
 import { Router } from "@angular/router";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 @Component({
   selector: 'app-add-form',
@@ -31,9 +32,10 @@ export class AddFormComponent implements OnInit {
   role = new FormControl('');
   doctor = new FormControl('');
   description = new FormControl('');
+  image = new FormControl('');
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
@@ -69,7 +71,7 @@ export class AddFormComponent implements OnInit {
         console.log(data);
       });
 
-      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS};
+      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS, img: {data: this.image.value, contentType: "profile-image"}};
       this.doctorService.insert(newDoctor).subscribe(data => {
         console.log(data);
       });

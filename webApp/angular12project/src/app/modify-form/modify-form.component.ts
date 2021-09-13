@@ -34,7 +34,7 @@ export class ModifyFormComponent implements OnInit {
   doctorNotice: Notice = Notice.DEFAULT;
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
@@ -97,7 +97,7 @@ export class ModifyFormComponent implements OnInit {
     // Check if the user is a patient or a doctor
     if(this.clickedRow.type == Type.DOCTOR) {
       let newDoctor: Doctor = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,
-        phone: this.phone.value, role: this.role.value, notice: this.doctorNotice};
+        phone: this.phone.value, role: this.role.value, notice: this.doctorNotice, img: {data: this.doc.img.data, contentType: this.doc.img.contentType}};
       this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
         console.log(data);
       });

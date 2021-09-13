@@ -10,5 +10,6 @@ TO DO:
 - Menu selezione paziente
 - Completamento database (immagini, modifica info)
 - Memorizzazione nel database
+- Gestione primo accesso e recupero password
 - Funzionamento messaggi
 - Test

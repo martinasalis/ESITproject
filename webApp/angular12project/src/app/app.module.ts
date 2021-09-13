@@ -28,6 +28,7 @@ import { SensorComponent } from './sensor/sensor.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { PageSensorComponent } from './page-sensor/page-sensor.component';
 import { MACAddressComponent } from './mac-address/mac-address.component';
+import {MatFileUploadModule} from "angular-material-fileupload";
 
 @NgModule({
   declarations: [
@@ -45,25 +46,26 @@ import { MACAddressComponent } from './mac-address/mac-address.component';
     PageSensorComponent,
     MACAddressComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatDialogModule,
-    MatInputModule,
-    MatRadioModule,
-    MatMenuModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatTableModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatDialogModule,
+        MatInputModule,
+        MatRadioModule,
+        MatMenuModule,
+        MatFileUploadModule
+    ],
   providers: [
     FormBuilder
   ],

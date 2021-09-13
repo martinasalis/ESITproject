@@ -44,6 +44,28 @@
             <input matInput type="text" placeholder="" name="role" [formControl]="role" required>
           </mat-form-field>
 
+          <mat-form-field>
+            <mat-label>Numero di Telefono</mat-label>
+            <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
+          </mat-form-field>
+
+          <label for="singleFile">Upload file</label>
+          <input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/>
+          <br>
+          <mat-file-upload-queue #fileUploadQueue
+                                 [fileAlias]="'file'"
+                                 [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+
+            <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+          </mat-file-upload-queue>
+
+          <!--
+          <mat-form-field>
+            <mat-label>Immagine profilo</mat-label>
+            <input matInput type="file" placeholder="" name="image" [formControl]="image" required>
+          </mat-form-field>
+          -->
+
           <button mat-button type="submit" (click)="add()">Aggiungi</button>
         </div>
 
