@@ -17,7 +17,7 @@ export interface Doctor {
   role: String,
   notice: Notice,
   img: {
-    data: Buffer,
+    data: File,
     contentType: String
   }
 }
@@ -30,7 +30,8 @@ const baseUrl = 'http://localhost:8080';
 
 export class DoctorService {
 
-  private doctor: Doctor = {_id: '', mail: '', phone: '', dob: Date.prototype, role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
+  private doctor: Doctor = {_id: '', mail: '', phone: '', dob: Date.prototype, role: '', notice: Notice.DEFAULT, img: {data: File.prototype, contentType: ""}};
+  private img_profile: File = File.prototype;
 
   constructor(private http: HttpClient) { }
 
@@ -105,6 +106,22 @@ export class DoctorService {
    */
   setDoctor(doctor: Doctor): void {
     this.doctor = doctor;
+  }
+
+  /**
+   * Get image profile
+   * @return {File} - Image profile
+   */
+  getImageProfile(): File {
+    return this.img_profile;
+  }
+
+  /**
+   * Set image profile
+   * @param {File} image - Image profile
+   */
+  setImageProfile(image: File): void {
+    this.img_profile = image;
   }
 
 }

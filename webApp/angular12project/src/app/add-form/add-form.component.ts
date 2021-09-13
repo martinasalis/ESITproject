@@ -35,7 +35,7 @@ export class AddFormComponent implements OnInit {
   image = new FormControl('');
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: File.prototype, contentType: ""}};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
@@ -71,7 +71,7 @@ export class AddFormComponent implements OnInit {
         console.log(data);
       });
 
-      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS, img: {data: this.image.value, contentType: "profile-image"}};
+      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS, img: {data: this.doctorService.getImageProfile(), contentType: "profile-image"}};
       this.doctorService.insert(newDoctor).subscribe(data => {
         console.log(data);
       });
@@ -97,7 +97,7 @@ export class AddFormComponent implements OnInit {
 
   openDialog() {
 
-    if (this.clickedRow.type == Type.DOCTOR) {
+    if (this.add_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 1, flag: 3}
@@ -107,7 +107,7 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-    else if (this.clickedRow.type == Type.PATIENT) {
+    else if (this.add_patient) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 2, flag: 3}
@@ -128,5 +128,6 @@ export class AddFormComponent implements OnInit {
       })
     }
   }
+
 
 }

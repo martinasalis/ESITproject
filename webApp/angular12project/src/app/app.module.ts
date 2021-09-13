@@ -29,6 +29,9 @@ import {MatMenuModule} from "@angular/material/menu";
 import { PageSensorComponent } from './page-sensor/page-sensor.component';
 import { MACAddressComponent } from './mac-address/mac-address.component';
 import {MatFileUploadModule} from "angular-material-fileupload";
+import {MatCardModule} from "@angular/material/card";
+import { FileUploadComponent } from './file-upload/file-upload.component';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import {MatFileUploadModule} from "angular-material-fileupload";
     AddFormComponent,
     SensorComponent,
     PageSensorComponent,
-    MACAddressComponent
+    MACAddressComponent,
+    FileUploadComponent
   ],
     imports: [
         BrowserModule,
@@ -64,7 +68,8 @@ import {MatFileUploadModule} from "angular-material-fileupload";
         MatInputModule,
         MatRadioModule,
         MatMenuModule,
-        MatFileUploadModule
+        MatFileUploadModule,
+        MatCardModule
     ],
   providers: [
     FormBuilder
