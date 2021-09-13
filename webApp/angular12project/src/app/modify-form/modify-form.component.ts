@@ -101,6 +101,7 @@ export class ModifyFormComponent implements OnInit {
       this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
         console.log(data);
       });
+      this.router.navigate(['home']).then();
       this.openDialog();
     }
     else if(this.clickedRow.type == Type.PATIENT) {
@@ -109,6 +110,7 @@ export class ModifyFormComponent implements OnInit {
       this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
         console.log(data);
       });
+      this.router.navigate(['home']).then();
       this.openDialog();
     }
   }

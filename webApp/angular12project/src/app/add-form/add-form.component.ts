@@ -18,6 +18,7 @@ export class AddFormComponent implements OnInit {
   add_doctor = false;
   add_patient = false;
   add_sensor = false;
+  empty_field = false;
   button = Number();
 
   username = new FormControl('');
@@ -75,7 +76,15 @@ export class AddFormComponent implements OnInit {
       this.doctorService.insert(newDoctor).subscribe(data => {
         console.log(data);
       });
-      this.openDialog();
+
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || newDoctor.dob == Date.prototype || newDoctor.mail == '' || newDoctor.phone == '' || newDoctor.role == '' || newDoctor.img == {data: File.prototype, contentType: ""}){
+        this.empty_field = true;
+        this.openDialog();
+      }
+      else {
+        this.router.navigate(['home']).then();
+        this.openDialog();
+      }
     }
     else if(this.add_patient) {
 
@@ -88,16 +97,34 @@ export class AddFormComponent implements OnInit {
       this.patientService.insert(newPatient).subscribe(data => {
         console.log(data);
       });
-      this.openDialog();
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || newPatient.dob == Date.prototype || newPatient.dor == Date.prototype ||newPatient.mail == '' || newPatient.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == ''){
+        this.empty_field = true;
+        this.openDialog();
+      }
+      else {
+        this.router.navigate(['home']).then();
+        this.openDialog();
+      }
     }
-    else{
+    else if(this.add_sensor){
+      this.router.navigate(['home']).then();
       this.openDialog();
     }
   }
 
   openDialog() {
 
-    if (this.add_doctor) {
+    if(this.empty_field){
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {flag: 6}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      })
+    }
+    else if (this.add_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 1, flag: 3}
@@ -117,7 +144,7 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-    else{
+    else if(this.add_sensor){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 3, flag: 3}

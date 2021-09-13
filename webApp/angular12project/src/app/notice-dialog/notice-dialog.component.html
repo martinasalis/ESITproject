@@ -98,9 +98,18 @@
 
 <!-- MAC dialog -->
 <ng-template #mac_address>
-  <div>
+  <div *ngIf="data.flag == 5; else empty_field">
     <mat-icon class="icon_save">check_circle</mat-icon>
     <p>L'indirizzo MAC è stato inserito con successo.</p>
+  </div>
+
+</ng-template>
+
+<!-- Empty field dialog -->
+<ng-template #empty_field>
+  <div>
+    <mat-icon class="icon_error">error</mat-icon>
+    <p>Inserisci tutti i campi!</p>
   </div>
 
 </ng-template>
