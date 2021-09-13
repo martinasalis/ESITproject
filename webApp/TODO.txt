@@ -4,3 +4,11 @@ Martina:
 
 Luca:
 - Variabili di sessione
+
+TO DO:
+- Lambda per gestione bottoni
+- Menu selezione paziente
+- Completamento database (immagini, modifica info)
+- Memorizzazione nel database
+- Funzionamento messaggi
+- Test
