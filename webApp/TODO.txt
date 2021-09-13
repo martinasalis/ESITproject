@@ -6,10 +6,13 @@ Luca:
 - Variabili di sessione
 
 TO DO:
-- Lambda per gestione bottoni
+- Gestione bottoni con arduino
 - Menu selezione paziente
-- Completamento database (immagini, modifica info)
+- Caricamento dati nel database (immagini, modifica info)
+- Risolvere problema caricamento immagini
 - Memorizzazione nel database
+- Gestione dati sensori
+- Aggiunta e rimozione sensore
 - Gestione primo accesso e recupero password
 - Funzionamento messaggi
 - Test
