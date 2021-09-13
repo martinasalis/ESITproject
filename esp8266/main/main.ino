@@ -6,14 +6,14 @@
 #include <StackArray.h>
 #define emptyString String()
 
-//NomeMCU sensor pin definition
-#define LIGHTSENSOR1 A0
-
 // Error handling functions
 #include "errors.h"
 
 //Configuration data
 #include "configuration.h"
+
+// Define board MAC address
+String mac;
 
 //Define MQTT port
 const int MQTT_PORT = 8883;
@@ -38,34 +38,116 @@ BearSSL::X509List client_crt(client_cert);
 BearSSL::PrivateKey key(privkey);
 
 //Initialize MQTT client
-MQTTClient client;
+MQTTClient client(160);
 
 unsigned long lastMs = 0;
 time_t now;
 time_t nowish = 1510592825;
 
+// Sensor pin definition
 uint8_t Button1 = D1;
 uint8_t Button2 = D2;
 
-struct STACKITEM{
+struct STACKITEM {
   uint8_t id;
   unsigned long sec;
 };
 
-StackArray <STACKITEM> stack;
+StackArray <STACKITEM> stack_sensor_1;
+StackArray <STACKITEM> stack_sensor_2;
 
 void ICACHE_RAM_ATTR IntCallback1(){
   STACKITEM item = {1, millis()};
-  stack.push(item); 
-  //Serial.print("Stack: ");
-  //Serial.println();
+  stack_sensor_1.push(item); 
 }
 
 void ICACHE_RAM_ATTR IntCallback2(){
   STACKITEM item = {2, millis()};
-  stack.push(item);
-  //Serial.print("Stack: ");
-  //Serial.println();
+  stack_sensor_2.push(item);
+}
+
+long data_1 = 0;
+float data_2 = 0;
+
+// Simulate a pulse sensor
+void pulse()
+{  
+  if(stack_sensor_1.count() >= 2)
+  {
+    // More then one button pres
+    unsigned long sensor_time = 0;
+
+    STACKITEM first_item = stack_sensor_1.pop();
+    
+    while(!stack_sensor_1.isEmpty())
+    {
+      STACKITEM second_item = stack_sensor_1.pop();
+      
+      sensor_time = (first_item.sec - second_item.sec) + sensor_time;
+
+      first_item = second_item;
+    }
+
+    if(sensor_time < 2000)
+    {
+      data_1 = random(100, 120);
+    }
+    else
+    {      
+      data_1 = random(90, 100);
+    }
+  }
+  else if(stack_sensor_1.count() == 1)
+  {
+    // Single button pres
+    stack_sensor_1.pop();
+    
+    data_1 = random(90, 100);
+  }
+  else
+  {
+    // No button pres
+    data_1 = random(60, 90);
+  }
+}
+
+// Simulate temperature sensor
+void temperature()
+{
+  if(stack_sensor_2.count() >= 2)
+  {
+    unsigned long sensor_time = 0;
+
+    STACKITEM first_item = stack_sensor_2.pop();
+    
+    while(!stack_sensor_2.isEmpty())
+    {
+      STACKITEM second_item = stack_sensor_2.pop();
+      
+      sensor_time = (first_item.sec - second_item.sec) + sensor_time;
+
+      first_item = second_item;
+    }
+
+    if(sensor_time < 2000)
+    {
+      data_2 = (float)random(380, 400) / 100.00;
+    }
+    else
+    {      
+      data_2 = (float)random(370, 380) / 100.00;
+    }
+  }
+  else if(stack_sensor_2.count() == 1)
+  {
+    stack_sensor_2.pop();
+    
+    data_2 = (float)random(370, 380) / 100.00;
+  }
+  else
+  {
+    data_2 = (float)random(360, 370) / 100.00;
+  }
 }
 
 //Get time through Simple Network Time Protocol
@@ -150,27 +232,34 @@ const long interval = 5000;
 // MQTT management of outgoing messages
 void sendData(void)
 {
-  if(!stack.isEmpty()){
-  
-    DynamicJsonDocument jsonBuffer(JSON_OBJECT_SIZE(3) + 100);
-    JsonObject root = jsonBuffer.to<JsonObject>();
-    JsonObject state = root.createNestedObject("state");
-    JsonObject state_reported = state.createNestedObject("reported");
-  
-    STACKITEM item = stack.pop();
+  DynamicJsonDocument jsonBuffer(JSON_OBJECT_SIZE(9) + JSON_ARRAY_SIZE(4) + 100);
+  JsonObject root = jsonBuffer.to<JsonObject>();
+  JsonObject state = root.createNestedObject("state");
+  JsonObject state_reported = state.createNestedObject("reported");
+
+  state_reported["board"] = mac;
+  JsonArray state_reported_data = state_reported.createNestedArray("data");
+
+  pulse();
     
-    state_reported["id"] = item.id;
-    state_reported["sec"] = item.sec;
+  JsonObject state_reported_data_sensor_1 = state_reported_data.createNestedObject();
+  state_reported_data_sensor_1["sensor"] = 1;    
+  state_reported_data_sensor_1["data"] = data_1;
+
+  temperature();
   
-    Serial.printf("Sending [%s]: ", MQTT_PUB_TOPIC);
-    serializeJson(root, Serial);
-    Serial.println();
-    char shadow[measureJson(root) + 1];
-    serializeJson(root, shadow, sizeof(shadow));
+  JsonObject state_reported_data_sensor_2 = state_reported_data.createNestedObject();
+  state_reported_data_sensor_2["sensor"] = 2;   
+  state_reported_data_sensor_2["data"] = data_2;
+  
+  Serial.printf("Sending [%s]: ", MQTT_PUB_TOPIC);
+  serializeJson(root, Serial);
+  Serial.println();
+  char shadow[measureJson(root) + 1];
+  serializeJson(root, shadow, sizeof(shadow));
     
-    if(!client.publish(MQTT_PUB_TOPIC, shadow, false, 0)){
-      lwMQTTErr(client.lastError());
-    }
+  if(!client.publish(MQTT_PUB_TOPIC, shadow, false, 0)){
+    lwMQTTErr(client.lastError());
   }
 }
 
@@ -185,6 +274,8 @@ void setup(){
   WiFi.begin(ssid, pass);
   connectToWiFi(String("Trying to connect with SSID: ") + String(ssid));
 
+  randomSeed(analogRead(0));
+
   NTPConnect();
 
   net.setTrustAnchors(&cert);
@@ -198,7 +289,10 @@ void setup(){
   attachInterrupt(digitalPinToInterrupt(Button1), IntCallback1, RISING);
   attachInterrupt(digitalPinToInterrupt(Button2), IntCallback2, RISING);
 
-  stack.setPrinter(Serial);
+  stack_sensor_1.setPrinter(Serial);
+  stack_sensor_2.setPrinter(Serial);
+
+  mac = WiFi.macAddress();
 }
 
 void loop(){
