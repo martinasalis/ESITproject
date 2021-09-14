@@ -15,6 +15,17 @@ exports = module.exports = function(app) {
         });
     });
 
+    app.post('/infoUser', function(req, res) {
+        // Login
+        User.findOne({_id: req.body._id}, function(err, user) {
+            // Error occurred in login
+            if(err)
+                res.send(err);
+
+            res.json(user);
+        });
+    });
+
     app.post('/patientsData', function(req, res) {
         // Get all users data
         User.find({_id: {$in:req.body._ids}}, function(err, users) {

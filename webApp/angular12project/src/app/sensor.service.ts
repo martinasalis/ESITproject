@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 
 export interface Sensor {
   _id: String,
@@ -8,6 +8,11 @@ export interface Sensor {
   um: String,
   min_threshold: Number,
   max_threshold: Number
+}
+
+export interface SensorData {
+  data: Number,
+  sensor: Number
 }
 
 const baseUrl = 'http://localhost:8080';

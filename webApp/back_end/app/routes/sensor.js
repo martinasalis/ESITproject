@@ -1,10 +1,11 @@
 const Sensor = require('../models/sensor');
-const db = require("./config/db");
-const params = {
-    TableName : db.aws_table_name
-};
+const db = require("../../config/db");
+const AWS = require("aws-sdk");
 
 exports = module.exports = function(app) {
+
+    AWS.config.update(db.aws_remote_config);
+    const docClient = new AWS.DynamoDB.DocumentClient();
 
     // server routes ===========================================================
 
@@ -64,22 +65,35 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('/dynamoData', function (req, res){
+    app.post('/boardSensorData', function(req, res) {
 
-        exports = module.exports = function(docClient){
+        console.log(req.body);
 
-            docClient.scan(params, function (err, data){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    const {Items} = data;
-                    console.log(Items);
-                }
-            });
+        const params = {
+            "TableName": "health_data",
+            "KeyConditionExpression": "#DYNOBASE_mac_address = :pkey",
+            "ExpressionAttributeValues": {
+                ":pkey": req.body.board
+            },
+            "ExpressionAttributeNames": {
+                "#DYNOBASE_mac_address": "mac_address"
+            },
+            "ScanIndexForward": true
         };
+
+
+        docClient.query(params, function(err, data){
+            if(err){
+                res.send(err);
+            }
+            else{
+                res.send(data);
+
+                data.Items.forEach(function(element, index, array) {
+                    console.log(element.device_data);
+                });
+            }
+        });
     });
-
-
 
 };

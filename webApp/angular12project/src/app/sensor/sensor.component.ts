@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { BoardService } from "../board.service";
 
 @Component({
   selector: 'app-sensor',
@@ -8,7 +9,7 @@ import { Router } from "@angular/router";
 })
 export class SensorComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private boardService: BoardService) { }
 
   ngOnInit(): void {
   }

@@ -15,4 +15,15 @@ exports = module.exports = function(app) {
         });
     });
 
+    app.post('/getBoardMAC', function(req, res) {
+        // Get data of patient's board
+        Board.findOne({patient: req.body.patient}, function(err, board) {
+            // Error occurred
+            if(err)
+                res.send(err);
+
+            res.json(board);
+        });
+    });
+
 };

@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {BoardService, Board, BoardSensorData} from "../board.service";
 
 @Component({
   selector: 'app-patient',
@@ -23,9 +24,11 @@ export class PatientComponent implements OnInit {
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  patBoard: Board = {mac: '', patient: ''};
+  patBoardData: any;
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
-              private patientService: PatientService, public dialog: MatDialog) {
+              private patientService: PatientService, private boardService: BoardService, public dialog: MatDialog) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
       this.user = JSON.parse(sessionStorage.getItem('user')!);
@@ -61,6 +64,18 @@ export class PatientComponent implements OnInit {
       this.patientService.info(this.clickedRow._id).subscribe((data: Patient) => {
         this.patientService.setPatient(data);
         this.pat = this.patientService.getPatient();
+
+        console.log(this.pat);
+        this.boardService.getBoardMAC(this.pat._id).subscribe((data: Board) => {
+          this.patBoard = data;
+          console.log(data);
+
+          this.boardService.getBoardSensorData(this.patBoard).subscribe((data: BoardSensorData) => {
+            console.log('ok');
+            this.patBoardData = data;
+            console.log(this.patBoardData);
+          });
+        });
       });
     }
 

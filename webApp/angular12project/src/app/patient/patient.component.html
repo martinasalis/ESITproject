@@ -43,7 +43,7 @@
 
       <div class="sensor">
         <h1><b>Sensori Paziente</b></h1>
-        <div *ngFor="let num of [1, 2, 3, 4, 5]"><app-sensor></app-sensor></div>
+        <div *ngFor="let num of patBoardData.Items[0].device_data.data"><app-sensor></app-sensor></div>
       </div>
 
     </div>

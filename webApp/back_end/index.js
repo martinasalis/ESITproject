@@ -4,17 +4,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
-
-const AWS = require("aws-sdk");
 const db = require('./config/db');
 
-AWS.config.update(db.aws_remote_config);
-
-const docClient = new AWS.DynamoDB.DocumentClient();
-
-const fs = require('fs');
-const path = require('path');
-require('dotenv/config');
+//const fs = require('fs');
+//const path = require('path');
+//require('dotenv/config');
 
 app.use(cors());
 
@@ -50,4 +44,3 @@ app.listen(port, () => {
 
 // expose app
 exports = module.exports = app;
-exports = module.exports = docClient;
