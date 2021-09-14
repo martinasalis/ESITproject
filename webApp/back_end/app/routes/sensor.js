@@ -1,4 +1,8 @@
 const Sensor = require('../models/sensor');
+const db = require("./config/db");
+const params = {
+    TableName : db.aws_table_name
+};
 
 exports = module.exports = function(app) {
 
@@ -59,5 +63,23 @@ exports = module.exports = function(app) {
             res.json(snr);
         });
     });
+
+    app.post('/dynamoData', function (req, res){
+
+        exports = module.exports = function(docClient){
+
+            docClient.scan(params, function (err, data){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    const {Items} = data;
+                    console.log(Items);
+                }
+            });
+        };
+    });
+
+
 
 };

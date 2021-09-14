@@ -5,6 +5,13 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 
+const AWS = require("aws-sdk");
+const db = require('./config/db');
+
+AWS.config.update(db.aws_remote_config);
+
+const docClient = new AWS.DynamoDB.DocumentClient();
+
 const fs = require('fs');
 const path = require('path');
 require('dotenv/config');
@@ -14,7 +21,6 @@ app.use(cors());
 // configuration ===========================================
 
 // config files
-const db = require('./config/db');
 mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // set our port
@@ -44,3 +50,4 @@ app.listen(port, () => {
 
 // expose app
 exports = module.exports = app;
+exports = module.exports = docClient;
