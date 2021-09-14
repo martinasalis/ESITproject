@@ -31,6 +31,7 @@ import { MACAddressComponent } from './mac-address/mac-address.component';
 import {MatFileUploadModule} from "angular-material-fileupload";
 import {MatCardModule} from "@angular/material/card";
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
         MatRadioModule,
         MatMenuModule,
         MatFileUploadModule,
-        MatCardModule
+        MatCardModule,
+        MatSelectModule
     ],
   providers: [
     FormBuilder

@@ -107,9 +107,18 @@
 
 <!-- Empty field dialog -->
 <ng-template #empty_field>
-  <div>
+  <div *ngIf="data.flag == 6; else no_patient">
     <mat-icon class="icon_error">error</mat-icon>
     <p>Inserisci tutti i campi!</p>
+  </div>
+
+</ng-template>
+
+<!-- Empty field dialog -->
+<ng-template #no_patient>
+  <div>
+    <mat-icon class="icon_error">error</mat-icon>
+    <p>Non hai compilato tutti i campi!</p>
   </div>
 
 </ng-template>
