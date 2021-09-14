@@ -131,22 +131,22 @@ void temperature()
 
     if(sensor_time < 2000)
     {
-      data_2 = (float)random(380, 400) / 100.00;
+      data_2 = (float)random(380, 400) / 10.00;
     }
     else
     {      
-      data_2 = (float)random(370, 380) / 100.00;
+      data_2 = (float)random(370, 380) / 10.00;
     }
   }
   else if(stack_sensor_2.count() == 1)
   {
     stack_sensor_2.pop();
     
-    data_2 = (float)random(370, 380) / 100.00;
+    data_2 = (float)random(370, 380) / 10.00;
   }
   else
   {
-    data_2 = (float)random(360, 370) / 100.00;
+    data_2 = (float)random(360, 370) / 10.00;
   }
 }
 

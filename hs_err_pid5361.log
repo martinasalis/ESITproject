@@ -1,0 +1,386 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 33554432 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2976), pid=5361, tid=5362
+#
+# JRE version:  (11.0.11+9) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.11+9-b1341.60, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/parallels/WebstormProjects/ESITproject/core.5361)
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: org.jetbrains.git4idea.http.GitAskPassApp Username for 'https://github.com': 
+
+Host: Intel(R) Core(TM) i5-8279U CPU @ 2.40GHz, 2 cores, 1G, Ubuntu 18.04.1 LTS
+Time: Thu Jul 22 19:18:03 2021 CEST elapsed time: 0.566488 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f33d8028800):  JavaThread "Unknown thread" [_thread_in_vm, id=5362, stack(0x00007f33e07ab000,0x00007f33e08ac000)]
+
+Stack: [0x00007f33e07ab000,0x00007f33e08ac000],  sp=0x00007f33e08aa490,  free space=1021k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xe5f717]  VMError::report_and_die(int, char const*, char const*, __va_list_tag*, Thread*, unsigned char*, void*, void*, char const*, int, unsigned long)+0x387
+V  [libjvm.so+0xe603fb]  VMError::report_and_die(Thread*, char const*, int, unsigned long, VMErrorType, char const*, __va_list_tag*)+0x2b
+V  [libjvm.so+0x687b85]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*, ...)+0xc5
+V  [libjvm.so+0xbb7f38]  os::pd_commit_memory(char*, unsigned long, bool)+0xd8
+V  [libjvm.so+0xbae34f]  os::commit_memory(char*, unsigned long, bool)+0x1f
+V  [libjvm.so+0x76cd83]  G1CMMarkStack::resize(unsigned long)+0x63
+V  [libjvm.so+0x7707da]  G1ConcurrentMark::G1ConcurrentMark(G1CollectedHeap*, G1RegionToSpaceMapper*, G1RegionToSpaceMapper*)+0x8aa
+V  [libjvm.so+0x75d72e]  G1CollectedHeap::initialize()+0x64e
+V  [libjvm.so+0xe228d1]  Universe::initialize_heap()+0x41
+V  [libjvm.so+0xe22b86]  universe_init()+0x46
+V  [libjvm.so+0x841eb7]  init_globals()+0x57
+V  [libjvm.so+0xdfc72a]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x30a
+V  [libjvm.so+0x8e9d51]  JNI_CreateJavaVM+0x51
+C  [libjli.so+0x3c98]  JavaMain+0x88
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x000055a0cb51c050, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x00007f33d8040800 GCTaskThread "GC Thread#0" [stack: 0x00007f33dccb0000,0x00007f33dcdb0000] [id=5363]
+
+[error occurred during error reporting (printing all threads), id 0xb, SIGSEGV (0xb) at pc=0x00007f33ded3b100]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f33d8025570] Heap_lock - owner thread: 0x00007f33d8028800
+
+Heap address: 0x00000000e0e00000, size: 498 MB, Compressed Oops mode: Non-zero based: 0x00000000e0e00000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (2 events):
+Event: 0.229 Protecting memory [0x00007f33e07ab000,0x00007f33e07af000] with protection modes 0
+Event: 0.306 Loaded shared library /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libzip.so
+
+
+Dynamic libraries:
+e0e00000-100000000 ---p 00000000 00:00 0 
+55a0ca7a7000-55a0ca7a8000 r-xp 00000000 08:01 2127506                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/bin/java
+55a0ca9a8000-55a0ca9a9000 r--p 00001000 08:01 2127506                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/bin/java
+55a0ca9a9000-55a0ca9aa000 rw-p 00002000 08:01 2127506                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/bin/java
+55a0cb518000-55a0cb539000 rw-p 00000000 00:00 0                          [heap]
+7f33b8000000-7f33b8021000 rw-p 00000000 00:00 0 
+7f33b8021000-7f33bc000000 ---p 00000000 00:00 0 
+7f33bc000000-7f33bc021000 rw-p 00000000 00:00 0 
+7f33bc021000-7f33c0000000 ---p 00000000 00:00 0 
+7f33c0000000-7f33c0021000 rw-p 00000000 00:00 0 
+7f33c0021000-7f33c4000000 ---p 00000000 00:00 0 
+7f33c4467000-7f33c53f7000 ---p 00000000 00:00 0 
+7f33c53f7000-7f33c5667000 rwxp 00000000 00:00 0 
+7f33c5667000-7f33c5986000 ---p 00000000 00:00 0 
+7f33c5986000-7f33c5bf6000 rwxp 00000000 00:00 0 
+7f33c5bf6000-7f33ccebe000 ---p 00000000 00:00 0 
+7f33ccebe000-7f33cd12e000 rwxp 00000000 00:00 0 
+7f33cd12e000-7f33d43f7000 ---p 00000000 00:00 0 
+7f33d43f7000-7f33d8000000 r--s 00000000 08:01 2127480                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/modules
+7f33d8000000-7f33d8060000 rw-p 00000000 00:00 0 
+7f33d8060000-7f33dc000000 ---p 00000000 00:00 0 
+7f33dc1ff000-7f33dc5bd000 rw-p 00000000 00:00 0 
+7f33dc5bd000-7f33dc5be000 ---p 00000000 00:00 0 
+7f33dc5be000-7f33dc6bf000 rw-p 00000000 00:00 0 
+7f33dc6bf000-7f33dc6c0000 ---p 00000000 00:00 0 
+7f33dc6c0000-7f33dc7c1000 rw-p 00000000 00:00 0 
+7f33dc7c1000-7f33dcaac000 ---p 00000000 00:00 0 
+7f33dcaac000-7f33dccae000 rw-p 00000000 00:00 0 
+7f33dccae000-7f33dccaf000 ---p 00000000 00:00 0 
+7f33dccaf000-7f33dcdb5000 rw-p 00000000 00:00 0 
+7f33dcdb5000-7f33dce9b000 ---p 00000000 00:00 0 
+7f33dce9b000-7f33dcea0000 rw-p 00000000 00:00 0 
+7f33dcea0000-7f33dcf86000 ---p 00000000 00:00 0 
+7f33dcf86000-7f33dcf8d000 r-xp 00000000 08:01 2127426                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libzip.so
+7f33dcf8d000-7f33dd18c000 ---p 00007000 08:01 2127426                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libzip.so
+7f33dd18c000-7f33dd18d000 r--p 00006000 08:01 2127426                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libzip.so
+7f33dd18d000-7f33dd18e000 rw-p 00000000 00:00 0 
+7f33dd18e000-7f33dd199000 r-xp 00000000 08:01 267811                     /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f33dd199000-7f33dd398000 ---p 0000b000 08:01 267811                     /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f33dd398000-7f33dd399000 r--p 0000a000 08:01 267811                     /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f33dd399000-7f33dd39a000 rw-p 0000b000 08:01 267811                     /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f33dd39a000-7f33dd3a0000 rw-p 00000000 00:00 0 
+7f33dd3a0000-7f33dd3b7000 r-xp 00000000 08:01 267808                     /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f33dd3b7000-7f33dd5b6000 ---p 00017000 08:01 267808                     /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f33dd5b6000-7f33dd5b7000 r--p 00016000 08:01 267808                     /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f33dd5b7000-7f33dd5b8000 rw-p 00017000 08:01 267808                     /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f33dd5b8000-7f33dd5ba000 rw-p 00000000 00:00 0 
+7f33dd5ba000-7f33dd5c5000 r-xp 00000000 08:01 267813                     /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f33dd5c5000-7f33dd7c4000 ---p 0000b000 08:01 267813                     /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f33dd7c4000-7f33dd7c5000 r--p 0000a000 08:01 267813                     /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f33dd7c5000-7f33dd7c6000 rw-p 0000b000 08:01 267813                     /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f33dd7c6000-7f33dd7ce000 r-xp 00000000 08:01 267809                     /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f33dd7ce000-7f33dd9ce000 ---p 00008000 08:01 267809                     /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f33dd9ce000-7f33dd9cf000 r--p 00008000 08:01 267809                     /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f33dd9cf000-7f33dd9d0000 rw-p 00009000 08:01 267809                     /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f33dd9d0000-7f33dd9eb000 r-xp 00000000 08:01 2127401                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libjimage.so
+7f33dd9eb000-7f33ddbeb000 ---p 0001b000 08:01 2127401                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libjimage.so
+7f33ddbeb000-7f33ddbed000 r--p 0001b000 08:01 2127401                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libjimage.so
+7f33ddbed000-7f33ddbee000 rw-p 0001d000 08:01 2127401                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libjimage.so
+7f33ddbee000-7f33ddc17000 r-xp 00000000 08:01 2127396                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libjava.so
+7f33ddc17000-7f33dde17000 ---p 00029000 08:01 2127396                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libjava.so
+7f33dde17000-7f33dde18000 r--p 00029000 08:01 2127396                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libjava.so
+7f33dde18000-7f33dde19000 rw-p 0002a000 08:01 2127396                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libjava.so
+7f33dde19000-7f33dde1a000 rw-p 00000000 00:00 0 
+7f33dde1a000-7f33dde27000 r-xp 00000000 08:01 2127425                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libverify.so
+7f33dde27000-7f33de026000 ---p 0000d000 08:01 2127425                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libverify.so
+7f33de026000-7f33de028000 r--p 0000c000 08:01 2127425                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/libverify.so
+7f33de028000-7f33de029000 rw-p 00000000 00:00 0 
+7f33de029000-7f33de030000 r-xp 00000000 08:01 267818                     /lib/x86_64-linux-gnu/librt-2.27.so
+7f33de030000-7f33de22f000 ---p 00007000 08:01 267818                     /lib/x86_64-linux-gnu/librt-2.27.so
+7f33de22f000-7f33de230000 r--p 00006000 08:01 267818                     /lib/x86_64-linux-gnu/librt-2.27.so
+7f33de230000-7f33de231000 rw-p 00007000 08:01 267818                     /lib/x86_64-linux-gnu/librt-2.27.so
+7f33de231000-7f33de3ce000 r-xp 00000000 08:01 262579                     /lib/x86_64-linux-gnu/libm-2.27.so
+7f33de3ce000-7f33de5cd000 ---p 0019d000 08:01 262579                     /lib/x86_64-linux-gnu/libm-2.27.so
+7f33de5cd000-7f33de5ce000 r--p 0019c000 08:01 262579                     /lib/x86_64-linux-gnu/libm-2.27.so
+7f33de5ce000-7f33de5cf000 rw-p 0019d000 08:01 262579                     /lib/x86_64-linux-gnu/libm-2.27.so
+7f33de5cf000-7f33df710000 r-xp 00000000 08:01 2127489                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/server/libjvm.so
+7f33df710000-7f33df910000 ---p 01141000 08:01 2127489                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/server/libjvm.so
+7f33df910000-7f33df9d3000 r--p 01141000 08:01 2127489                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/server/libjvm.so
+7f33df9d3000-7f33dfa0e000 rw-p 01204000 08:01 2127489                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/server/libjvm.so
+7f33dfa0e000-7f33dfa65000 rw-p 00000000 00:00 0 
+7f33dfa65000-7f33dfc4c000 r-xp 00000000 08:01 262571                     /lib/x86_64-linux-gnu/libc-2.27.so
+7f33dfc4c000-7f33dfe4c000 ---p 001e7000 08:01 262571                     /lib/x86_64-linux-gnu/libc-2.27.so
+7f33dfe4c000-7f33dfe50000 r--p 001e7000 08:01 262571                     /lib/x86_64-linux-gnu/libc-2.27.so
+7f33dfe50000-7f33dfe52000 rw-p 001eb000 08:01 262571                     /lib/x86_64-linux-gnu/libc-2.27.so
+7f33dfe52000-7f33dfe56000 rw-p 00000000 00:00 0 
+7f33dfe56000-7f33dfe59000 r-xp 00000000 08:01 262577                     /lib/x86_64-linux-gnu/libdl-2.27.so
+7f33dfe59000-7f33e0058000 ---p 00003000 08:01 262577                     /lib/x86_64-linux-gnu/libdl-2.27.so
+7f33e0058000-7f33e0059000 r--p 00002000 08:01 262577                     /lib/x86_64-linux-gnu/libdl-2.27.so
+7f33e0059000-7f33e005a000 rw-p 00003000 08:01 262577                     /lib/x86_64-linux-gnu/libdl-2.27.so
+7f33e005a000-7f33e0069000 r-xp 00000000 08:01 2127377                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/jli/libjli.so
+7f33e0069000-7f33e0268000 ---p 0000f000 08:01 2127377                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/jli/libjli.so
+7f33e0268000-7f33e0269000 r--p 0000e000 08:01 2127377                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/jli/libjli.so
+7f33e0269000-7f33e026a000 rw-p 0000f000 08:01 2127377                    /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/jbr/lib/jli/libjli.so
+7f33e026a000-7f33e0284000 r-xp 00000000 08:01 267816                     /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f33e0284000-7f33e0483000 ---p 0001a000 08:01 267816                     /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f33e0483000-7f33e0484000 r--p 00019000 08:01 267816                     /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f33e0484000-7f33e0485000 rw-p 0001a000 08:01 267816                     /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f33e0485000-7f33e0489000 rw-p 00000000 00:00 0 
+7f33e0489000-7f33e04a5000 r-xp 00000000 08:01 267768                     /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f33e04a5000-7f33e06a4000 ---p 0001c000 08:01 267768                     /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f33e06a4000-7f33e06a5000 r--p 0001b000 08:01 267768                     /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f33e06a5000-7f33e06a6000 rw-p 0001c000 08:01 267768                     /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f33e06a6000-7f33e06cd000 r-xp 00000000 08:01 262563                     /lib/x86_64-linux-gnu/ld-2.27.so
+7f33e079a000-7f33e07ab000 rw-p 00000000 00:00 0 
+7f33e07ab000-7f33e07af000 ---p 00000000 00:00 0 
+7f33e07af000-7f33e08ae000 rw-p 00000000 00:00 0 
+7f33e08b5000-7f33e08ba000 rw-p 00000000 00:00 0 
+7f33e08ba000-7f33e08c1000 ---p 00000000 00:00 0 
+7f33e08c1000-7f33e08c9000 rw-s 00000000 08:01 3539547                    /tmp/hsperfdata_parallels/5361
+7f33e08c9000-7f33e08ca000 ---p 00000000 00:00 0 
+7f33e08ca000-7f33e08cb000 r--p 00000000 00:00 0 
+7f33e08cb000-7f33e08cd000 rw-p 00000000 00:00 0 
+7f33e08cd000-7f33e08ce000 r--p 00027000 08:01 262563                     /lib/x86_64-linux-gnu/ld-2.27.so
+7f33e08ce000-7f33e08cf000 rw-p 00028000 08:01 262563                     /lib/x86_64-linux-gnu/ld-2.27.so
+7f33e08cf000-7f33e08d0000 rw-p 00000000 00:00 0 
+7ffef9225000-7ffef9246000 rw-p 00000000 00:00 0                          [stack]
+7ffef93b3000-7ffef93b6000 r--p 00000000 00:00 0                          [vvar]
+7ffef93b6000-7ffef93b8000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+
+VM Arguments:
+java_command: org.jetbrains.git4idea.http.GitAskPassApp Username for 'https://github.com': 
+java_class_path (initial): /home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/plugins/git4idea/lib/git4idea-rt.jar:/home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/lib/xmlrpc-2.0.1.jar:/home/parallels/Downloads/WebStorm-2021.1.3/WebStorm-211.7628.25/lib/commons-codec-1.15.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 2                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 2                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 33554432                                  {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 522190848                                 {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5825164                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122916538                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122916538                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/java-13-oracle
+PATH=/usr/lib/git-core:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-13-oracle/bin:/usr/lib/jvm/java-13-oracle/db/bin:/usr/local/spark/bin:/usr/local/spark/sbin:/home/parallels/workspace/freertos/esp-open-sdk/xtensa-lx106-elf/bin:/home/parallels/workspace/freertos/esp-open-sdk/esptool
+USERNAME=parallels
+SHELL=/bin/bash
+DISPLAY=:1
+LANG=it_IT.UTF-8
+LC_ALL=en_US.UTF-8
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xe60450], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xe60450], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0xe60450], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0xbb2ff0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0xbb2ff0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0xe60450], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR2: [libjvm.so+0xbb2e80], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGQUIT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.1 LTS"
+uname:Linux 4.15.0-151-generic #157-Ubuntu SMP Fri Jul 9 23:07:57 UTC 2021 x86_64
+OS uptime: 0 days 3:02 hours
+libc:glibc 2.27 NPTL 2.27 
+rlimit (soft/hard): STACK 8192k/infinity , CORE 0k/infinity , NPROC 7698/7698 , NOFILE 1048576/1048576 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK 65536k/65536k
+load average:7.00 11.17 7.02
+
+/proc/meminfo:
+MemTotal:        2035324 kB
+MemFree:           53112 kB
+MemAvailable:       4816 kB
+Buffers:             368 kB
+Cached:            24340 kB
+SwapCached:         1200 kB
+Active:          1309088 kB
+Inactive:         440780 kB
+Active(anon):    1302548 kB
+Inactive(anon):   434148 kB
+Active(file):       6540 kB
+Inactive(file):     6632 kB
+Unevictable:          36 kB
+Mlocked:              36 kB
+SwapTotal:       2097148 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:       1724440 kB
+Mapped:            13424 kB
+Shmem:             11412 kB
+Slab:              95128 kB
+SReclaimable:      40616 kB
+SUnreclaim:        54512 kB
+KernelStack:       17424 kB
+PageTables:        70788 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     3114808 kB
+Committed_AS:    9306296 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      219056 kB
+DirectMap2M:     1878016 kB
+
+/sys/kernel/mm/transparent_hugepage/enabled:
+always [madvise] never
+/sys/kernel/mm/transparent_hugepage/defrag (defrag/compaction efforts parameter):
+always defer defer+madvise [madvise] never
+
+Process Memory:
+Virtual Size: 1167232K (peak: 1196168K)
+Resident Set Size: 5780K (peak: 5780K) (anon: 5780K, file: 0K, shmem: 0K)
+Swapped out: 0K
+C-Heap outstanding allocations: 479K
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads):
+15396
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have):
+65530
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers):
+32768
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-1
+cpu_memory_nodes: 0
+active_processor_count: 2
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -2
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 1792794624
+memory_max_usage_in_bytes: 0
+
+KVM virtualization detected
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU:total 2 (initial active 2) (2 cores per cpu, 1 threads per core) family 6 model 142 stepping 10 microcode 0x9e, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, tsc, tscinvbit, bmi1, bmi2, adx, fma
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Core(TM) i5-8279U CPU @ 2.40GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx rdtscp lm constant_tsc nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti fsgsbase tsc_adjust bmi1 avx2 smep bmi2 invpcid mpx rdseed adx smap clflushopt xsaveopt xsavec xsaves dtherm arat pln pts
+Online cpus:
+0-1
+Offline cpus:
+2-31
+BIOS frequency limitation:
+<Not Available>
+Frequency switch latency (ns):
+<Not Available>
+Available cpu frequencies:
+<Not Available>
+Current governor:
+<Not Available>
+Core performance/turbo boost:
+<Not Available>
+
+Memory: 4k page, physical 2035324k(52796k free), swap 2097148k(0k free)
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.11+9-b1341.60) for linux-amd64 JRE (11.0.11+9-b1341.60), built on Jun  4 2021 04:44:24 by "" with gcc 8.3.1 20190311 (Red Hat 8.3.1-3)
+
+END.
