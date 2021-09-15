@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
 
 export interface Sensor {
-  _id: String,
+  _id: Number,
   name: String,
   um: String
 }
@@ -16,7 +16,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class SensorService {
 
-  private sensor: Sensor = {_id: '', name: '', um: ''};
+  private sensor: Sensor = {_id: 0, name: '', um: ''};
   private sensors: Sensor[] = [];
 
   constructor(private http: HttpClient) { }

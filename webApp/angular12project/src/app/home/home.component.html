@@ -160,25 +160,43 @@
             <button mat-button type="submit"><i class="fa fa-search"></i></button>
           </form>
 
-          <table>
-            <tr>
-              <th>ID Sensore</th>
-              <th>Dati</th>
-              <th>Data rilevamento</th>
-            </tr>
-            <tr>
-              <th>id</th>
-              <th>dati</th>
-              <th>data</th>
-            </tr>
+          <table mat-table [dataSource]="sens" class="mat-elevation-z8 pats_table" style="overflow-x: auto;">
+            <!-- Sensor ID -->
+            <ng-container matColumnDef="_id">
+              <th mat-header-cell *matHeaderCellDef>ID Sensore</th>
+              <td mat-cell *matCellDef="let element">{{ element._id }}</td>
+            </ng-container>
+
+            <!-- Name -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Nome</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+
+            <!-- Unit -->
+            <ng-container matColumnDef="um">
+              <th mat-header-cell *matHeaderCellDef>Unità di misura</th>
+              <td mat-cell *matCellDef="let element">{{ element.um }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsSensor"></tr>
+            <tr
+              mat-row
+              (click)="selectedSensor(row)"
+              class="row-is-clicked" tabindex="1"
+              *matRowDef="let row; columns: displayedColumnsSensor;"
+            ></tr>
           </table>
+
+
+          <div class="outer">
+            <button class="inner" mat-button type="submit"(click)="modify_sensor()">Modifica sensore</button>
+            <button class="inner" mat-button type="submit"(click)="add_sensor()">Aggiungi sensore</button>
+            <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina sensore</button>
+          </div>
+
         </div>
 
-        <div class="outer">
-          <button class="inner" mat-button type="submit">Modifica sensore</button> <!--(click)=getLogin()-->
-          <button class="inner" mat-button type="submit">Aggiungi sensore</button> <!--(click)=getLogin()-->
-          <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina sensore</button> <!--(click)=getLogin()-->
-        </div>
       </mat-tab>
     </mat-tab-group>
   </ng-template>

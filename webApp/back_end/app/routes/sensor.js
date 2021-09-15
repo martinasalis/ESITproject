@@ -53,6 +53,7 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertSensor', function(req, res) {
+        console.log(req.body);
         // Insert a new sensor
         Sensor.insertMany([{name: req.body.name, um: req.body.um}], function(err, snr) {
             // Error

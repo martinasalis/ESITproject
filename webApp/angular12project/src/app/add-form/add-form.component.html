@@ -134,6 +134,26 @@
 
   <ng-template #Sensor>
     <div class="grandParentContainer" *ngIf="add_sensor">
+      <h1><b>Aggiunta Paziente</b></h1>
+      <div class="parentContainer">
+        <form action="add-form.component.ts" method="post" id="add_form_sensor"> <!--[formGroup]="angForm" novalidate-->
+
+          <div class="container">
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Unità di misura</mat-label>
+              <input matInput type="text" placeholder="" name="um" [formControl]="um" required>
+            </mat-form-field>
+
+            <button mat-button (click)="add()">Aggiungi</button>
+          </div>
+
+        </form>
+      </div>
     </div>
   </ng-template>
 

@@ -6,6 +6,7 @@ import { Patient, PatientService } from "../patient.service";
 import { Router } from "@angular/router";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import {Sensor, SensorService} from "../sensor.service";
 import { MatFileUploadModule } from 'angular-material-fileupload';
 
 @Component({
@@ -34,14 +35,14 @@ export class AddFormComponent implements OnInit {
   doctor = new FormControl('');
   description = new FormControl('');
   image = new FormControl('');
+  um = new FormControl('');
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: File.prototype, contentType: ""}};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
-  clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
-              private patientService: PatientService, public dialog: MatDialog) {
+              private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
       this.button = this.router.getCurrentNavigation()?.extras.state?.data;
@@ -68,47 +69,61 @@ export class AddFormComponent implements OnInit {
     // Check if the user is a patient or a doctor
     if(this.add_doctor) {
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', type: Type.DOCTOR};
-      this.userService.insert(newUser).subscribe(data => {
-        console.log(data);
-      });
-
-      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS, img: {data: this.doctorService.getImageProfile(), contentType: "profile-image"}};
-      this.doctorService.insert(newDoctor).subscribe(data => {
-        console.log(data);
-      });
+      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS, img: {data: this.image.value, contentType: "profile-image"}};
 
       if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || newDoctor.dob == Date.prototype || newDoctor.mail == '' || newDoctor.phone == '' || newDoctor.role == '' || newDoctor.img == {data: File.prototype, contentType: ""}){
         this.empty_field = true;
         this.openDialog();
       }
       else {
+        this.userService.insert(newUser).subscribe(data => {
+          console.log(data);
+        });
+        this.doctorService.insert(newDoctor).subscribe(data => {
+          console.log(data);
+        });
+
         this.router.navigate(['home']).then();
         this.openDialog();
       }
     }
     else if(this.add_patient) {
-
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', type: Type.PATIENT};
-      this.userService.insert(newUser).subscribe(data => {
-        console.log(data);
-      });
-
       let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, description: this.description.value};
-      this.patientService.insert(newPatient).subscribe(data => {
-        console.log(data);
-      });
+
       if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || newPatient.dob == Date.prototype || newPatient.dor == Date.prototype ||newPatient.mail == '' || newPatient.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == ''){
         this.empty_field = true;
         this.openDialog();
       }
       else {
+        this.userService.insert(newUser).subscribe(data => {
+          console.log(data);
+        });
+
+        this.patientService.insert(newPatient).subscribe(data => {
+          console.log(data);
+        });
+
         this.router.navigate(['home']).then();
         this.openDialog();
       }
     }
     else if(this.add_sensor){
-      this.router.navigate(['home']).then();
-      this.openDialog();
+      let newSensor: Sensor = {_id: 0, name: this.name.value, um: this.um.value};
+      console.log(newSensor);
+
+      if(newSensor.name == '' || newSensor.um == ''){
+        this.empty_field = true;
+        this.openDialog();
+      }
+      else {
+        this.sensorService.insert(newSensor).subscribe(data => {
+          console.log(data);
+        });
+
+        this.router.navigate(['home']).then();
+        this.openDialog();
+      }
     }
   }
 
