@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   clickedSensor: Sensor = {_id: 0, name: '', um: ''};
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: File.prototype, contentType: ""}};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
   pats: User[] = [];
   docs: User[] = [];
   sens: Sensor[] = [];
@@ -58,7 +58,6 @@ export class HomeComponent implements OnInit {
           this.pats = this.userService.getPatients();
         });
       });
-
     }
     else if(this.user.type == Type.ADMIN){
       this.home_admin = true;
@@ -193,7 +192,7 @@ export class HomeComponent implements OnInit {
   }
 
   modify(): void {
-    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow}}).then();
+    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}}).then();
   }
 
   add(): void {
@@ -206,7 +205,8 @@ export class HomeComponent implements OnInit {
   }
 
   modify_sensor(): void {
-    this.router.navigate(['modify-form'], {state: {clickedSensor: this.clickedSensor}}).then();
+    console.log(this.clickedSensor);
+    this.router.navigate(['modify-form'], {state: {clickedSensor: this.clickedSensor, clickedUser: this.clickedRow}}).then();
   }
 
   add_sensor(): void {

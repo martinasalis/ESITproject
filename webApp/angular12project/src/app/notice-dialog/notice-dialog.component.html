@@ -116,9 +116,18 @@
 
 <!-- Empty field dialog -->
 <ng-template #no_patient>
-  <div>
+  <div *ngIf="data.flag == 7; else no_selected">
     <mat-icon class="icon_error">error</mat-icon>
     <p>Non hai compilato tutti i campi!</p>
+  </div>
+
+</ng-template>
+
+<!-- No selected row dialog -->
+<ng-template #no_selected>
+  <div>
+    <mat-icon class="icon_error">error</mat-icon>
+    <p>Non hai selezionato nessuna riga!</p>
   </div>
 
 </ng-template>

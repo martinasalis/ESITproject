@@ -1,7 +1,6 @@
 .content {
   /*background-color: #f5fbf9;*/
   padding: 10px;
-  height: 200px; /* Should be removed. Only for demonstration */
   margin: 20px;
 }
 
@@ -41,10 +40,29 @@ h1 {
   margin-top: 40px;
 }
 
+.card-content{
+  display: table-cell;
+}
+
+mat-card{
+  background: #97e1c0;
+  margin: 15px;
+  padding: 0px;
+  width: fit-content;
+  height: auto;
+}
 
 .sensor {
+  /*display: flex;
+  flex-direction: row;*/
+  margin: 30px 0px 15px 0px;
+  padding: 20px;
+  text-align: center;
+}
+
+/*
+.sensor {
   border-radius: 5px;
-  /*border: 0px solid #04AA6D;*/
   margin: 30px 0px 15px 0px;
   padding: 20px;
   text-align: center;
@@ -52,22 +70,22 @@ h1 {
   background: #97e1c0;
   box-shadow: 10px 10px 5px #4f7364;
 }
+*/
 
 .sensor-name, .last-value {
-  /*width: 15%;*/
   border-radius: 5px;
-  /*border: 2px solid black;*/
-  margin: 2% 35% 2% 2%;
-  padding: 15px;
+  margin-right: 50px;
+  line-height: 36px;
+  padding: 5px;
   padding-right: 10px;
   padding-left: 10px;
-  background-color: #04AA6D;
-  color: white;
+  /*background-color: #04AA6D;*/
+  color: black;
   float: left;
   border: none;
-  cursor: pointer;
+  width: 100px;
 }
-
+/*
 
 button {
   float: right;
@@ -80,4 +98,5 @@ button {
   border: none;
   cursor: pointer;
 }
+*/
 

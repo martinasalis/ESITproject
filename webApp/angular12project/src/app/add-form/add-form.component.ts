@@ -8,6 +8,7 @@ import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component"
 import { MatDialog } from "@angular/material/dialog";
 import {Sensor, SensorService} from "../sensor.service";
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-add-form',
@@ -38,8 +39,13 @@ export class AddFormComponent implements OnInit {
   um = new FormControl('');
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: File.prototype, contentType: ""}};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
+
+  // Variable to store shortLink from api response
+  loading: boolean = false; // Flag variable
+  file: Buffer = require('buffer/').Buffer; // Variable to store file
+
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
@@ -69,9 +75,11 @@ export class AddFormComponent implements OnInit {
     // Check if the user is a patient or a doctor
     if(this.add_doctor) {
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', type: Type.DOCTOR};
-      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS, img: {data: this.image.value, contentType: "profile-image"}};
+      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS, img: {data: this.file, contentType: "profile-image"}};
 
-      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || newDoctor.dob == Date.prototype || newDoctor.mail == '' || newDoctor.phone == '' || newDoctor.role == '' || newDoctor.img == {data: File.prototype, contentType: ""}){
+      console.log(typeof newDoctor.dob);
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || newDoctor.mail == '' || newDoctor.phone == '' || newDoctor.role == '' || newDoctor.img == {data: Buffer.prototype, contentType: ""}){
+        console.log(newDoctor.dob);
         this.empty_field = true;
         this.openDialog();
       }
@@ -169,6 +177,18 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       })
     }
+  }
+
+  // On file Select
+  onChange(event: any) {
+    this.file = event.target.files[0];
+  }
+
+  // OnClick of button Upload
+  onUpload() {
+    this.doctorService.setImageProfile(this.file);
+    this.loading = !this.loading;
+    console.log(this.file);
   }
 
 

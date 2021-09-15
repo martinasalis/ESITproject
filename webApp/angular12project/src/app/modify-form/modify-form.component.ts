@@ -7,6 +7,7 @@ import { Patient, PatientService } from "../patient.service";
 import * as moment from "moment";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import {Sensor, SensorService} from "../sensor.service";
 
 @Component({
   selector: 'app-modify-form',
@@ -17,6 +18,7 @@ export class ModifyFormComponent implements OnInit {
 
   modify_doctor = false;
   modify_patient = false;
+  modify_sensor = false;
 
   username = new FormControl('');
   name = new FormControl('');
@@ -29,19 +31,24 @@ export class ModifyFormComponent implements OnInit {
   address = new FormControl('');
   role = new FormControl('');
   description = new  FormControl('');
+  image = new FormControl('');
+  um = new FormControl('');
+  name_sensor = new FormControl('');
 
   patientDoctor: String = '';
   doctorNotice: Notice = Notice.DEFAULT;
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: File.prototype, contentType: ""}};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  clickedSensor: Sensor = {_id: 0, name: '', um: ''}
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
-              private patientService: PatientService, public dialog: MatDialog) {
+              private patientService: PatientService, public dialog: MatDialog, private  sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
+      this.clickedSensor = this.router.getCurrentNavigation()?.extras.state?.clickedSensor;
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {
@@ -50,14 +57,15 @@ export class ModifyFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Set values
-    this.name.setValue(this.clickedRow.name);
-    this.surname.setValue(this.clickedRow.surname);
-    this.username.setValue(this.clickedRow.username);
-    this.tc.setValue(this.clickedRow._id);
 
-    if(this.clickedRow.type == Type.DOCTOR) {
+    if(this.clickedRow.type == Type.DOCTOR && this.clickedSensor._id == 0) {
       this.modify_doctor = true;
+
+      // Set values
+      this.name.setValue(this.clickedRow.name);
+      this.surname.setValue(this.clickedRow.surname);
+      this.username.setValue(this.clickedRow.username);
+      this.tc.setValue(this.clickedRow._id);
 
       // Set current values
       this.doctorService.info(this.clickedRow._id).subscribe((data: Doctor) => {
@@ -67,8 +75,14 @@ export class ModifyFormComponent implements OnInit {
         this.doctorNotice = data.notice;
       });
     }
-    else if(this.clickedRow.type == Type.PATIENT) {
+    else if(this.clickedRow.type == Type.PATIENT && this.clickedSensor._id == 0) {
       this.modify_patient = true;
+
+      // Set values
+      this.name.setValue(this.clickedRow.name);
+      this.surname.setValue(this.clickedRow.surname);
+      this.username.setValue(this.clickedRow.username);
+      this.tc.setValue(this.clickedRow._id);
 
       // Set current values
       this.patientService.info(this.clickedRow._id).subscribe((data: Patient) => {
@@ -80,6 +94,21 @@ export class ModifyFormComponent implements OnInit {
         this.patientDoctor = data.doctor;
         this.description.setValue(data.description);
       });
+    }
+    else if(this.clickedSensor._id != 0 && this.clickedRow.type == Type.DEFAULT){
+      console.log(this.clickedSensor);
+      this.modify_sensor = true;
+
+      // Set current values
+      this.sensorService.info(this.clickedSensor._id).subscribe((data: Sensor) => {
+        this.name_sensor.setValue(data.name);
+        this.um.setValue(data.um);
+        console.log(data);
+      });
+    }
+    else{
+      this.router.navigate(['home']).then();
+      this.openDialog();
     }
   }
 
@@ -97,7 +126,7 @@ export class ModifyFormComponent implements OnInit {
     // Check if the user is a patient or a doctor
     if(this.clickedRow.type == Type.DOCTOR) {
       let newDoctor: Doctor = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,
-        phone: this.phone.value, role: this.role.value, notice: this.doctorNotice, img: {data: this.doc.img.data, contentType: this.doc.img.contentType}};
+        phone: this.phone.value, role: this.role.value, notice: this.doctorNotice, img: {data: this.image.value, contentType: this.doc.img.contentType}};
       this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
         console.log(data);
       });
@@ -113,11 +142,19 @@ export class ModifyFormComponent implements OnInit {
       this.router.navigate(['home']).then();
       this.openDialog();
     }
+    else{
+      let newSensor: Sensor = {_id: this.clickedSensor._id, name: this.name_sensor.value, um: this.um.value};
+      this.sensorService.update(this.clickedSensor._id, newSensor).subscribe(data =>{
+        console.log(data);
+      });
+      this.router.navigate(['home']).then();
+      this.openDialog();
+    }
   }
 
   openDialog() {
 
-    if (this.clickedRow.type == Type.DOCTOR) {
+    if (this.clickedRow.type == Type.DOCTOR && this.clickedSensor._id == 0) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 1, flag: 2}
@@ -127,7 +164,7 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-    else if (this.clickedRow.type == Type.PATIENT) {
+    else if (this.clickedRow.type == Type.PATIENT && this.clickedSensor._id == 0) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 2, flag: 2}
@@ -137,10 +174,20 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-    else{
+    else if(this.clickedSensor._id != 0 && this.clickedRow.type == Type.DEFAULT){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 3, flag: 2}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      })
+    }
+    else{
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {flag: 8}
       });
 
       dialogRef.afterClosed().subscribe(result => {

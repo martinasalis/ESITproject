@@ -50,7 +50,20 @@
           </mat-form-field>
 
           <div>
-            <app-file-upload></app-file-upload>
+            <div class="text-center">
+              <input class="form-control" type="file"
+                     (change)="onChange($event)">
+
+              <button (click)="onUpload()"
+                      class="btn btn-success">
+                Upload
+              </button>
+            </div>
+
+            <!--Flag variable is used here-->
+            <div class="container" *ngIf="loading">
+              <h3>Caricato!</h3>
+            </div>
           </div>
 
           <button mat-button type="submit" (click)="add()">Aggiungi</button>
@@ -134,7 +147,7 @@
 
   <ng-template #Sensor>
     <div class="grandParentContainer" *ngIf="add_sensor">
-      <h1><b>Aggiunta Paziente</b></h1>
+      <h1><b>Aggiunta Sensore</b></h1>
       <div class="parentContainer">
         <form action="add-form.component.ts" method="post" id="add_form_sensor"> <!--[formGroup]="angForm" novalidate-->
 

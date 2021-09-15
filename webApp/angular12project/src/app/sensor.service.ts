@@ -26,7 +26,7 @@ export class SensorService {
    * @param {String} _id - ID of the sensor
    * @return {Sensor} - Sensor data
    */
-  info(_id: String): Observable<Sensor> {
+  info(_id: Number): Observable<Sensor> {
     const body = {_id: _id};
     return this.http.post<Sensor>(`${baseUrl}/infoSensor`, body);
   }
@@ -45,7 +45,7 @@ export class SensorService {
    * @param {String} _id - ID of the sensor
    * @param {Sensor} snr - New data
    */
-  update(_id: String, snr: Sensor): Observable<any> {
+  update(_id: Number, snr: Sensor): Observable<any> {
     const body = {_id: _id, info: {_id: snr._id, name: snr.name, um: snr.um}};
     return this.http.post(`${baseUrl}/updateSensor`, body);
   }
@@ -54,7 +54,7 @@ export class SensorService {
    * This function delete a sensor
    * @param {String} _id - ID of the sensor
    */
-  delete(_id: String): Observable<any> {
+  delete(_id: Number): Observable<any> {
     const body = {_id: _id};
     return this.http.post(`${baseUrl}/deleteSensor`, body);
   }

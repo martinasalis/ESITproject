@@ -1,6 +1,5 @@
 Martina:
 - link template grafici: https://www.htmlelements.com/angular/?gclid=CjwKCAjwp_GJBhBmEiwALWBQky6weTekRnCjsEkvIxHlMYxpnei04Ixfhg11WLR1j4WFYQJSNOBcXxoC6NMQAvD_BwE
-- Css sensori
 - Terminare pagine sensori
 - Aggiungere immagine profilo
 

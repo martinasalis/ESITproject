@@ -10,7 +10,7 @@ export class FileUploadComponent implements OnInit {
 
   // Variable to store shortLink from api response
   loading: boolean = false; // Flag variable
-  file: File = File.prototype; // Variable to store file
+  file: Buffer = Buffer.prototype; // Variable to store file
 
   // Inject service
   constructor(private doctorService: DoctorService) { }

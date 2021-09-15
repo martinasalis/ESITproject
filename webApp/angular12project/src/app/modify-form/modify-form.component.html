@@ -39,6 +39,20 @@
             <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
           </mat-form-field>
 
+          <mat-form-field>
+            <mat-label>Ruolo</mat-label>
+            <input matInput type="text" placeholder="" name="role" [formControl]="role" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Numero di Telefono</mat-label>
+            <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
+          </mat-form-field>
+
+          <div>
+            <app-file-upload></app-file-upload>
+          </div>
+
           <button mat-button type="submit" (click)="save()">Salva</button>
         </div>
 
@@ -114,6 +128,29 @@
   </ng-template>
 
   <ng-template #Sensor>
+    <div class="grandParentContainer" *ngIf="modify_sensor">
+      <h1><b>Modifica Sensore</b></h1>
+      <div class="parentContainer">
+        <form action="modify-form.component.ts" method="post" id="modify_form_sensor"> <!--[formGroup]="angForm" novalidate-->
+
+          <div class="container">
+
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" placeholder="" name="name" [formControl]="name_sensor" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Unità di misura</mat-label>
+              <input matInput type="text" placeholder="" name="um" [formControl]="um" required>
+            </mat-form-field>
+
+            <button mat-button (click)="save()">Salva</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
   </ng-template>
 
 </div>

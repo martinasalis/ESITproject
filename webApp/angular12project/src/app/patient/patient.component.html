@@ -43,12 +43,12 @@
 
 
         <h1><b>Sensori Paziente</b></h1>
-        <div *ngFor="let sensor of patBoardSensors; let i = index">
+        <div *ngFor="let sensor of patBoardSensors; let i = index" class="card-content">
           <mat-card>
             <div class="sensor">
-              <div class="sensor-name">{{sensor.sensor}}</div>
-              <div class="last-value">{{patBoardData.Items[patBoardData.Items.length -1].device_data.data[i].data}}</div>
-              <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
+                <div class="sensor-name">ID sensore: {{sensor.sensor}}</div>
+                <div class="last-value">Valore: {{patBoardData.Items[patBoardData.Items.length -1].device_data.data[i].data}}</div>
+                <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
             </div>
           </mat-card>
         </div>
