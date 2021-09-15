@@ -1,15 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { SensorData } from "./sensor.service";
 
 export interface Board {
   mac: String,
   patient: String
-}
-
-export interface BoardSensorData {
-  data: Array<SensorData>
 }
 
 const baseUrl = 'http://localhost:8080';

@@ -24,7 +24,6 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { AddFormComponent } from "./add-form/add-form.component";
 import { MatRadioModule } from "@angular/material/radio";
-import { SensorComponent } from './sensor/sensor.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { PageSensorComponent } from './page-sensor/page-sensor.component';
 import { MACAddressComponent } from './mac-address/mac-address.component';
@@ -46,7 +45,6 @@ import {MatSelectModule} from "@angular/material/select";
     PatientComponent,
     NoticeDialogComponent,
     AddFormComponent,
-    SensorComponent,
     PageSensorComponent,
     MACAddressComponent,
     FileUploadComponent

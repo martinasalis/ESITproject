@@ -41,10 +41,20 @@
         <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina paziente</button>
       </div>
 
-      <div class="sensor">
+
         <h1><b>Sensori Paziente</b></h1>
-        <div *ngFor="let num of patBoardData.Items[0].device_data.data"><app-sensor></app-sensor></div>
-      </div>
+        <div *ngFor="let sensor of patBoardSensors; let i = index">
+          <mat-card>
+            <div class="sensor">
+              <div class="sensor-name">{{sensor.sensor}}</div>
+              <div class="last-value">{{patBoardData.Items[0].device_data.data[i].data}}</div>
+              <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
+            </div>
+          </mat-card>
+        </div>
+
+
+
 
     </div>
   </ng-template>
