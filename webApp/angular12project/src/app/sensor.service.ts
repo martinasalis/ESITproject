@@ -5,14 +5,7 @@ import { Observable } from "rxjs";
 export interface Sensor {
   _id: String,
   name: String,
-  um: String,
-  min_threshold: Number,
-  max_threshold: Number
-}
-
-export interface SensorData {
-  data: Number,
-  sensor: Number
+  um: String
 }
 
 const baseUrl = 'http://localhost:8080';
@@ -23,7 +16,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class SensorService {
 
-  private sensor: Sensor = {_id: '', name: '', um: '', min_threshold: 0.0, max_threshold: 0.0};
+  private sensor: Sensor = {_id: '', name: '', um: ''};
   private sensors: Sensor[] = [];
 
   constructor(private http: HttpClient) { }
@@ -53,7 +46,7 @@ export class SensorService {
    * @param {Sensor} snr - New data
    */
   update(_id: String, snr: Sensor): Observable<any> {
-    const body = {_id: _id, info: {_id: snr._id, name: snr.name, um: snr.um, min_threshold: snr.min_threshold, max_threshold: snr.max_threshold}};
+    const body = {_id: _id, info: {_id: snr._id, name: snr.name, um: snr.um}};
     return this.http.post(`${baseUrl}/updateSensor`, body);
   }
 
@@ -71,7 +64,7 @@ export class SensorService {
    * @param {Sensor} snr - New sensor data
    */
   insert(snr: Sensor): Observable<any> {
-    const body = {name: snr.name, um: snr.um, min_threshold: snr.min_threshold, max_threshold: snr.max_threshold};
+    const body = {name: snr.name, um: snr.um};
     return this.http.post(`${baseUrl}/insertSensor`, body);
   }
 

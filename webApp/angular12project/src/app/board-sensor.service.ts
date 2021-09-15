@@ -5,8 +5,8 @@ import { Observable } from "rxjs";
 
 export interface BoardSensor {
   _id: String,
-  board: String,
-  sensor: String
+  sensor: String,
+  threshold: String
 }
 
 const baseUrl = 'http://localhost:8080';

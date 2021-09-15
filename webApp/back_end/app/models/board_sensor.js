@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 
 // define our user schema
 const boardSensorSchema = new Schema({
-    board: {type: String, default: ''},
-    sensor: {type: String, default: ''}
+    _id: {type: String, default: ''},   // Board MAC address
+    sensor: {type: String, default: ''},
+    threshold: {type: Number, default: 0.0}
 }, {versionKey: false});
 
 // module.exports allows us to pass this to other files when it is called
