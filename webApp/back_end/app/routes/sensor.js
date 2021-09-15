@@ -53,9 +53,21 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertSensor', function(req, res) {
-        console.log(req.body);
+
+        let new_id = 0;
+
+        // Get the number of sensors actually present in db
+        Sensor.find({}, function(err, snr) {
+            // Error
+            if(err)
+                console.log(err);
+
+            else
+                new_id = snr.length + 1; // New sensor ID
+        });
+
         // Insert a new sensor
-        Sensor.insertMany([{name: req.body.name, um: req.body.um}], function(err, snr) {
+        Sensor.insertMany([{_id: new_id, name: req.body.name, um: req.body.um}], function(err, snr) {
             // Error
             if(err)
                 res.send(err);
