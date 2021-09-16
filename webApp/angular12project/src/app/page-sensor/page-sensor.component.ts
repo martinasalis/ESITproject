@@ -22,6 +22,7 @@ export class PageSensorComponent implements OnInit {
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedSensor: any;
+  clickedPatient: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   index: number = 0;
   indices: string[] = [];
   chartData: any;
@@ -109,10 +110,17 @@ export class PageSensorComponent implements OnInit {
     this.chartOptions = {
       responsive: true,
       scales: {
-        y: {
-          beginAtZero: true
-        },
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'valore sensore'
+          }
+        }],
         xAxes:[{
+          scaleLabel: {
+            display: true,
+            labelString: 'minuti (m)'
+          },
           type: 'time',
           time: {
             format: "HH:mm:ss",
@@ -129,6 +137,10 @@ export class PageSensorComponent implements OnInit {
         }],
       }
     };
+  }
+
+  undo(): void {
+    this.router.navigate(['patient']).then();
   }
 
 

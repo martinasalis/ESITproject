@@ -1,5 +1,7 @@
 Martina:
 - Aggiungere immagine profilo
+- Aggiungi sensore al paziente tra quelli disponibili
+- Pagina per tornare indietro
 
 Luca:
 
@@ -10,3 +12,4 @@ TO DO:
 - Gestione primo accesso e recupero password
 - Funzionamento messaggi
 - Test
+- Visualizzare umitò di misura grafici
