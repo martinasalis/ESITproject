@@ -2,8 +2,8 @@ module.exports = {
     url : 'mongodb://localhost:27017/db_esit',
     aws_table_name : 'health_data',
     aws_remote_config : {
-        accessKeyId : 'AKIA5GKPL6PAWCVY2QUH',
-        secretAccessKey: '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',
+        accessKeyId : 'AKIA4WHTERDR4SV5MYH2',
+        secretAccessKey: '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',
         region : 'us-east-2'
     }
 }

@@ -31,6 +31,7 @@ import {MatFileUploadModule} from "angular-material-fileupload";
 import {MatCardModule} from "@angular/material/card";
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import {MatSelectModule} from "@angular/material/select";
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import {MatSelectModule} from "@angular/material/select";
         MatMenuModule,
         MatFileUploadModule,
         MatCardModule,
-        MatSelectModule
+        MatSelectModule,
+        ChartsModule
     ],
   providers: [
     FormBuilder

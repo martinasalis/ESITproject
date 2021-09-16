@@ -1,0 +1,38 @@
+.chart{
+  height: 350px;
+  width: 700px;
+  margin: 50px;
+  float: left;
+}
+
+.card-content{
+
+}
+
+mat-card{
+  background: #97e1c0;
+  margin: 15px;
+  padding: 20px;
+  width: auto;
+  height: auto;
+  float: left;
+}
+
+.content{
+  margin: 10px;
+}
+
+.text{
+  color: black;
+  font-size: 30px;
+  height: 25px;
+}
+
+.value{
+  color: black;
+  font-weight: bold;
+  font-size: 50px;
+  height: 35px;
+  text-align: center;
+  padding-top: 20px;
+}

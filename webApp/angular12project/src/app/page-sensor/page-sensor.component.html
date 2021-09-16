@@ -4,8 +4,16 @@
   </div>
 
   <div *ngIf="page_doctor; else page_patient">
-    <div>
-      <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="chart">
+      <canvas baseChart [chartType]="'line'" [legend]="true" [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions">
+      </canvas>
+    </div>
+
+    <div class="content">
+      <mat-card>
+        <div class="text">Valore corrente</div>
+        <div class="value">{{nums[nums.length-1]}}</div>
+      </mat-card>
     </div>
 
   </div>
