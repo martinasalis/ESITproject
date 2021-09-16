@@ -38,7 +38,7 @@ BearSSL::X509List client_crt(client_cert);
 BearSSL::PrivateKey key(privkey);
 
 //Initialize MQTT client
-MQTTClient client(160);
+MQTTClient client(180);
 
 unsigned long lastMs = 0;
 time_t now;
