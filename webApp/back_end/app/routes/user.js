@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const generator = require('generate-password');
 
 exports = module.exports = function(app) {
 
@@ -102,8 +103,17 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertUser', function(req, res) {
+
+        // Generate default password for new user
+        let password = generator.generate({
+            length: 10,
+            numbers: true
+        });
+
+        console.log(password);
+
         // Insert new user
-        User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: req.body.password, type: req.body.type}], function(err, user) {
+        User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: password, type: req.body.type}], function(err, user) {
             // Error
             if(err)
                 res.send(err);

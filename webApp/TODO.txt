@@ -1,17 +1,12 @@
 Martina:
-- link template grafici: https://www.htmlelements.com/angular/?gclid=CjwKCAjwp_GJBhBmEiwALWBQky6weTekRnCjsEkvIxHlMYxpnei04Ixfhg11WLR1j4WFYQJSNOBcXxoC6NMQAvD_BwE
-- Terminare pagine sensori
 - Aggiungere immagine profilo
 
 Luca:
-- Incremento id sensore
-- Creazione oggetto iot
 
 TO DO:
 - Caricamento dati nel database (immagini, modifica info)
 - Risolvere problema caricamento immagini
 - Gestione dati sensori (Creazione oggetto)
-- Aggiunta e rimozione sensore
 - Gestione primo accesso e recupero password
 - Funzionamento messaggi
 - Test

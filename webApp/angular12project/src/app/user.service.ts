@@ -98,7 +98,7 @@ export class UserService {
    * @param {User} user - Data of the new user
    */
   insert(user: User): Observable<any> {
-    const body = {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type};
+    const body = {_id: user._id, name: user.name, surname: user.surname, username: user.username, type: user.type};
     return this.http.post(`${baseUrl}/insertUser`, body);
   }
 
