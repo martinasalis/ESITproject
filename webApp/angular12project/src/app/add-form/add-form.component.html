@@ -145,6 +145,16 @@
               <input matInput type="text" placeholder="" name="um" [formControl]="um" required>
             </mat-form-field>
 
+            <mat-form-field>
+              <mat-label>Soglia sensore</mat-label>
+              <input matInput type="text" placeholder="" name="thr" [formControl]="thr" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Tipo sensore</mat-label>
+              <input matInput type="text" placeholder="" name="typeSensor" [formControl]="typeSensor" required>
+            </mat-form-field>
+
             <button mat-button (click)="add()">Aggiungi</button>
           </div>
 
@@ -162,14 +172,14 @@
           <div class="container">
 
             <mat-form-field appearance="fill">
-              <mat-label>Tipo sensore</mat-label>
-              <mat-select [formControl]="typeSensorControl" required>
+              <mat-label>Nome sensore</mat-label>
+              <mat-select [formControl]="sensorControl" required>
                 <mat-option [value]="">--</mat-option>
                 <mat-option *ngFor="let sen of sens" [value]="sen">
                   {{sen.name}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="typeSensorControl.hasError('required')">Inserisci sensore tra quelli presenti.</mat-error>
+              <mat-error *ngIf="sensorControl.hasError('required')">Inserisci sensore tra quelli presenti.</mat-error>
             </mat-form-field>
 
             <mat-form-field>

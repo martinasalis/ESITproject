@@ -70,7 +70,7 @@
       <mat-tab label="Dottori">
         <div class="content">
           <form class="search" action="home.component.ts" >
-            <input type="text" placeholder="Search.." name="search" [formControl]="searchString">
+            <input type="text" placeholder="Cerca..." name="search" [formControl]="searchString">
             <button mat-button (click)="searchAllDoctor()"><i class="fa fa-search"></i></button>
           </form>
 
@@ -113,7 +113,7 @@
       <mat-tab label="Pazienti">
         <div class="content">
           <form class="search" action="home.component.ts">
-            <input type="text" placeholder="Search.." name="search" [formControl]="searchString">
+            <input type="text" placeholder="Cerca..." name="search" [formControl]="searchString">
             <button mat-button (click)="searchAllPatient()"><i class="fa fa-search"></i></button>
           </form>
 
@@ -156,15 +156,15 @@
       <mat-tab label="Sensori">
         <div class="content">
           <form class="search" action="home.component.ts">
-            <input type="text" placeholder="Search.." name="search">
+            <input type="text" placeholder="Cerca per nome..." name="search" [formControl]="searchString">
             <button mat-button type="submit" (click)="searchAllSensor()"><i class="fa fa-search"></i></button>
           </form>
 
           <table mat-table [dataSource]="sens" class="mat-elevation-z8 pats_table" style="overflow-x: auto;">
             <!-- Sensor ID -->
             <ng-container matColumnDef="_id">
-              <th mat-header-cell *matHeaderCellDef>ID Sensore</th>
-              <td mat-cell *matCellDef="let element">{{ element._id }}</td>
+              <th mat-header-cell *matHeaderCellDef>Tipo Sensore</th>
+              <td mat-cell *matCellDef="let element">{{ element.type }}</td>
             </ng-container>
 
             <!-- Name -->

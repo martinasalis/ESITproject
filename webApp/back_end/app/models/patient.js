@@ -11,6 +11,7 @@ const patientSchema = new Schema({
     address: {type: String, default: ''},
     dor: {type: Date, default: Date.now},
     doctor: {type: String, default: ''},
+    board: {type: String, default: ''},
     description: {type: String, default: ''}
 }, {versionKey: false});
 

@@ -22,7 +22,7 @@ export class MACAddressComponent implements OnInit {
   pats_id: any;
 
   constructor(private userService: UserService, private router: Router, public dialog: MatDialog,
-              private boardService: BoardService, private patientService: PatientService) {
+              private patientService: PatientService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
@@ -44,8 +44,7 @@ export class MACAddressComponent implements OnInit {
 
   insert(): void {
     if(this.patientControl.value != '' && this.mac.value != '') {
-      let newBoard: Board = {mac: this.mac.value, patient: this.patientControl.value._id};
-      this.boardService.insert(newBoard).subscribe(data => {
+      this.patientService.insertBoard(this.patientControl.value, this.mac.value).subscribe(data => {
         console.log(data);
       });
       this.router.navigate(['home']).then();

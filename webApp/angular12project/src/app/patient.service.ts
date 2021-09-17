@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 
 export interface Patient {
   _id: String,
@@ -10,6 +10,7 @@ export interface Patient {
   address: String,
   dor: Date,
   doctor: String,
+  board: String,
   description: String
 }
 
@@ -21,7 +22,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class PatientService {
 
-  private patient: Patient = {_id: '', mail: '', phone: '', dob: Date.prototype, address: '', dor: Date.prototype, doctor: '', description: ''};
+  private patient: Patient = {_id: '', mail: '', phone: '', dob: Date.prototype, address: '', dor: Date.prototype, doctor: '', board: '', description: ''};
   private patients: Patient[] = [];
 
   constructor(private http: HttpClient) { }
@@ -34,6 +35,26 @@ export class PatientService {
   info(_id: String): Observable<Patient> {
     const body = {_id: _id};
     return this.http.post<Patient>(`${baseUrl}/infoPatient`, body);
+  }
+
+  /**
+   * This function insert new patient's board
+   * @param {Patient} patient - Patient data
+   * @param {String} board - Board's MAC
+   */
+  insertBoard(patient: Patient, board: String): Observable<any> {
+    const body = {_id: patient._id, board: board};
+    return this.http.post(`${baseUrl}/insertPatientBoard`, body);
+  }
+
+  /**
+   * Get data of sensors
+   * @param {Patient} patient - Patient's data
+   * @return - Sensors data
+   */
+  getBoardSensorData(patient: Patient): Observable<any> {
+    const body = {board: patient.board};
+    return this.http.post<any>(`${baseUrl}/boardSensorData`, body);
   }
 
   /**
@@ -61,7 +82,8 @@ export class PatientService {
    * @param {Patient} pat - New data
    */
   update(_id: String, pat: Patient): Observable<any> {
-    const body = {_id: _id, info: {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor}};
+    const body = {_id: _id, info: {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address,
+        dor: pat.dor, doctor: pat.doctor, board: pat.board, description: pat.description}};
     return this.http.post(`${baseUrl}/updatePatient`, body);
   }
 
@@ -79,7 +101,8 @@ export class PatientService {
    * @param {Patient} pat - New patient data
    */
   insert(pat: Patient): Observable<any> {
-    const body = {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor};
+    const body = {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor,
+      doctor: pat.doctor, board: pat.board, description: pat.description};
     return this.http.post(`${baseUrl}/insertPatient`, body);
   }
 

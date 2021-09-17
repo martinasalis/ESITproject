@@ -9,12 +9,7 @@ const doctorSchema = new Schema({
     phone: {type: String, default: ''},
     dob: {type: Date, default: Date.now},
     role: {type: String, default: ''},
-    notice: {type: String, enum: ['DEFAULT', 'E-MAIL', 'SMS', 'TELEGRAM'], default: ''},
-    img:
-        {
-            data: Buffer,
-            contentType: String
-        }
+    notice: {type: String, enum: ['DEFAULT', 'E-MAIL', 'SMS', 'TELEGRAM'], default: ''}
 }, {versionKey: false});
 
 // module.exports allows us to pass this to other files when it is called

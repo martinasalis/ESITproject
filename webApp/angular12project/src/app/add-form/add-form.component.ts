@@ -39,36 +39,29 @@ export class AddFormComponent implements OnInit {
   role = new FormControl('');
   doctor = new FormControl('');
   description = new FormControl('');
-  image = new FormControl('');
   um = new FormControl('');
   thr = new FormControl('');
   type = new FormControl('');
-  typeSensorControl = new FormControl('', Validators.required);
-
+  typeSensor = new FormControl('');
+  sensorControl = new FormControl('', Validators.required);
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
+  selectedPat: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   sens: Sensor[] = [];
 
-  // Variable to store shortLink from api response
-  loading: boolean = false; // Flag variable
-  file: Buffer = require('buffer/').Buffer; // Variable to store file
-
-
-  @ViewChild('UploadFileInput') uploadFileInput: ElementRef = {} as ElementRef;
-  myfilename = 'Select File';
-
-
-
-
-
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
-              private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService,
-              private boardService: BoardService, private boardSensorService: BoardSensorService) {
+              private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
       this.button = this.router.getCurrentNavigation()?.extras.state?.data;
+      this.selectedPat = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
+
+      if(this.selectedPat) {
+        this.patientService.info(this.selectedPat._id).subscribe((data: Patient) => {
+          this.pat = data;
+        });
+      }
     }
     else {
       this.router.navigate(['']).then();
@@ -76,20 +69,26 @@ export class AddFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    if(this.button == 0){
+    if(this.button == 0) {
       this.add_doctor = true;
-    }else if(this.button == 1){
+    }
+    else if(this.button == 1) {
       this.add_patient = true;
-    }else if(this.button == 2){
+    }
+    else if(this.button == 2) {
       this.add_sensor = true;
-    }else{
+    }
+    else {
       this.add_sensor_patient = true;
-      this.sensorService.allSensors().subscribe((data: Sensor[]) => {
+      this.sensorService.allFreeSensors().subscribe((data: Sensor[]) => {
         this.sens = data;
       });
     }
 
+    if(this.sens.length == 0 && this.add_sensor_patient) {
+      this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}}).then();
+      this.openDialog();
+    }
   }
 
   add(): void {
@@ -97,10 +96,9 @@ export class AddFormComponent implements OnInit {
     // Check if the user is a patient or a doctor
     if(this.add_doctor) {
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', type: Type.DOCTOR};
-      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS, img: {data: this.file, contentType: "profile-image"}};
+      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS};
 
-      console.log(typeof newDoctor.dob);
-      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || newDoctor.mail == '' || newDoctor.phone == '' || newDoctor.role == '' || newDoctor.img == {data: Buffer.prototype, contentType: ""}){
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || newDoctor.mail == '' || newDoctor.phone == '' || newDoctor.role == ''){
         console.log(newDoctor.dob);
         this.empty_field = true;
         this.openDialog();
@@ -119,7 +117,7 @@ export class AddFormComponent implements OnInit {
     }
     else if(this.add_patient) {
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', type: Type.PATIENT};
-      let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, description: this.description.value};
+      let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, board: '', description: this.description.value};
 
       if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || newPatient.dob == Date.prototype || newPatient.dor == Date.prototype ||newPatient.mail == '' || newPatient.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == ''){
         this.empty_field = true;
@@ -139,10 +137,10 @@ export class AddFormComponent implements OnInit {
       }
     }
     else if(this.add_sensor){
-      let newSensor: Sensor = {_id: 0, name: this.name.value, um: this.um.value};
-      console.log(newSensor);
+      console.log('ok');
+      let newSensor: Sensor = {_id: '', name: this.name.value, um: this.um.value, threshold: this.thr.value,type: this.typeSensor.value, board: ''};
 
-      if(newSensor.name == '' || newSensor.um == ''){
+      if(newSensor.name == '' || newSensor.um == '' || newSensor.threshold != 0 || newSensor.type != 0){
         this.empty_field = true;
         this.openDialog();
       }
@@ -155,29 +153,23 @@ export class AddFormComponent implements OnInit {
         this.openDialog();
       }
     }
-    else if(this.add_sensor_patient){
-      this.boardService.getBoardMAC(this.pat._id).subscribe((data:Board) => {
-        console.log(data.mac);
+    else if(this.add_sensor_patient) {
 
-        let newBoardSensor: BoardSensor = {_id: '', board: data.mac, sensor: this.typeSensorControl.value._id, threshold: this.thr.value};
-        console.log(newBoardSensor);
+      let newSensor: Sensor = {_id: this.sensorControl.value._id, name: this.sensorControl.value.name,
+        type: this.sensorControl.value.type, um: this.sensorControl.value.um, board: this.pat.board, threshold: this.thr.value};
 
-        if(newBoardSensor.threshold == ''){
-          this.empty_field = true;
-          this.openDialog();
-        }
-        else{
-          this.boardSensorService.insert(newBoardSensor).subscribe(data => {
-            console.log(data);
-          });
+      if(newSensor.threshold == 0){
+        this.empty_field = true;
+        this.openDialog();
+      }
+      else{
+        this.sensorService.insertBoard(newSensor).subscribe(data => {
+          console.log(data);
+        });
 
-          this.router.navigate(['home']).then();
-          this.openDialog();
-        }
-      });
-
-
-
+        this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}}).then();
+        this.openDialog();
+      }
     }
   }
 
@@ -221,9 +213,9 @@ export class AddFormComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-      })
+      });
     }
-    else if(this.add_sensor_patient){
+    else if(this.add_sensor_patient && this.sens.length != 0) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 4, flag: 3}
@@ -231,52 +223,18 @@ export class AddFormComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-      })
+      });
     }
-  }
-
-  // On file Select
-  onChange(event: any) {
-    this.file = event.target.files[0];
-  }
-
-  // OnClick of button Upload
-  onUpload() {
-    this.doctorService.setImageProfile(this.file);
-    this.loading = !this.loading;
-    console.log(this.file);
-  }
-
-  fileChangeEvent(fileInput: any) {
-
-    if (fileInput.target.files && fileInput.target.files[0]) {
-
-
-      this.myfilename = '';
-      Array.from(fileInput.target.files).forEach((file: any) => {
-        console.log(file);
-        this.myfilename += file.name + ',';
+    else {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {flag: 9}
       });
 
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const image = new Image();
-        image.src = e.target.result;
-        image.onload = rs => {
-
-          // Return Base64 Data URL
-          const imgBase64Path = e.target.result;
-
-        };
-      };
-      reader.readAsDataURL(fileInput.target.files[0]);
-
-      // Reset File Input to Selct Same file again
-      this.uploadFileInput.nativeElement.value = "";
-    } else {
-      this.myfilename = 'Select File';
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
     }
   }
-
 
 }

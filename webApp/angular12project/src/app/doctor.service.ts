@@ -15,11 +15,7 @@ export interface Doctor {
   phone: String,
   dob: Date,
   role: String,
-  notice: Notice,
-  img: {
-    data: Buffer,
-    contentType: String
-  }
+  notice: Notice
 }
 
 const baseUrl = 'http://localhost:8080';
@@ -30,7 +26,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class DoctorService {
 
-  private doctor: Doctor = {_id: '', mail: '', phone: '', dob: Date.prototype, role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
+  private doctor: Doctor = {_id: '', mail: '', phone: '', dob: Date.prototype, role: '', notice: Notice.DEFAULT};
   private img_profile: Buffer = Buffer.prototype;
 
   constructor(private http: HttpClient) { }
@@ -88,7 +84,7 @@ export class DoctorService {
    * @param {Doctor} doc - New doctor data
    */
   insert(doc: Doctor): Observable<any> {
-    const body = {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role, notice: doc.notice, img: {data: doc.img.data, contentType: doc.img.contentType}};
+    const body = {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role, notice: doc.notice};
     return this.http.post(`${baseUrl}/insertDoctor`, body);
   }
 

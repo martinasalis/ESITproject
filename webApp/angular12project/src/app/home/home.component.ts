@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit {
   displayedColumns: String[] = ['_id', 'name', 'surname'];
   displayedColumnsSensor: String[] = ['_id', 'name', 'um'];
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  clickedSensor: Sensor = {_id: 0, name: '', um: ''};
+  clickedSensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
   pats: User[] = [];
   docs: User[] = [];
   sens: Sensor[] = [];
@@ -131,7 +131,6 @@ export class HomeComponent implements OnInit {
             console.log(data);
           });
           // Delete sensor's patient
-
         }
       });
     }
@@ -202,7 +201,10 @@ export class HomeComponent implements OnInit {
    * This function search a sensor in the database which matches with param
    */
   searchAllSensor(): void {
-
+    this.sensorService.searchAll(this.searchString.value).subscribe((data: Sensor[]) => {
+      this.sensorService.setSensors(data);
+      this.sens = this.sensorService.getSensors();
+    });
   }
 
   visualize(): void {

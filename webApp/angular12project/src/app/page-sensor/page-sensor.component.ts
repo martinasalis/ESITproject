@@ -19,8 +19,8 @@ export class PageSensorComponent implements OnInit {
   page_doctor = false;
   page_patient = false;
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
+  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
+  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   clickedSensor: any;
   clickedPatient: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   index: number = 0;
@@ -35,6 +35,7 @@ export class PageSensorComponent implements OnInit {
   date_last2_day: string = '';
   date_last3_day: string = '';
   date: string = '';
+  um: String = '';
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
@@ -48,7 +49,11 @@ export class PageSensorComponent implements OnInit {
       let start_last_date = new Date(last_date.getFullYear(), last_date.getMonth(), last_date.getDate()).getTime();
       let end_last_date = new Date(last_date.getFullYear(), last_date.getMonth(), last_date.getDate(), 23,59,59).getTime();
 
-      for(let i = this.clickedSensor.Items.length-1; i >= 0; i--) {
+      this.sensorService.getUnitMeasure(this.clickedSensor.Items[0].device_data.data[this.index].sensor).subscribe((data: String) => {
+        this.um = data;
+      });
+
+      for(let i = this.clickedSensor.Items.length - 1; i >= 0; i--) {
 
         if(this.clickedSensor.Items[i].data_timestamp >= start_last_date && this.clickedSensor.Items[i].data_timestamp <= end_last_date) {
           const d = new Date(this.clickedSensor.Items[i].data_timestamp);
@@ -125,7 +130,7 @@ export class PageSensorComponent implements OnInit {
           type: 'time',
           time: {
             format: "HH:mm:ss",
-            unit: 'minute',
+            unit: 'second',
             unitStepSize: 10,
             displayFormats: {
               'second': 'HH:mm:ss',

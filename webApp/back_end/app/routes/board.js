@@ -87,27 +87,6 @@ exports = module.exports = function(app) {
                 });
             }
         });
-
-        // Insert a new board
-        Board.insertMany([{mac: req.body.board, patient: req.body.patient}], function(err, board) {
-            // Error occurred
-            if(err)
-                res.send(err);
-
-            else
-                res.json(board);
-        });
-    });
-
-    app.post('/getBoardMAC', function(req, res) {
-        // Get data of patient's board
-        Board.findOne({patient: req.body.patient}, function(err, board) {
-            // Error occurred
-            if(err)
-                res.send(err);
-
-            res.json(board);
-        });
     });
 
 };

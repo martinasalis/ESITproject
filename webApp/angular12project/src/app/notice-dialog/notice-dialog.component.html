@@ -132,9 +132,18 @@
 
 <!-- No selected row dialog -->
 <ng-template #no_selected>
-  <div>
+  <div *ngIf="data.flag == 8; else no_sensors">
     <mat-icon class="icon_error">error</mat-icon>
     <p>Non hai selezionato nessuna riga!</p>
+  </div>
+
+</ng-template>
+
+<!-- No sensors -->
+<ng-template #no_sensors>
+  <div>
+    <mat-icon class="icon_error">error</mat-icon>
+    <p>Non sono disponibili sensori!</p>
   </div>
 
 </ng-template>

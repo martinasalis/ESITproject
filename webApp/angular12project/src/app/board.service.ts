@@ -17,33 +17,4 @@ export class BoardService {
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * This function insert a new board in the system
-   * @param {Board} board - Data of new board
-   */
-  insert(board: Board): Observable<any> {
-    const body = {board: board.mac, patient: board.patient};
-    return this.http.post(`${baseUrl}/insertBoard`, body);
-  }
-
-  /**
-   * Get board MAC of patient
-   * @param {String} patient - Patient ID
-   * @return {Board} - Board data
-   */
-  getBoardMAC(patient: String): Observable<Board> {
-    const body = {patient: patient};
-    return this.http.post<Board>(`${baseUrl}/getBoardMAC`, body);
-  }
-
-  /**
-   * Get data of sensors
-   * @param {Board} board - Board data
-   * @return - Sensors data
-   */
-  getBoardSensorData(board: Board): Observable<any> {
-    const body = {board: board.mac};
-    return this.http.post<any>(`${baseUrl}/boardSensorData`, body);
-  }
-
 }

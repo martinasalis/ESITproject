@@ -24,13 +24,12 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { AddFormComponent } from "./add-form/add-form.component";
 import { MatRadioModule } from "@angular/material/radio";
-import {MatMenuModule} from "@angular/material/menu";
+import { MatMenuModule } from "@angular/material/menu";
 import { PageSensorComponent } from './page-sensor/page-sensor.component';
 import { MACAddressComponent } from './mac-address/mac-address.component';
-import {MatFileUploadModule} from "angular-material-fileupload";
-import {MatCardModule} from "@angular/material/card";
-import { FileUploadComponent } from './file-upload/file-upload.component';
-import {MatSelectModule} from "@angular/material/select";
+import { MatFileUploadModule } from "angular-material-fileupload";
+import { MatCardModule } from "@angular/material/card";
+import { MatSelectModule } from "@angular/material/select";
 import { ChartsModule } from 'ng2-charts';
 
 
@@ -47,8 +46,7 @@ import { ChartsModule } from 'ng2-charts';
     NoticeDialogComponent,
     AddFormComponent,
     PageSensorComponent,
-    MACAddressComponent,
-    FileUploadComponent
+    MACAddressComponent
   ],
     imports: [
         BrowserModule,

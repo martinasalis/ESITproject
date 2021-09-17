@@ -1,11 +1,6 @@
 const Sensor = require('../models/sensor');
-const AWS = require("aws-sdk");
 
 exports = module.exports = function(app) {
-
-    AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
-    AWS.config.update({region: 'us-east-2'});
-    const docClient = new AWS.DynamoDB.DocumentClient();
 
     // server routes ===========================================================
 
@@ -20,9 +15,42 @@ exports = module.exports = function(app) {
         });
     });
 
+    app.post('/insertSensorBoard', function(req, res) {
+        // Insert a new sensor in patient's board
+        Sensor.updateOne({_id: req.body._id}, {board: req.body.board, threshold: req.body.threshold}, function(err, snr) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(snr);
+        });
+    });
+
+    app.post('/deleteAllSensorBoard', function(req, res) {
+        // Delete all sensor of patient's board
+        Sensor.deleteMany({board: req.body.board}, function(err, snr) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(snr);
+        });
+    });
+
+    app.post('/getAllSensorBoard', function(req, res) {
+        // Get all sensors of a specific board
+        Sensor.find({board: req.body.board}, function(err, snr) {
+            // Error occurred
+            if(err)
+                res.send(err);
+
+            res.json(snr);
+        });
+    });
+
     app.post('/getUnitMeasure', function(req, res) {
         // Get unit measure of a sensor
-        Sensor.findOne({_id: req.body.sensor}, function(err, snr) {
+        Sensor.findOne({type: req.body.type}, function(err, snr) {
             // Error occurred
             if(err)
                 res.send(err);
@@ -34,6 +62,17 @@ exports = module.exports = function(app) {
     app.post('/allSensors', function(req, res) {
         // Get all sensors
         Sensor.find({}, function(err, snr) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(snr);
+        });
+    });
+
+    app.post('/allFreeSensors', function(req, res) {
+        // Get all sensors
+        Sensor.find({board: ''}, function(err, snr) {
             // Error
             if(err)
                 res.send(err);
@@ -87,35 +126,19 @@ exports = module.exports = function(app) {
         });
     });
 
-    app.post('/boardSensorData', function(req, res) {
+    app.post('/searchSensors', function(req, res) {
+        let param = req.body.param;
+        console.log(param);
 
-        console.log(req.body);
+        // Get a sensor that match with param
+        Sensor.find({name: {$regex: param, $options: 'i'}},
+            function(err, snr) {
+                // Error
+                if(err)
+                    res.send(err);
 
-        const params = {
-            "TableName": "health_data",
-            "KeyConditionExpression": "#DYNOBASE_mac_address = :pkey",
-            "ExpressionAttributeValues": {
-                ":pkey": req.body.board
-            },
-            "ExpressionAttributeNames": {
-                "#DYNOBASE_mac_address": "mac_address"
-            },
-            "ScanIndexForward": true
-        };
-
-
-        docClient.query(params, function(err, data){
-            if(err){
-                res.send(err);
-            }
-            else{
-                res.send(data);
-
-                data.Items.forEach(function(element, index, array) {
-                    console.log(element.device_data);
-                });
-            }
-        });
+                res.json(snr);
+            });
     });
 
 };
