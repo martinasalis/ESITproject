@@ -4,7 +4,7 @@ import {Type, User, UserService} from "../user.service";
 import {Doctor, DoctorService, Notice} from "../doctor.service";
 import {Patient, PatientService} from "../patient.service";
 import {MatDialog} from "@angular/material/dialog";
-import {Sensor} from "../sensor.service";
+import {Sensor, SensorService} from "../sensor.service";
 import { ChartsModule } from 'ng2-charts';
 import * as moment from "moment";
 
@@ -37,11 +37,12 @@ export class PageSensorComponent implements OnInit {
   date: string = '';
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
-              private patientService: PatientService, public dialog: MatDialog) {
+              private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
       this.clickedSensor = this.router.getCurrentNavigation()?.extras.state?.boardData;
       this.index = this.router.getCurrentNavigation()?.extras.state?.index;
+      this.clickedPatient = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
 
       let last_date = new Date(this.clickedSensor.Items[this.clickedSensor.Items.length - 1].data_timestamp);
       let start_last_date = new Date(last_date.getFullYear(), last_date.getMonth(), last_date.getDate()).getTime();
@@ -140,7 +141,7 @@ export class PageSensorComponent implements OnInit {
   }
 
   undo(): void {
-    this.router.navigate(['patient']).then();
+    this.router.navigate(['patient'], {state: {clickedUser: this.clickedPatient}}).then();
   }
 
 

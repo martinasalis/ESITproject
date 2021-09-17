@@ -49,23 +49,6 @@
             <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
           </mat-form-field>
 
-          <div>
-            <div class="text-center">
-              <input class="form-control" type="file"
-                     (change)="onChange($event)">
-
-              <button (click)="onUpload()"
-                      class="btn btn-success">
-                Upload
-              </button>
-            </div>
-
-            <!--Flag variable is used here-->
-            <div class="container" *ngIf="loading">
-              <h3>Caricato!</h3>
-            </div>
-          </div>
-
           <button mat-button type="submit" (click)="add()">Aggiungi</button>
         </div>
 
@@ -146,7 +129,7 @@
   </ng-template>
 
   <ng-template #Sensor>
-    <div class="grandParentContainer" *ngIf="add_sensor">
+    <div class="grandParentContainer" *ngIf="add_sensor, else PatientSensor">
       <h1><b>Aggiunta Sensore</b></h1>
       <div class="parentContainer">
         <form action="add-form.component.ts" method="post" id="add_form_sensor"> <!--[formGroup]="angForm" novalidate-->
@@ -160,6 +143,38 @@
             <mat-form-field>
               <mat-label>Unità di misura</mat-label>
               <input matInput type="text" placeholder="" name="um" [formControl]="um" required>
+            </mat-form-field>
+
+            <button mat-button (click)="add()">Aggiungi</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #PatientSensor>
+    <div class="grandParentContainer" *ngIf="add_sensor_patient">
+      <h1><b>Aggiunta Sensore al Paziente</b></h1>
+      <div class="parentContainer">
+        <form action="add-form.component.ts" method="post" id="add_form_doctor_sensor"> <!--[formGroup]="angForm" novalidate-->
+
+          <div class="container">
+
+            <mat-form-field appearance="fill">
+              <mat-label>Tipo sensore</mat-label>
+              <mat-select [formControl]="typeSensorControl" required>
+                <mat-option [value]="">--</mat-option>
+                <mat-option *ngFor="let sen of sens" [value]="sen">
+                  {{sen.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="typeSensorControl.hasError('required')">Inserisci sensore tra quelli presenti.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Soglia</mat-label>
+              <input matInput type="number" placeholder="" name="thr" [formControl]="thr" required>
             </mat-form-field>
 
             <button mat-button (click)="add()">Aggiungi</button>

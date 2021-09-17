@@ -1,15 +1,12 @@
 Martina:
-- Aggiungere immagine profilo
-- Aggiungi sensore al paziente tra quelli disponibili
-- Pagina per tornare indietro
+- Elimina sensore
+- Visualizzare umità di misura grafici
 
 Luca:
 
 TO DO:
-- Caricamento dati nel database (immagini, modifica info)
-- Risolvere problema caricamento immagini
-- Gestione dati sensori (Creazione oggetto)
+- Caricamento dati nel database (modifica info)
 - Gestione primo accesso e recupero password
 - Funzionamento messaggi
 - Test
-- Visualizzare umitò di misura grafici
+

@@ -42,13 +42,14 @@ export class ModifyFormComponent implements OnInit {
   doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT, img: {data: Buffer.prototype, contentType: ""}};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  clickedSensor: Sensor = {_id: 0, name: '', um: ''}
+  clickedSensor: Sensor = {_id: 0, name: '', um: ''};
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private  sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
       this.clickedSensor = this.router.getCurrentNavigation()?.extras.state?.clickedSensor;
+      console.log(this.clickedSensor);
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {

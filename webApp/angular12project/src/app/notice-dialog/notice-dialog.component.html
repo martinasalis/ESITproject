@@ -72,8 +72,15 @@
     </ng-template>
 
     <ng-template #elseBlock>
+      <div *ngIf="data.res == 3; else else2Block">
+        <mat-icon class="icon_modify">check</mat-icon>
+        <p>L'aggiunta del sensore è stata effettuata con successo</p>
+      </div>
+    </ng-template>
+
+    <ng-template #else2Block>
       <mat-icon class="icon_modify">check</mat-icon>
-      <p>L'aggiunta del sensore è stata effettuata con successo</p>
+      <p>L'aggiunta del sensore al paziente è stata effettuata con successo</p>
     </ng-template>
 
     <div mat-dialog-actions align="end">

@@ -16,6 +16,7 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertBoardSensors', function (req, res) {
+        console.log(req.body);
         // Insert a new sensor in patient's board
         BoardSensor.insertMany([{board: req.body.board, sensor: req.body.sensor, threshold: req.body.threshold}], function(err, doc) {
             // Error

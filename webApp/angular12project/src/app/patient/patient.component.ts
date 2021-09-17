@@ -8,6 +8,7 @@ import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {BoardService, Board} from "../board.service";
 import {BoardSensor, BoardSensorService} from "../board-sensor.service";
+import {Sensor} from "../sensor.service";
 
 @Component({
   selector: 'app-patient',
@@ -29,6 +30,7 @@ export class PatientComponent implements OnInit {
   patBoardSensors: BoardSensor[] = [];
   patBoardData: any;
   sensor: BoardSensor = {_id: '', board: '', sensor: '', threshold: ''};
+  clickedSensor: Sensor = {_id: 0, name: '', um: ''}
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, private boardService: BoardService, public dialog: MatDialog,
@@ -141,15 +143,15 @@ export class PatientComponent implements OnInit {
 
 
   modify(): void {
-    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow}}).then();
+    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}}).then();
   }
 
   add_sensor(): void {
-
+    this.router.navigate(['add-form'], {state: {data: 3}}).then();
   }
 
   visualize(i: Number): void {
-    this.router.navigate(['page-sensor'], {state: {boardData: this.patBoardData, index: i}}).then();
+    this.router.navigate(['page-sensor'], {state: {boardData: this.patBoardData, index: i, clickedUser: this.clickedRow}}).then();
   }
 
 }
