@@ -6,8 +6,8 @@ import { PageInfoComponent } from "./page-info/page-info.component";
 import { PatientComponent } from "./patient/patient.component";
 import { ModifyFormComponent } from "./modify-form/modify-form.component";
 import { AddFormComponent } from "./add-form/add-form.component";
-import {PageSensorComponent} from "./page-sensor/page-sensor.component";
-import {MACAddressComponent} from "./mac-address/mac-address.component";
+import { PageSensorComponent } from "./page-sensor/page-sensor.component";
+import { MACAddressComponent } from "./mac-address/mac-address.component";
 
 const routes: Routes = [
   {path: '', component: LoginFormComponent},

@@ -7,7 +7,7 @@ import { Patient, PatientService } from "../patient.service";
 import * as moment from "moment";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
-import {Sensor, SensorService} from "../sensor.service";
+import { Sensor, SensorService } from "../sensor.service";
 
 @Component({
   selector: 'app-modify-form',

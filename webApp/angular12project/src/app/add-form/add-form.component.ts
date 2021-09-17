@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
+import { FormControl, Validators } from "@angular/forms";
 import { Type, User, UserService } from "../user.service";
 import { Doctor, DoctorService, Notice } from "../doctor.service";
 import { Patient, PatientService } from "../patient.service";
 import { Router } from "@angular/router";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
-import {Sensor, SensorService} from "../sensor.service";
-import { MatFileUploadModule } from 'angular-material-fileupload';
-import * as moment from "moment";
-import {BoardSensor, BoardSensorService} from "../board-sensor.service";
-import { ViewChild, ElementRef } from '@angular/core';
-import {Board, BoardService} from "../board.service";
+import { Sensor, SensorService } from "../sensor.service";
 
 @Component({
   selector: 'app-add-form',

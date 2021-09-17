@@ -1,14 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Type, User, UserService} from "../user.service";
-import {DoctorService} from "../doctor.service";
-import {Patient, PatientService} from "../patient.service";
-import {Router} from "@angular/router";
-import {FormControl} from "@angular/forms";
-import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {BoardService, Board} from "../board.service";
-import {BoardSensor, BoardSensorService} from "../board-sensor.service";
-import {Sensor, SensorService} from "../sensor.service";
+import { Component, OnInit } from '@angular/core';
+import { Type, User, UserService } from "../user.service";
+import { DoctorService } from "../doctor.service";
+import { Patient, PatientService } from "../patient.service";
+import { Router } from "@angular/router";
+import { FormControl } from "@angular/forms";
+import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { Sensor, SensorService } from "../sensor.service";
 
 @Component({
   selector: 'app-patient',
@@ -26,10 +24,8 @@ export class PatientComponent implements OnInit {
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
   pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  patBoard: Board = {mac: '', patient: ''};
   patBoardSensors: Sensor[] = [];
   patBoardData: any;
-  sensor: BoardSensor = {_id: '', board: '', sensor: '', threshold: ''};
   clickedSensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,

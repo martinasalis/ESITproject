@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {Type, User, UserService} from "../user.service";
-import {Doctor, DoctorService, Notice} from "../doctor.service";
-import {Patient, PatientService} from "../patient.service";
-import {MatDialog} from "@angular/material/dialog";
-import {Sensor, SensorService} from "../sensor.service";
-import { ChartsModule } from 'ng2-charts';
-import * as moment from "moment";
+import { Router } from "@angular/router";
+import { Type, User, UserService } from "../user.service";
+import { Doctor, DoctorService, Notice } from "../doctor.service";
+import { Patient, PatientService } from "../patient.service";
+import { MatDialog } from "@angular/material/dialog";
+import { SensorService } from "../sensor.service";
 
 @Component({
   selector: 'app-page-sensor',

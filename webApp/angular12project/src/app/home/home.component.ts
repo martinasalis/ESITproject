@@ -6,9 +6,7 @@ import { Patient, PatientService } from "../patient.service";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { FormControl } from "@angular/forms";
-import {Sensor, SensorService} from "../sensor.service";
-import {BoardSensorService} from "../board-sensor.service";
-import {BoardService} from "../board.service";
+import { Sensor, SensorService } from "../sensor.service";
 
 @Component({
   selector: 'app-home',
@@ -39,8 +37,7 @@ export class HomeComponent implements OnInit {
   sens: Sensor[] = [];
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
-              private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService,
-              private boardSensorService: BoardSensorService, private boardService: BoardService) {
+              private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }

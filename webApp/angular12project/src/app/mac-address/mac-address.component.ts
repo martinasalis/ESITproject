@@ -4,8 +4,7 @@ import { Type, User, UserService } from "../user.service";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
-import { BoardService, Board } from "../board.service";
-import {Patient, PatientService} from "../patient.service";
+import { Patient, PatientService } from "../patient.service";
 
 @Component({
   selector: 'app-mac-address',

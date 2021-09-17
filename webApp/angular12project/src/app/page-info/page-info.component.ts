@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Type, User, UserService } from "../user.service";
 import { Router } from "@angular/router";
 import { Doctor, DoctorService, Notice } from "../doctor.service";
-import { PatientService, Patient } from "../patient.service";
+import { Patient } from "../patient.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
