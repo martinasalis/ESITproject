@@ -157,7 +157,7 @@
         <div class="content">
           <form class="search" action="home.component.ts">
             <input type="text" placeholder="Search.." name="search">
-            <button mat-button type="submit"><i class="fa fa-search"></i></button>
+            <button mat-button type="submit" (click)="searchAllSensor()"><i class="fa fa-search"></i></button>
           </form>
 
           <table mat-table [dataSource]="sens" class="mat-elevation-z8 pats_table" style="overflow-x: auto;">

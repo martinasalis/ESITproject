@@ -7,6 +7,8 @@ import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component"
 import { MatDialog } from "@angular/material/dialog";
 import { FormControl } from "@angular/forms";
 import {Sensor, SensorService} from "../sensor.service";
+import {BoardSensorService} from "../board-sensor.service";
+import {BoardService} from "../board.service";
 
 @Component({
   selector: 'app-home',
@@ -37,7 +39,8 @@ export class HomeComponent implements OnInit {
   sens: Sensor[] = [];
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
-              private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
+              private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService,
+              private boardSensorService: BoardSensorService, private boardService: BoardService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
@@ -127,6 +130,8 @@ export class HomeComponent implements OnInit {
           this.patientService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
+          // Delete sensor's patient
+
         }
       });
     }
@@ -137,6 +142,12 @@ export class HomeComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          // Delete sensor
+          this.sensorService.delete(this.clickedSensor._id).subscribe(data => {
+            console.log(data);
+          });
+        }
       });
     }
   }
@@ -185,6 +196,13 @@ export class HomeComponent implements OnInit {
       this.userService.setDoctors(data);
       this.docs = this.userService.getDoctors();
     });
+  }
+
+  /**
+   * This function search a sensor in the database which matches with param
+   */
+  searchAllSensor(): void {
+
   }
 
   visualize(): void {
