@@ -1,11 +1,9 @@
 Martina:
 - Elimina sensore
-- Visualizzare umità di misura grafici
 
 Luca:
 
 TO DO:
-- Caricamento dati nel database (modifica info)
 - Gestione primo accesso e recupero password
 - Funzionamento messaggi
 - Test
