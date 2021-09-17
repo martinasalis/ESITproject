@@ -15,4 +15,15 @@ exports = module.exports = function(app) {
         });
     });
 
+    app.post('/insertBoardSensors', function (req, res) {
+        // Insert a new sensor in patient's board
+        BoardSensor.insertMany([{board: req.body.board, sensor: req.body.sensor, threshold: req.body.threshold}], function(err, doc) {
+            // Error
+            if(err)
+                res.send(err);
+
+            res.json(doc);
+        });
+    });
+
 };

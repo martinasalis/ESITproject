@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 // define our user schema
 const boardSensorSchema = new Schema({
-    _id: {type: String, default: ''},   // Board MAC address
+    board: {type: String, default: ''},
     sensor: {type: String, default: ''},
     threshold: {type: Number, default: 0.0}
 }, {versionKey: false});

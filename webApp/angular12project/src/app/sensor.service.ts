@@ -41,6 +41,16 @@ export class SensorService {
   }
 
   /**
+   * This function get the unit measure of a sensor
+   * @param {String} _id - Sensor ID
+   * @return {String} - Sensor unit measure
+   */
+  getUnitMeasure(_id: Number): Observable<String> {
+    const body = {sensor: _id};
+    return this.http.post<String>(`${baseUrl}/getUnitMeasure`, body);
+  }
+
+  /**
    * This function update the data af a sensor
    * @param {String} _id - ID of the sensor
    * @param {Sensor} snr - New data

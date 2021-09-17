@@ -1,10 +1,10 @@
 const Sensor = require('../models/sensor');
-const db = require("../../config/db");
 const AWS = require("aws-sdk");
 
 exports = module.exports = function(app) {
 
-    AWS.config.update(db.aws_remote_config);
+    AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+    AWS.config.update({region: 'us-east-2'});
     const docClient = new AWS.DynamoDB.DocumentClient();
 
     // server routes ===========================================================
@@ -17,6 +17,17 @@ exports = module.exports = function(app) {
                 res.send(err);
 
             res.json(snr);
+        });
+    });
+
+    app.post('/getUnitMeasure', function(req, res) {
+        // Get unit measure of a sensor
+        Sensor.findOne({_id: req.body.sensor}, function(err, snr) {
+            // Error occurred
+            if(err)
+                res.send(err);
+
+            res.json(snr.um);
         });
     });
 

@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 
 export interface BoardSensor {
   _id: String,
+  board: String,
   sensor: String,
   threshold: String
 }
@@ -26,6 +27,15 @@ export class BoardSensorService {
   boardSensors(board: Board): Observable<BoardSensor[]> {
     const body = {board: board.mac};
     return this.http.post<BoardSensor[]>(`${baseUrl}/boardSensors`, body);
+  }
+
+  /**
+   * This function insert a new sensor in the patient's board
+   * @param {BoardSensor} boardSensor - Sensor data
+   */
+  insert(boardSensor: BoardSensor): Observable<any> {
+    const body = {board: boardSensor.board, sensor: boardSensor.sensor, threshold: boardSensor.threshold};
+    return this.http.post(`${baseUrl}/insertBoardSensors`, body);
   }
 
 }

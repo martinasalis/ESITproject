@@ -28,7 +28,7 @@ export class PatientComponent implements OnInit {
   patBoard: Board = {mac: '', patient: ''};
   patBoardSensors: BoardSensor[] = [];
   patBoardData: any;
-  sensor: BoardSensor = {_id: '', sensor: '', threshold: ''};
+  sensor: BoardSensor = {_id: '', board: '', sensor: '', threshold: ''};
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, private boardService: BoardService, public dialog: MatDialog,
