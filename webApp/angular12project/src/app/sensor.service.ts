@@ -101,6 +101,15 @@ export class SensorService {
   }
 
   /**
+   * This function delete all sensor associate to a board
+   * @param {String} board - Board's MAC
+   */
+  deleteAllSensorBoard(board: String): Observable<any> {
+    const body = {board: board};
+    return this.http.post(`${baseUrl}/deleteAllSensorBoard`, body);
+  }
+
+  /**
    * This function insert a new sensor
    * @param {Sensor} snr - New sensor data
    */

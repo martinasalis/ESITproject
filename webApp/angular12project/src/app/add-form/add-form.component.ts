@@ -111,10 +111,12 @@ export class AddFormComponent implements OnInit {
       }
     }
     else if(this.add_patient) {
+      console.log('ok');
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', type: Type.PATIENT};
       let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, board: '', description: this.description.value};
 
-      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || newPatient.dob == Date.prototype || newPatient.dor == Date.prototype ||newPatient.mail == '' || newPatient.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == ''){
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || this.dor.value == '' || newPatient.mail == '' || newPatient.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == ''){
+        console.log('ok');
         this.empty_field = true;
         this.openDialog();
       }
@@ -178,7 +180,9 @@ export class AddFormComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-      })
+      });
+
+      this.empty_field = false;
     }
     else if (this.add_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {

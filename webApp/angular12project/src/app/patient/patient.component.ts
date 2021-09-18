@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Type, User, UserService } from "../user.service";
-import { DoctorService } from "../doctor.service";
-import { Patient, PatientService } from "../patient.service";
-import { Router } from "@angular/router";
-import { FormControl } from "@angular/forms";
-import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
-import { MatDialog } from "@angular/material/dialog";
-import { Sensor, SensorService } from "../sensor.service";
+import {Component, OnInit} from '@angular/core';
+import {Type, User, UserService} from "../user.service";
+import {DoctorService} from "../doctor.service";
+import {Patient, PatientService} from "../patient.service";
+import {Router} from "@angular/router";
+import {FormControl} from "@angular/forms";
+import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {Sensor, SensorService} from "../sensor.service";
 
 @Component({
   selector: 'app-patient',
@@ -40,29 +40,34 @@ export class PatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.user.type == Type.PATIENT){
+    let patient: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+
+    if(this.user.type == Type.PATIENT) {
       this.page_patient = true;
       this.navbar = true;
       this.patientService.info(this.user._id).subscribe((data: Patient) => {
         this.patientService.setPatient(data);
         this.pat = this.patientService.getPatient();
       });
-
+      patient = this.user;
     }
-    else if(this.user.type == Type.ADMIN){
+    else if(this.user.type == Type.ADMIN) {
       this.page_admin = true;
       this.navbar = true;
     }
+    else {
+      patient = this.clickedRow;
+    }
 
-    if(this.clickedRow.type == Type.PATIENT){
+    if(patient.type == Type.PATIENT) {
       this.page_info = true;
       this.navbar = true;
 
-      this.userService.info(this.clickedRow._id).subscribe((data: User) => {
+      this.userService.info(patient._id).subscribe((data: User) => {
         console.log(data);
       });
 
-      this.patientService.info(this.clickedRow._id).subscribe((data: Patient) => {
+      this.patientService.info(patient._id).subscribe((data: Patient) => {
         this.patientService.setPatient(data);
         this.pat = this.patientService.getPatient();
 
@@ -75,7 +80,6 @@ export class PatientComponent implements OnInit {
         });
       });
     }
-
   }
 
   openDialog() {

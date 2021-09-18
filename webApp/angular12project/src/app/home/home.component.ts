@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
 
   openDialog() {
 
-    if (this.clickedRow.type == Type.DOCTOR) {
+    if (this.clickedRow.type == Type.DOCTOR && this.clickedSensor._id == '') {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 1, flag: 1}
@@ -108,10 +108,11 @@ export class HomeComponent implements OnInit {
           this.doctorService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
+          this.router.navigate(['home']).then();
         }
       });
     }
-    else if (this.clickedRow.type == Type.PATIENT) {
+    else if (this.clickedRow.type == Type.PATIENT && this.clickedSensor._id == '') {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 2, flag: 1}
@@ -119,6 +120,12 @@ export class HomeComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if(result) {
+          // Delete sensor's patient
+          this.patientService.info(this.clickedRow._id).subscribe((data: Patient) => {
+            this.sensorService.deleteAllSensorBoard(data.board).subscribe(data => {
+              console.log(data);
+            });
+          });
           // Delete user
           this.userService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
@@ -127,11 +134,11 @@ export class HomeComponent implements OnInit {
           this.patientService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
-          // Delete sensor's patient
+          this.router.navigate(['home']).then();
         }
       });
     }
-    else {
+    else if(this.clickedSensor._id != '' && this.clickedRow.type == Type.DEFAULT){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 3, flag: 1}
@@ -143,7 +150,18 @@ export class HomeComponent implements OnInit {
           this.sensorService.delete(this.clickedSensor._id).subscribe(data => {
             console.log(data);
           });
+          this.router.navigate(['home']).then();
         }
+      });
+    }
+    else {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {flag: 8}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
       });
     }
   }

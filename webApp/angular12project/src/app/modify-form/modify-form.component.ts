@@ -76,6 +76,7 @@ export class ModifyFormComponent implements OnInit {
         this.mail.setValue(data.mail);
         this.phone.setValue(data.phone);
         this.doctorNotice = data.notice;
+        this.role.setValue(data.role);
       });
     }
     else if(this.clickedRow.type == Type.PATIENT && this.clickedSensor._id == '') {
@@ -189,7 +190,7 @@ export class ModifyFormComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-      })
+      });
     }
     else{
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
@@ -199,7 +200,7 @@ export class ModifyFormComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-      })
+      });
     }
   }
 
