@@ -24,6 +24,7 @@ export class PageSensorComponent implements OnInit {
   index: number = 0;
   indices: string[] = [];
   chartData: any;
+  charSingleData: any;
   chartLabels: any;
   chartOptions: any;
   last_day: number[] = [];
@@ -108,6 +109,12 @@ export class PageSensorComponent implements OnInit {
       }
     ];
 
+    this.charSingleData = [
+      {
+        data: this.last_day,
+        label: 'Dati sensore in data: ' + this.date_last_day
+      }
+    ];
 
     this.chartLabels = this.indices;
 
