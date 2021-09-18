@@ -43,11 +43,13 @@ export class MACAddressComponent implements OnInit {
 
   insert(): void {
     if(this.patientControl.value != '' && this.mac.value != '') {
-      this.patientService.insertBoard(this.patientControl.value, this.mac.value).subscribe(data => {
-        console.log(data);
+      this.patientService.info(this.patientControl.value._id).subscribe((pat: Patient) => {
+        this.patientService.insertBoard(pat, this.mac.value).subscribe(data => {
+          console.log(data);
+        });
+        this.router.navigate(['home']).then();
+        this.openDialog();
       });
-      this.router.navigate(['home']).then();
-      this.openDialog();
     }
     else{
       this.openDialog();

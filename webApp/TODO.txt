@@ -1,10 +1,8 @@
 Martina:
-- Elimina sensore
+- Gestione primo accesso e recupero password
 
 Luca:
 
 TO DO:
-- Gestione primo accesso e recupero password
 - Funzionamento messaggi
 - Test
-

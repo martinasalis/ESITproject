@@ -43,7 +43,7 @@ export class PatientService {
    * @param {String} board - Board's MAC
    */
   insertBoard(patient: Patient, board: String): Observable<any> {
-    const body = {_id: patient._id, board: board};
+    const body = {patient: patient, board: board};
     return this.http.post(`${baseUrl}/insertPatientBoard`, body);
   }
 

@@ -1,5 +1,6 @@
 const Patient = require('../models/patient');
 const AWS = require("aws-sdk");
+const Doctor = require("../models/doctor");
 
 exports = module.exports = function(app) {
 
@@ -21,8 +22,40 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertPatientBoard', function(req, res) {
+
+        Doctor.findOne({_id: req.body.patient.doctor}, function(err, doc) {
+            // If there is an error retrieving, send the error.
+            if(err)
+                res.send(err);
+            else {
+                const params = {
+                    Item: {
+                        "doctor_id": req.body.patient.doctor,
+                        "mac_address": req.body.board,
+                        "data": {
+                            "notice_type": doc.notice
+                        }
+                    },
+                    ReturnConsumedCapacity: "TOTAL",
+                    "TableName": "doctor_patients"
+                };
+
+
+                docClient.put(params, function(err, data){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        console.log(data);
+                    }
+                });
+            }
+        });
+
         // Insert a new board
-        Patient.updateOne({_id: req.body._id}, [{board: req.body.board}], function(err, pat) {
+        console.log(req.body.patient);
+        console.log(req.body.board);
+        Patient.updateOne({_id: req.body.patient._id}, [{board: req.body.board}], function(err, pat) {
             // Error occurred
             if(err)
                 res.send(err);
