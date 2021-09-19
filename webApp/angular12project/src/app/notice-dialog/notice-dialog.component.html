@@ -141,9 +141,37 @@
 
 <!-- No sensors -->
 <ng-template #no_sensors>
-  <div>
+  <div *ngIf="data.flag == 9; else recovery_password">
     <mat-icon class="icon_error">error</mat-icon>
     <p>Non sono disponibili sensori!</p>
   </div>
+
+</ng-template>
+
+<!-- Recovery password -->
+<ng-template #recovery_password>
+  <div *ngIf="data.flag == 10">
+    <div class="grandParentContainer">
+      <h1><b>Recupero password</b></h1>
+      <div class="parentContainer">
+        <form action="notice-dialog.component.ts" method="post" id="recovery_form">
+
+          <div class="container">
+            <p>Una nuova password ti sarà inviata all'indirizzo e-mail al quale sei registrato.</p>
+            <p>Inserisci l'email: </p>
+            <mat-form-field appearance="legacy">
+              <mat-label>e-mail</mat-label>
+              <input matInput type="text" placeholder="Inserisci l'e-mail" name="mail" [formControl]="mail" required>
+              <mat-error *ngIf="mail.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <button mat-button type="button">Recupera password</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
 </ng-template>

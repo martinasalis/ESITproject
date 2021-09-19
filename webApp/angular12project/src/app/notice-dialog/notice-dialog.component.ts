@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
+import {FormControl, Validators} from "@angular/forms";
+import {Type, User, UserService} from "../user.service";
 
 export interface Result {
   res: number,
@@ -14,12 +16,35 @@ export interface Result {
 })
 export class NoticeDialogComponent {
 
-  constructor(private router: Router, public dialogRef: MatDialogRef<NoticeDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Result) {
+  mail = new FormControl('', [Validators.required, Validators.email]);
+  //user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+
+
+  constructor(private router: Router, public dialogRef: MatDialogRef<NoticeDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Result) {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
-    this.router.navigate(['home']).then();
+    if(this.data.flag == 10){
+      this.dialogRef.close();
+      this.router.navigate(['login']).then();
+    }
+    else {
+      this.dialogRef.close();
+      this.router.navigate(['home']).then();
+    }
+  }
+
+  recovery(): void{
+
+  }
+
+  getErrorMessage() {
+    if (this.mail.hasError('required')) {
+      return 'Devi inserire la mail';
+    }
+
+    return this.mail.hasError('email') ? 'E-mail non valida' : '';
   }
 
 }

@@ -13,6 +13,7 @@ import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component"
 
 export class LoginFormComponent implements OnInit {
 
+  recovery_password = false;
   username = new FormControl('');
   password = new FormControl('');
   user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
@@ -41,14 +42,34 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
-  openDialog(){
-    const dialogRef = this.dialog.open(NoticeDialogComponent, {
-      width: '250px',
-      data: {flag: 4}
-    });
+  recoveryPassword(): void{
+    this.recovery_password = true;
+    this.openDialog();
+    this.recovery_password = false;
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+  openDialog(){
+    if(this.recovery_password) {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '600px',
+        data: {flag: 10}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+
+
+    }
+    else{
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {flag: 4}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
   }
 }
