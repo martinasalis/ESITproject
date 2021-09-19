@@ -1,8 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-import {FormControl, Validators} from "@angular/forms";
-import {Type, User, UserService} from "../user.service";
+import { FormControl, Validators } from "@angular/forms";
 
 export interface Result {
   res: number,
@@ -17,8 +16,6 @@ export interface Result {
 export class NoticeDialogComponent {
 
   mail = new FormControl('', [Validators.required, Validators.email]);
-  //user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-
 
   constructor(private router: Router, public dialogRef: MatDialogRef<NoticeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Result) {

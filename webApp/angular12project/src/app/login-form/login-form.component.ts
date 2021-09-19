@@ -16,7 +16,7 @@ export class LoginFormComponent implements OnInit {
   recovery_password = false;
   username = new FormControl('');
   password = new FormControl('');
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, public dialog: MatDialog) { }
 
@@ -42,13 +42,13 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
-  recoveryPassword(): void{
+  recoveryPassword(): void {
     this.recovery_password = true;
     this.openDialog();
     this.recovery_password = false;
   }
 
-  openDialog(){
+  openDialog() {
     if(this.recovery_password) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '600px',
@@ -58,10 +58,8 @@ export class LoginFormComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
       });
-
-
     }
-    else{
+    else {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {flag: 4}

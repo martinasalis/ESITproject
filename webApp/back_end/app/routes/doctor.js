@@ -43,9 +43,7 @@ exports = module.exports = function(app) {
         let updateData = req.body.info;
 
         // Update info of a specific doctor
-        Doctor.updateOne({_id: req.body._id},
-            {_id: updateData._id, mail: updateData.mail, phone: updateData.mail, dob: updateData.dob, role: updateData.role, notice: updateData.notice},
-            function(err, doc) {
+        Doctor.updateOne({_id: req.body._id}, {_id: updateData._id, role: updateData.role, notice: updateData.notice}, function(err, doc) {
             if(err) // Error occurred in update
                 res.send(err);
 
@@ -66,9 +64,8 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertDoctor', function (req, res) {
-        console.log(req.body);
         // Insert a new doctor
-        Doctor.insertMany([{_id: req.body._id, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, role: req.body.role, notice: req.body.notice}], function(err, doc) {
+        Doctor.insertMany([{_id: req.body._id, role: req.body.role, notice: req.body.notice}], function(err, doc) {
             // Error
             if(err)
                 res.send(err);

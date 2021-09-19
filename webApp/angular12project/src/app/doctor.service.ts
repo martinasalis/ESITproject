@@ -11,9 +11,6 @@ export enum Notice {
 
 export interface Doctor {
   _id: String,
-  mail: String,
-  phone: String,
-  dob: Date,
   role: String,
   notice: Notice
 }
@@ -26,8 +23,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class DoctorService {
 
-  private doctor: Doctor = {_id: '', mail: '', phone: '', dob: Date.prototype, role: '', notice: Notice.DEFAULT};
-  private img_profile: Buffer = Buffer.prototype;
+  private doctor: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};
 
   constructor(private http: HttpClient) { }
 
@@ -66,7 +62,7 @@ export class DoctorService {
    * @param {Doctor} doc - New data
    */
   update(_id: String, doc: Doctor): Observable<any> {
-    const body = {_id: _id, info: {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role}};
+    const body = {_id: _id, info: {_id: doc._id, role: doc.role, notice: doc.notice}};
     return this.http.post(`${baseUrl}/updateDoctor`, body);
   }
 
@@ -84,7 +80,7 @@ export class DoctorService {
    * @param {Doctor} doc - New doctor data
    */
   insert(doc: Doctor): Observable<any> {
-    const body = {_id: doc._id, mail: doc.mail, phone: doc.phone, dob: doc.dob, role: doc.role, notice: doc.notice};
+    const body = {_id: doc._id, role: doc.role, notice: doc.notice};
     return this.http.post(`${baseUrl}/insertDoctor`, body);
   }
 
@@ -102,22 +98,6 @@ export class DoctorService {
    */
   setDoctor(doctor: Doctor): void {
     this.doctor = doctor;
-  }
-
-  /**
-   * Get image profile
-   * @return {File} - Image profile
-   */
-  getImageProfile(): Buffer {
-    return this.img_profile;
-  }
-
-  /**
-   * Set image profile
-   * @param {File} image - Image profile
-   */
-  setImageProfile(image: Buffer): void {
-    this.img_profile = image;
   }
 
 }

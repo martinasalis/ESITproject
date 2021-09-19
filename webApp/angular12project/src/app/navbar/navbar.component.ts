@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
 
   constructor(private router: Router) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {

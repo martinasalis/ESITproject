@@ -16,11 +16,11 @@ export class PageSensorComponent implements OnInit {
   navbar = false;
   page_doctor = false;
   page_patient = false;
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
+  doc: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};
+  pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   clickedSensor: any;
-  clickedPatient: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  clickedPatient: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   index: number = 0;
   indices: string[] = [];
   chartData: any;
@@ -153,7 +153,5 @@ export class PageSensorComponent implements OnInit {
   undo(): void {
     this.router.navigate(['patient'], {state: {clickedUser: this.clickedPatient}}).then();
   }
-
-
 
 }

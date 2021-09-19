@@ -16,9 +16,9 @@ export class PageInfoComponent implements OnInit {
 
   navbar = false;
   home_doctor = false;
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
+  doc: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};
+  pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   selectedNotice: String = '';
   noticeOptions: String[] = ['E-mail', 'SMS', 'Telegram'];
   noticeGroup: FormGroup = new FormGroup({notice: new FormControl()});
@@ -51,7 +51,6 @@ export class PageInfoComponent implements OnInit {
         else {
           this.noticeGroup.setControl("notice", new FormControl(this.noticeOptions[2]));
         }
-        console.log(this.doc);
       });
     }
   }

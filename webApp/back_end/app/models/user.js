@@ -9,6 +9,9 @@ const userSchema = new Schema({
     surname : {type: String, default: ''},
     username: {type: String, default: ''},
     password: {type: String, default: ''},
+    mail: {type: String, default: ''},
+    phone: {type: String, default: ''},
+    dob: {type: Date, default: Date.now},
     type: {type: String, enum: ['DEFAULT', 'DOCTOR', 'PATIENT', 'ADMIN'], default: 'DEFAULT'}
 }, {versionKey: false});
 

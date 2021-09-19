@@ -21,9 +21,9 @@ export class PatientComponent implements OnInit {
   page_admin = false;
 
   selected = new FormControl(0);
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
-  clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
+  pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
+  clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   patBoardSensors: Sensor[] = [];
   patBoardData: any;
   clickedSensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
@@ -40,7 +40,7 @@ export class PatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let patient: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+    let patient: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
 
     if(this.user.type == Type.PATIENT) {
       this.page_patient = true;

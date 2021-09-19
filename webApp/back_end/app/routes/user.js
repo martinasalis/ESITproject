@@ -53,8 +53,7 @@ exports = module.exports = function(app) {
         let param = req.body.param;
 
         // Get a user that match with param and type
-        User.find({$and: [{$or: [{_id: {$regex: param, $options: 'i'}}, {name: {$regex: param, $options: 'i'}}, {surname: {$regex: param, $options: 'i'}}]}, {type: req.body.type}, {_id: {$in:req.body._ids}}]},
-            function(err, users) {
+        User.find({$and: [{$or: [{_id: {$regex: param, $options: 'i'}}, {name: {$regex: param, $options: 'i'}}, {surname: {$regex: param, $options: 'i'}}]}, {type: req.body.type}, {_id: {$in:req.body._ids}}]}, function(err, users) {
             // Error
             if(err)
                 res.send(err);
@@ -81,9 +80,7 @@ exports = module.exports = function(app) {
         let updateData = req.body.info;
 
         // Update user
-        User.updateOne({_id: req.body._id},
-            {_id: updateData._id, name: updateData.name, surname: updateData.surname, username: updateData.username, password: updateData.password, type: updateData.type},
-            function(err, user) {
+        User.updateOne({_id: req.body._id}, {_id: updateData._id, name: updateData.name, surname: updateData.surname, username: updateData.username, password: updateData.password, mail: updateData.mail, phone: updateData.phone, dob: updateData.dob, type: updateData.type}, function(err, user) {
             if(err) // Error in update
                 res.send(err);
 
@@ -113,7 +110,7 @@ exports = module.exports = function(app) {
         console.log(password);
 
         // Insert new user
-        User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: password, type: req.body.type}], function(err, user) {
+        User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: password, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, type: req.body.type}], function(err, user) {
             // Error
             if(err)
                 res.send(err);

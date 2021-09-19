@@ -4,9 +4,6 @@ import { Observable } from "rxjs";
 
 export interface Patient {
   _id: String,
-  mail: String,
-  phone: String,
-  dob: Date,
   address: String,
   dor: Date,
   doctor: String,
@@ -22,7 +19,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class PatientService {
 
-  private patient: Patient = {_id: '', mail: '', phone: '', dob: Date.prototype, address: '', dor: Date.prototype, doctor: '', board: '', description: ''};
+  private patient: Patient = {_id: '', address: '', dor: Date.prototype, doctor: '', board: '', description: ''};
   private patients: Patient[] = [];
 
   constructor(private http: HttpClient) { }
@@ -77,13 +74,22 @@ export class PatientService {
   }
 
   /**
+   * This function get the data of all patients with no board associate
+   * @return {Patient[]} - Data of all patients
+   */
+  allFreePatients(): Observable<Patient[]> {
+    const body = {};
+    return this.http.post<Patient[]>(`${baseUrl}/allFreePatients`, body);
+  }
+
+  /**
    * This function update the data of a patient
    * @param {String} _id - Patient ID
    * @param {Patient} pat - New data
    */
   update(_id: String, pat: Patient): Observable<any> {
-    const body = {_id: _id, info: {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address,
-        dor: pat.dor, doctor: pat.doctor, board: pat.board, description: pat.description}};
+    const body = {_id: _id, info: {_id: pat._id, address: pat.address, dor: pat.dor, doctor: pat.doctor,
+        board: pat.board, description: pat.description}};
     return this.http.post(`${baseUrl}/updatePatient`, body);
   }
 
@@ -101,8 +107,8 @@ export class PatientService {
    * @param {Patient} pat - New patient data
    */
   insert(pat: Patient): Observable<any> {
-    const body = {_id: pat._id, mail: pat.mail, phone: pat.phone, dob: pat.dob, address: pat.address, dor: pat.dor,
-      doctor: pat.doctor, board: pat.board, description: pat.description};
+    const body = {_id: pat._id, address: pat.address, dor: pat.dor, doctor: pat.doctor, board: pat.board,
+      description: pat.description};
     return this.http.post(`${baseUrl}/insertPatient`, body);
   }
 

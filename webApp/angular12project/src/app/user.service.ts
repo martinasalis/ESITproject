@@ -8,6 +8,9 @@ export interface User {
   surname: String,
   username: String,
   password: String,
+  mail: String,
+  phone: String,
+  dob: Date,
   type: Type
 }
 
@@ -26,7 +29,7 @@ const baseUrl = 'http://localhost:8080';
 
 export class UserService {
 
-  private user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  private user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   private patients: User[] = [];
   private doctors: User[] = [];
 
@@ -80,7 +83,8 @@ export class UserService {
    * @param {User} user - New user data
    */
   update(_id: String, user: User): Observable<any> {
-    const body = {_id: _id, info: {_id: user._id, name: user.name, surname: user.surname, username: user.username, password: user.password, type: user.type}};
+    const body = {_id: _id, info: {_id: user._id, name: user.name, surname: user.surname, username: user.username,
+        password: user.password, mail: user.mail, phone: user.phone, dob: user.dob, type: user.type}};
     return this.http.post(`${baseUrl}/updateUser`, body);
   }
 
@@ -98,7 +102,8 @@ export class UserService {
    * @param {User} user - Data of the new user
    */
   insert(user: User): Observable<any> {
-    const body = {_id: user._id, name: user.name, surname: user.surname, username: user.username, type: user.type};
+    const body = {_id: user._id, name: user.name, surname: user.surname, username: user.username, mail: user.mail,
+      phone: user.phone, dob: user.dob, type: user.type};
     return this.http.post(`${baseUrl}/insertUser`, body);
   }
 

@@ -40,9 +40,9 @@ export class AddFormComponent implements OnInit {
   typeSensor = new FormControl('');
   sensorControl = new FormControl('', Validators.required);
 
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  selectedPat: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '',  dob: Date.prototype, type: Type.DEFAULT};
+  selectedPat: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '',  dob: Date.prototype, type: Type.DEFAULT};
+  pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   sens: Sensor[] = [];
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
@@ -90,11 +90,10 @@ export class AddFormComponent implements OnInit {
 
     // Check if the user is a patient or a doctor
     if(this.add_doctor) {
-      let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', type: Type.DOCTOR};
-      let newDoctor: Doctor = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, role: this.role.value, notice: Notice.SMS};
+      let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', mail: this.mail.value, phone: this.phone.value, dob: this.dob.value, type: Type.DOCTOR};
+      let newDoctor: Doctor = {_id: this.tc.value, role: this.role.value, notice: Notice.SMS};
 
-      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || newDoctor.mail == '' || newDoctor.phone == '' || newDoctor.role == ''){
-        console.log(newDoctor.dob);
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || newUser.mail == '' || newUser.phone == '' || newDoctor.role == '') {
         this.empty_field = true;
         this.openDialog();
       }
@@ -111,12 +110,10 @@ export class AddFormComponent implements OnInit {
       }
     }
     else if(this.add_patient) {
-      console.log('ok');
-      let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', type: Type.PATIENT};
-      let newPatient: Patient = {_id: this.tc.value, dob: this.dob.value, mail: this.mail.value, phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, board: '', description: this.description.value};
+      let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', mail: this.mail.value, phone: this.phone.value, dob: this.dob.value, type: Type.PATIENT};
+      let newPatient: Patient = {_id: this.tc.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, board: '', description: this.description.value};
 
-      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || this.dor.value == '' || newPatient.mail == '' || newPatient.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == ''){
-        console.log('ok');
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || this.dor.value == '' || newUser.mail == '' || newUser.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == '') {
         this.empty_field = true;
         this.openDialog();
       }
@@ -134,7 +131,6 @@ export class AddFormComponent implements OnInit {
       }
     }
     else if(this.add_sensor){
-      console.log('ok');
       let newSensor: Sensor = {_id: '', name: this.name.value, um: this.um.value, threshold: this.thr.value,type: this.typeSensor.value, board: ''};
 
       if(newSensor.name == '' || newSensor.um == '' || newSensor.threshold != 0 || newSensor.type != 0){

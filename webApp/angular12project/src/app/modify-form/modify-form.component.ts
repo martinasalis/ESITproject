@@ -39,10 +39,10 @@ export class ModifyFormComponent implements OnInit {
   patientDoctor: String = '';
   doctorNotice: Notice = Notice.DEFAULT;
 
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
-  doc: Doctor = {_id: '', dob: Date.prototype, mail: '', phone: '', role: '', notice: Notice.DEFAULT};
-  pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
-  clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
+  doc: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};
+  pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
+  clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   clickedSensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
   patBoard: String = '';
 
@@ -69,12 +69,12 @@ export class ModifyFormComponent implements OnInit {
       this.surname.setValue(this.clickedRow.surname);
       this.username.setValue(this.clickedRow.username);
       this.tc.setValue(this.clickedRow._id);
+      this.dob.setValue(moment(new Date(this.clickedRow.dob)).format('YYYY-MM-DD'));
+      this.mail.setValue(this.clickedRow.mail);
+      this.phone.setValue(this.clickedRow.phone);
 
       // Set current values
       this.doctorService.info(this.clickedRow._id).subscribe((data: Doctor) => {
-        this.dob.setValue(moment(new Date(data.dob)).format('YYYY-MM-DD'));
-        this.mail.setValue(data.mail);
-        this.phone.setValue(data.phone);
         this.doctorNotice = data.notice;
         this.role.setValue(data.role);
       });
@@ -87,12 +87,12 @@ export class ModifyFormComponent implements OnInit {
       this.surname.setValue(this.clickedRow.surname);
       this.username.setValue(this.clickedRow.username);
       this.tc.setValue(this.clickedRow._id);
+      this.dob.setValue(moment(new Date(this.clickedRow.dob)).format('YYYY-MM-DD'));
+      this.mail.setValue(this.clickedRow.mail);
+      this.phone.setValue(this.clickedRow.phone);
 
       // Set current values
       this.patientService.info(this.clickedRow._id).subscribe((data: Patient) => {
-        this.dob.setValue(moment(new Date(data.dob)).format('YYYY-MM-DD'));
-        this.mail.setValue(data.mail);
-        this.phone.setValue(data.phone);
         this.dor.setValue(moment(new Date(data.dor)).format('YYYY-MM-DD'));
         this.address.setValue(data.address);
         this.patientDoctor = data.doctor;
@@ -112,7 +112,7 @@ export class ModifyFormComponent implements OnInit {
         this.typeSensor.setValue(data.type);
       });
     }
-    else{
+    else {
       this.router.navigate(['home']).then();
       this.openDialog();
     }
@@ -124,15 +124,15 @@ export class ModifyFormComponent implements OnInit {
   save(): void {
     // Update user's data
     let newUser: User = {_id: this.clickedRow._id, name: this.name.value, surname: this.surname.value,
-      username: this.username.value, password: this.clickedRow.password, type: this.clickedRow.type};
+      username: this.username.value, password: this.clickedRow.password, mail: this.mail.value, phone: this.phone.value,
+      dob: this.dob.value, type: this.clickedRow.type};
     this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
       console.log(data);
     });
 
     // Check if the user is a patient or a doctor
     if(this.clickedRow.type == Type.DOCTOR) {
-      let newDoctor: Doctor = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,
-        phone: this.phone.value, role: this.role.value, notice: this.doctorNotice};
+      let newDoctor: Doctor = {_id: this.clickedRow._id, role: this.role.value, notice: this.doctorNotice};
       this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
         console.log(data);
       });
@@ -140,16 +140,15 @@ export class ModifyFormComponent implements OnInit {
       this.openDialog();
     }
     else if(this.clickedRow.type == Type.PATIENT) {
-      let newPatient: Patient = {_id: this.clickedRow._id, dob: this.dob.value, mail: this.mail.value,
-        phone: this.phone.value, dor: this.dor.value, address: this.address.value, doctor: this.patientDoctor, board: this.patBoard,
-        description: this.description.value};
+      let newPatient: Patient = {_id: this.clickedRow._id, dor: this.dor.value, address: this.address.value,
+        doctor: this.patientDoctor, board: this.patBoard, description: this.description.value};
       this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
         console.log(data);
       });
       this.router.navigate(['home']).then();
       this.openDialog();
     }
-    else{
+    else {
       let newSensor: Sensor = {_id: this.clickedSensor._id, name: this.name_sensor.value, um: this.um.value,
         threshold: this.thr.value, type: this.typeSensor.value, board: this.clickedSensor.board};
       this.sensorService.update(this.clickedSensor._id, newSensor).subscribe(data =>{

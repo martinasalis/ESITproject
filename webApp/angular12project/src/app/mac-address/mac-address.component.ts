@@ -13,7 +13,7 @@ import { Patient, PatientService } from "../patient.service";
 })
 export class MACAddressComponent implements OnInit {
 
-  user: User = {_id: '', name: '', surname: '', username: '', password: '', type: Type.DEFAULT};
+  user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   mac = new FormControl('');
   patientControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
@@ -31,7 +31,7 @@ export class MACAddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patientService.allPatients().subscribe((data: Patient[]) => {
+    this.patientService.allFreePatients().subscribe((data: Patient[]) => {
       this.pats_id = data.map(({ _id }) => _id);
       this.userService.patientsData(this.pats_id).subscribe((data: User[]) => {
         this.userService.setPatients(data);
@@ -51,7 +51,7 @@ export class MACAddressComponent implements OnInit {
         this.openDialog();
       });
     }
-    else{
+    else {
       this.openDialog();
     }
   }
@@ -67,7 +67,7 @@ export class MACAddressComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-    else{
+    else {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {flag: 7}
