@@ -25,6 +25,10 @@ button {
   cursor: pointer;
 }
 
+.modify_button{
+  margin-right: 10px;
+}
+
 .outer {
   list-style: none;
   display: flex;

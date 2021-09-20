@@ -1,8 +1,10 @@
 Martina:
-- Gestione primo accesso e recupero password
 
 Luca:
 
 TO DO:
-- Funzionamento messaggi
+- Recupero password
+- Buzzer
 - Test
+- Funzionamento sms
+
