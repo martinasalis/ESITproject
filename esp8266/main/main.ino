@@ -19,7 +19,7 @@ String mac;
 const int MQTT_PORT = 8883;
 
 //Define subscription and publicaton topics (on thing shadow)
-const char MQTT_SUB_TOPIC[] = "$aws/things/" THINGNAME "/shadow/update";
+const char MQTT_SUB_TOPIC[] = "$aws/things/" THINGNAME "/shadow/notice";
 const char MQTT_PUB_TOPIC[] = "$aws/things/" THINGNAME "/shadow/update";
 
 //Enable or disable summer-time
@@ -47,6 +47,7 @@ time_t nowish = 1510592825;
 // Sensor pin definition
 uint8_t Button1 = D1;
 uint8_t Button2 = D2;
+uint8_t BUZZER_PIN = D3;
 
 struct STACKITEM {
   uint8_t id;
@@ -172,8 +173,15 @@ void NTPConnect(void){
 
 // MQTT management of incoming messages
 void messageReceived(String &topic, String &payload){
-  
+
+  if(topic == MQTT_SUB_TOPIC){
+    digitalWrite(BUZZER_PIN, HIGH); 
+    delay(5000);
+    digitalWrite(BUZZER_PIN, LOW);
+  }
+    
   Serial.println("Received [" + topic + "]: " + payload);
+
 }
 
 // MQTT Broker connection
@@ -224,6 +232,7 @@ void verifyWiFiAndMQTT(void){
 
   connectToWiFi("Checking WiFi");
   connectToMqtt();
+  client.subscribe(MQTT_SUB_TOPIC);
 }
 
 unsigned long previousMillis = 0;
@@ -273,6 +282,9 @@ void setup(){
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, pass);
   connectToWiFi(String("Trying to connect with SSID: ") + String(ssid));
+  
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(BUZZER_PIN, LOW); 
 
   randomSeed(analogRead(0));
 
