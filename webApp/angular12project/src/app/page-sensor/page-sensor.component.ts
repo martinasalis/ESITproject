@@ -135,7 +135,7 @@ export class PageSensorComponent implements OnInit {
           type: 'time',
           time: {
             format: "HH:mm:ss",
-            unit: 'second',
+            unit: 'minute',
             unitStepSize: 10,
             displayFormats: {
               'second': 'HH:mm:ss',

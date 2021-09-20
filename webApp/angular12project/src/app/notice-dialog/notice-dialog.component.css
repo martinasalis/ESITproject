@@ -41,7 +41,7 @@ input {
   display: block;
 }
 
-button {
+.button_mail {
   background-color: #04AA6D;
   color: white;
   padding: 7px 14px;

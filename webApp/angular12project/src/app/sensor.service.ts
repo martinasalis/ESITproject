@@ -87,7 +87,7 @@ export class SensorService {
    * @param {Sensor} snr - New data
    */
   update(_id: String, snr: Sensor): Observable<any> {
-    const body = {_id: _id, info: {_id: snr._id, name: snr.name, um: snr.um}};
+    const body = {_id: _id, board: snr.board, info: {name: snr.name, um: snr.um, threshold: snr.threshold}};
     return this.http.post(`${baseUrl}/updateSensor`, body);
   }
 
@@ -114,7 +114,7 @@ export class SensorService {
    * @param {Sensor} snr - New sensor data
    */
   insert(snr: Sensor): Observable<any> {
-    const body = {name: snr.name, um: snr.um};
+    const body = {name: snr.name, um: snr.um, threshold: snr.threshold, board: snr.board, type: snr.type};
     return this.http.post(`${baseUrl}/insertSensor`, body);
   }
 

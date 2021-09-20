@@ -180,7 +180,7 @@ export class ModifyFormComponent implements OnInit {
         this.openDialog();
       }
       else{
-        this.router.navigate(['patient']).then();
+        this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}}).then();
         this.openDialog();
       }
     }

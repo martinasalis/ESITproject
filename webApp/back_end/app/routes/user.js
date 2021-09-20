@@ -1,7 +1,12 @@
-const User = require('../models/user')
+const User = require('../models/user');
+const AWS = require("aws-sdk");
 const generator = require('generate-password');
 
 exports = module.exports = function(app) {
+
+    AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+    AWS.config.update({region: 'us-east-2'});
+    const ses = new AWS.SES();
 
     // server routes ===========================================================
 
@@ -89,6 +94,25 @@ exports = module.exports = function(app) {
     });
 
     app.post('/deleteUser', function(req, res) {
+        // Delete e-mail address from aws ses
+        User.findOne({_id: req.body._id}, function(err, user) {
+            // Error occurred in login
+            if(err)
+                res.send(err);
+            else {
+                const params = {
+                    Identity: user.mail
+                };
+
+                ses.deleteIdentity(params, function(err, data) {
+                    if(err)
+                        console.log(err, err.stack); // an error occurred
+                    else
+                        console.log(data);           // successful response
+                });
+            }
+        });
+
         // Delete a specific user
         User.deleteOne({_id: req.body._id}, function(err, user) {
             // Error
@@ -100,11 +124,22 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertUser', function(req, res) {
-
         // Generate default password for new user
         let password = generator.generate({
             length: 10,
             numbers: true
+        });
+
+        // Add e-mail address to aws ses
+        const params = {
+            EmailAddress: req.body.mail
+        };
+
+        ses.verifyEmailIdentity(params, function(err, data) {
+            if(err)
+                console.log(err, err.stack); // an error occurred
+            else
+                console.log(data);
         });
 
         console.log(password);

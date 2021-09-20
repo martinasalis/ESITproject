@@ -1,6 +1,12 @@
 const Sensor = require('../models/sensor');
+const Patient = require("../models/patient");
+const AWS = require("aws-sdk");
 
 exports = module.exports = function(app) {
+
+    AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+    AWS.config.update({region: 'us-east-2'});
+    const docClient = new AWS.DynamoDB.DocumentClient();
 
     // server routes ===========================================================
 
@@ -21,8 +27,47 @@ exports = module.exports = function(app) {
             // Error
             if(err)
                 res.send(err);
+            else {
+                Patient.findOne({board: req.body.board}, function(err, pat) {
+                    // If there is an error retrieving, send the error.
+                    if(err)
+                        res.send(err);
+                    else {
+                        Sensor.find({board: req.body.board}, function(error, sensors) {
+                            let data = [];
 
-            res.json(snr);
+                            sensors.forEach((sensor) => {
+                                let sensor_data = {};
+                                sensor_data['type'] = sensor.type;
+                                sensor_data['threshold'] = sensor.threshold;
+                                data.push(sensor_data);
+                            });
+                            console.log(data);
+
+                            const params = {
+                                Item: {
+                                    "mac_address": req.body.board,
+                                    "doctor_id": pat.doctor,
+                                    "patient_id": pat._id,
+                                    "data": data
+                                },
+                                ReturnConsumedCapacity: "TOTAL",
+                                "TableName": "patient_threshold"
+                            };
+
+                            docClient.put(params, function(err, data){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    console.log(data);
+                                }
+                            });
+                        });
+                    }
+                });
+                res.json(snr);
+            }
         });
     });
 
@@ -83,11 +128,51 @@ exports = module.exports = function(app) {
 
     app.post('/updateSensor', function(req, res) {
         // Update sensor data
-        Sensor.updateOne({_id: req.body._id}, {_id: req.body.info._id, name: req.body.info.name, um: req.body.info.um}, function(err, snr) {
+        Sensor.updateOne({_id: req.body._id}, {name: req.body.info.name, um: req.body.info.um, threshold: req.body.info.threshold}, function(err, snr) {
             if(err) // Error
                 res.send(err);
+            else {
+                Patient.findOne({board: req.body.board}, function(err, pat) {
+                    // If there is an error retrieving, send the error.
+                    if(err)
+                        res.send(err);
+                    else {
+                        console.log(pat);
+                        if(pat != null) {
+                            Sensor.find({board: req.body.board}, function (error, sensors) {
+                                let data = [];
 
-            res.json(snr);
+                                sensors.forEach((sensor) => {
+                                    let sensor_data = {};
+                                    sensor_data['type'] = sensor.type;
+                                    sensor_data['threshold'] = sensor.threshold;
+                                    data.push(sensor_data);
+                                });
+
+                                const params = {
+                                    Item: {
+                                        "mac_address": req.body.board,
+                                        "doctor_id": pat.doctor,
+                                        "patient_id": pat._id,
+                                        "data": data
+                                    },
+                                    ReturnConsumedCapacity: "TOTAL",
+                                    "TableName": "patient_threshold"
+                                };
+
+                                docClient.put(params, function (err, data) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log(data);
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+                res.json(snr);
+            }
         });
     });
 
@@ -103,21 +188,8 @@ exports = module.exports = function(app) {
     });
 
     app.post('/insertSensor', function(req, res) {
-
-        let new_id = 0;
-
-        // Get the number of sensors actually present in db
-        Sensor.find({}, function(err, snr) {
-            // Error
-            if(err)
-                console.log(err);
-
-            else
-                new_id = snr.length + 1; // New sensor ID
-        });
-
         // Insert a new sensor
-        Sensor.insertMany([{_id: new_id, name: req.body.name, um: req.body.um}], function(err, snr) {
+        Sensor.insertMany([{name: req.body.name, um: req.body.um, threshold: req.body.threshold, board: req.body.board, type: req.body.type}], function(err, snr) {
             // Error
             if(err)
                 res.send(err);
