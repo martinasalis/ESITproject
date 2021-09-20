@@ -124,7 +124,7 @@
   </ng-template>
 
   <ng-template #Sensor>
-    <div class="grandParentContainer" *ngIf="modify_sensor">
+    <div class="grandParentContainer" *ngIf="modify_sensor; else modifySensorDoctor">
       <h1><b>Modifica Sensore</b></h1>
       <div class="parentContainer">
         <form action="modify-form.component.ts" method="post" id="modify_form_sensor"> <!--[formGroup]="angForm" novalidate-->
@@ -143,12 +143,48 @@
 
             <mat-form-field>
               <mat-label>Soglia sensore</mat-label>
+              <input matInput type="text" placeholder="" name="thr" [formControl]="thr" readonly>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Tipo sensore</mat-label>
+              <input matInput type="text" placeholder="" name="typeSensor" [formControl]="typeSensor" readonly>
+            </mat-form-field>
+
+            <button mat-button (click)="save()">Salva</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #modifySensorDoctor>
+    <div class="grandParentContainer" *ngIf="modify_sensor_doctor">
+      <h1><b>Modifica Sensore</b></h1>
+      <div class="parentContainer">
+        <form action="modify-form.component.ts" method="post" id="modify_form_sensor_doctor"> <!--[formGroup]="angForm" novalidate-->
+
+          <div class="container">
+
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" placeholder="" name="name" [formControl]="name_sensor" readonly>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Unità di misura</mat-label>
+              <input matInput type="text" placeholder="" name="um" [formControl]="um" readonly>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Soglia sensore</mat-label>
               <input matInput type="text" placeholder="" name="thr" [formControl]="thr" required>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Tipo sensore</mat-label>
-              <input matInput type="text" placeholder="" name="typeSensor" [formControl]="typeSensor" required>
+              <input matInput type="text" placeholder="" name="typeSensor" [formControl]="typeSensor" readonly>
             </mat-form-field>
 
             <button mat-button (click)="save()">Salva</button>

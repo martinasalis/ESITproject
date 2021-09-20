@@ -23,6 +23,7 @@ exports = module.exports = function(app) {
 
     app.post('/insertPatientBoard', function(req, res) {
 
+        /*
         Doctor.findOne({_id: req.body.patient.doctor}, function(err, doc) {
             // If there is an error retrieving, send the error.
             if(err)
@@ -49,8 +50,12 @@ exports = module.exports = function(app) {
                         console.log(data);
                     }
                 });
+
+
             }
         });
+        */
+        
 
         // Insert a new board
         Patient.updateOne({_id: req.body.patient._id}, {board: req.body.board}, function(err, pat) {

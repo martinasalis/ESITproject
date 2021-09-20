@@ -76,14 +76,16 @@ export class AddFormComponent implements OnInit {
     else {
       this.add_sensor_patient = true;
       this.sensorService.allFreeSensors().subscribe((data: Sensor[]) => {
-        this.sens = data;
+        this.sensorService.setSensors(data);
+        this.sens = this.sensorService.getSensors();
+
+        if(this.sens.length == 0) {
+          this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}}).then();
+          this.openDialog();
+        }
       });
     }
 
-    if(this.sens.length == 0 && this.add_sensor_patient) {
-      this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}}).then();
-      this.openDialog();
-    }
   }
 
   add(): void {
@@ -147,7 +149,6 @@ export class AddFormComponent implements OnInit {
       }
     }
     else if(this.add_sensor_patient) {
-
       let newSensor: Sensor = {_id: this.sensorControl.value._id, name: this.sensorControl.value.name,
         type: this.sensorControl.value.type, um: this.sensorControl.value.um, board: this.pat.board, threshold: this.thr.value};
 
@@ -163,6 +164,7 @@ export class AddFormComponent implements OnInit {
         this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}}).then();
         this.openDialog();
       }
+
     }
   }
 

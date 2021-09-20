@@ -137,6 +137,10 @@ export class PatientComponent implements OnInit {
     this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}}).then();
   }
 
+  modify_sensor(sensor: Sensor): void {
+    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: sensor}}).then();
+  }
+
   add_sensor(): void {
     this.router.navigate(['add-form'], {state: {clickedUser: this.clickedRow, data: 3}}).then();
   }
