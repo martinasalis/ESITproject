@@ -7,11 +7,13 @@
         <mat-form-field appearance="legacy">
           <mat-label>Username</mat-label>
           <input matInput type="text" placeholder="Enter Username" name="username" [formControl]="username" required>
+          <mat-error *ngIf="username.hasError('required')"> Devi inserire l'username.</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="legacy">
           <mat-label>Password</mat-label>
           <input matInput type="password" placeholder="Enter Password" name="psw" [formControl]="password" required>
+          <mat-error *ngIf="password.hasError('required')">Devi inserire la password.</mat-error>
         </mat-form-field>
 
         <button mat-button type="submit" (click)=login()>Login</button>

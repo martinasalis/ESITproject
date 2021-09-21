@@ -35,7 +35,7 @@ export class AddFormComponent implements OnInit {
   doctor = new FormControl('');
   description = new FormControl('');
   um = new FormControl('');
-  thr = new FormControl('');
+  thr = new FormControl('', [Validators.min(0)]);
   type = new FormControl('');
   typeSensor = new FormControl('');
   sensorControl = new FormControl('', Validators.required);
@@ -234,4 +234,19 @@ export class AddFormComponent implements OnInit {
     }
   }
 
+  getErrorMessage() {
+    if (this.username.hasError('required') || this.name.hasError('required') ||
+      this.surname.hasError('required') || this.mail.hasError('required') ||
+      this.dob.hasError('required') || this.tc.hasError('required') ||
+      this.phone.hasError('required') || this.dor.hasError('required') ||
+      this.address.hasError('required') || this.role.hasError('required') ||
+      this.description.hasError('required') || this.um.hasError('required') ||
+      this.thr.hasError('required') || this.typeSensor.hasError('required') ||
+      this.type.hasError('required') || this.doctor.hasError('required')) {
+      return 'Devi inserire il campo';
+    }
+
+    return this.thr.hasError('min') ? 'Il valore minimo è 0' : '';
+
+  }
 }

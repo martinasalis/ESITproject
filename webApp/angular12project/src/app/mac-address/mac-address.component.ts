@@ -14,7 +14,7 @@ import { Patient, PatientService } from "../patient.service";
 export class MACAddressComponent implements OnInit {
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
-  mac = new FormControl('');
+  mac = new FormControl('', Validators.required);
   patientControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
   pats: User[] = [];

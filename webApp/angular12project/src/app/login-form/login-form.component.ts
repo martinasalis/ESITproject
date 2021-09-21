@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { UserService, User, Type } from "../user.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
@@ -14,8 +14,8 @@ import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component"
 export class LoginFormComponent implements OnInit {
 
   recovery_password = false;
-  username = new FormControl('');
-  password = new FormControl('');
+  username = new FormControl('', Validators.required);
+  password = new FormControl('', Validators.required);
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, public dialog: MatDialog) { }

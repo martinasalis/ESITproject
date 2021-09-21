@@ -12,41 +12,49 @@
           <mat-form-field>
             <mat-label>Username</mat-label>
             <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
+            <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Nome</mat-label>
             <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
+            <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Cognome</mat-label>
             <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
+            <mat-error *ngIf="surname.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>e-mail</mat-label>
             <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
+            <mat-error *ngIf="mail.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Data di nascita</mat-label>
             <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
+            <mat-error *ngIf="dob.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Codice fiscale</mat-label>
             <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
+            <mat-error *ngIf="tc.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Ruolo</mat-label>
             <input matInput type="text" placeholder="" name="role" [formControl]="role" required>
+            <mat-error *ngIf="role.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Numero di Telefono</mat-label>
             <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
+            <mat-error *ngIf="phone.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <button mat-button type="submit" (click)="add()">Aggiungi</button>
@@ -68,56 +76,67 @@
             <mat-form-field>
               <mat-label>Username</mat-label>
               <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
+              <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Nome</mat-label>
               <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
+              <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Cognome</mat-label>
               <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
+              <mat-error *ngIf="surname.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>e-mail</mat-label>
               <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
+              <mat-error *ngIf="mail.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Data di nascita</mat-label>
               <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
+              <mat-error *ngIf="dob.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Codice fiscale</mat-label>
               <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
+              <mat-error *ngIf="tc.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Recapito telefonico</mat-label>
               <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
+              <mat-error *ngIf="phone.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Data di ricovero</mat-label>
               <input matInput type="date" placeholder="" name="dor" [formControl]="dor" required>
+              <mat-error *ngIf="dor.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Indirizzo</mat-label>
               <input matInput type="text" placeholder="" name="address" [formControl]="address" required>
+              <mat-error *ngIf="address.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Dottore</mat-label>
               <input matInput type="text" placeholder="" name="doctor" [formControl]="doctor" required>
+              <mat-error *ngIf="doctor.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Descrizione</mat-label>
               <input matInput type="text" placeholder="" name="description" [formControl]="description" required>
+              <mat-error *ngIf="description.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <button mat-button (click)="add()">Aggiungi</button>
@@ -138,21 +157,25 @@
             <mat-form-field>
               <mat-label>Nome</mat-label>
               <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
+              <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Unità di misura</mat-label>
               <input matInput type="text" placeholder="" name="um" [formControl]="um" required>
+              <mat-error *ngIf="um.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Soglia sensore</mat-label>
               <input matInput type="text" placeholder="" name="thr" [formControl]="thr" required>
+              <mat-error *ngIf="thr.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Tipo sensore</mat-label>
               <input matInput type="text" placeholder="" name="typeSensor" [formControl]="typeSensor" required>
+              <mat-error *ngIf="typeSensor.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <button mat-button (click)="add()">Aggiungi</button>
@@ -185,6 +208,7 @@
             <mat-form-field>
               <mat-label>Soglia</mat-label>
               <input matInput type="number" placeholder="" name="thr" [formControl]="thr" required>
+              <mat-error *ngIf="thr.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <button mat-button (click)="add()">Aggiungi</button>

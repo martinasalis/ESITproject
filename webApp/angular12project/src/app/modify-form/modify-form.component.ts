@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
 import {Type, User, UserService} from "../user.service";
 import {Doctor, DoctorService, Notice} from "../doctor.service";
 import {Router} from "@angular/router";
@@ -34,7 +34,7 @@ export class ModifyFormComponent implements OnInit {
   description = new  FormControl('');
   um = new FormControl('');
   name_sensor = new FormControl('');
-  thr = new FormControl('');
+  thr = new FormControl('', [Validators.min(0)]);
   typeSensor = new FormControl('');
 
   patientDoctor: String = '';
@@ -238,6 +238,21 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+  }
+
+  getErrorMessage() {
+    if (this.username.hasError('required') || this.name.hasError('required')
+      || this.surname.hasError('required') || this.mail.hasError('required') ||
+      this.dob.hasError('required') || this.tc.hasError('required') ||
+      this.phone.hasError('required') || this.dor.hasError('required') ||
+      this.address.hasError('required') || this.role.hasError('required') ||
+      this.description.hasError('required') || this.um.hasError('required') ||
+      this.name_sensor.hasError('required') || this.thr.hasError('required') ||
+      this.typeSensor.hasError('required')) {
+      return 'Devi inserire il campo';
+    }
+
+    return this.thr.hasError('min') ? 'Il valore minimo è 0' : '';
   }
 
 }
