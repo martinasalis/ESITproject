@@ -35,8 +35,8 @@ export class LoginFormComponent implements OnInit {
           sessionStorage.setItem('login', JSON.stringify(true));
           this.router.navigate(['home']).then();
         }
-        else{
-          this.openDialog()
+        else {
+          this.openDialog();
         }
       });
     }

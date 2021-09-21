@@ -3,7 +3,6 @@ import {Type, User, UserService} from "../user.service";
 import {DoctorService} from "../doctor.service";
 import {Patient, PatientService} from "../patient.service";
 import {Router} from "@angular/router";
-import {FormControl} from "@angular/forms";
 import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Sensor, SensorService} from "../sensor.service";
@@ -20,7 +19,6 @@ export class PatientComponent implements OnInit {
   page_info = false;
   page_admin = false;
 
-  selected = new FormControl(0);
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
