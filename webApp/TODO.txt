@@ -6,4 +6,4 @@ TO DO:
 - Recupero password
 - Test
 - Funzionamento sms
-
+- Aggiunta unità di misura nelle notifiche (e-mail e sms)
