@@ -30,4 +30,19 @@ describe('MACAddressComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('control invalid form add mac to patient', () => {
+    component.mac.setValue('');
+    component.patientControl.setValue('');
+    expect(component.mac.valid).toBeFalsy();
+    expect(component.patientControl.valid).toBeFalsy();
+  });
+
+  it('control valid form add mac to patient', () => {
+    component.mac.setValue('aaaaaaaaaaaa');
+    component.patientControl.setValue('aaaaaaaaaaaaaaaa');
+    expect(component.mac.valid).toBeTruthy();
+    expect(component.patientControl.valid).toBeTruthy();
+  });
+
 });

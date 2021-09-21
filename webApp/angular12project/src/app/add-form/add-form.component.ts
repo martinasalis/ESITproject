@@ -25,10 +25,10 @@ export class AddFormComponent implements OnInit {
   username = new FormControl('');
   name = new FormControl('');
   surname = new FormControl('');
-  mail = new FormControl('');
+  mail = new FormControl('', Validators.email);
   dob = new FormControl('');
-  tc = new FormControl('');
-  phone = new FormControl('');
+  tc = new FormControl('', [Validators.max(16)]);
+  phone = new FormControl('',[Validators.max(10)]);
   dor = new FormControl('');
   address = new FormControl('');
   role = new FormControl('');

@@ -40,4 +40,19 @@ describe('NoticeDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('control invalid form recovery password', () => {
+    component.mail.setValue('aa');
+    expect(component.mail.valid).toBeFalsy();
+  });
+
+  it('control empty form field recovery password', () => {
+    component.mail.setValue('');
+    expect(component.mail.valid).toBeFalsy();
+  });
+
+  it('control valid form recovery password', () => {
+    component.mail.setValue('aa@aa');
+    expect(component.mail.valid).toBeTruthy();
+  });
 });
