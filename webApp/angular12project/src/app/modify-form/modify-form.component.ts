@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
-import {Type, User, UserService} from "../user.service";
-import {Doctor, DoctorService, Notice} from "../doctor.service";
-import {Router} from "@angular/router";
-import {Patient, PatientService} from "../patient.service";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from "@angular/forms";
+import { Type, User, UserService } from "../user.service";
+import { Doctor, DoctorService, Notice } from "../doctor.service";
+import { Router } from "@angular/router";
+import { Patient, PatientService } from "../patient.service";
 import * as moment from "moment";
-import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {Sensor, SensorService} from "../sensor.service";
+import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { Sensor, SensorService } from "../sensor.service";
 
 @Component({
   selector: 'app-modify-form',
@@ -21,21 +21,21 @@ export class ModifyFormComponent implements OnInit {
   modify_sensor = false;
   modify_sensor_doctor = false;
 
-  username = new FormControl('');
-  name = new FormControl('');
-  surname = new FormControl('');
-  mail = new FormControl('', Validators.email);
-  dob = new FormControl('');
-  tc = new FormControl('', [Validators.max(16)]);
-  phone = new FormControl('', [Validators.max(10)]);
-  dor = new FormControl('');
-  address = new FormControl('');
-  role = new FormControl('');
-  description = new  FormControl('');
-  um = new FormControl('');
-  name_sensor = new FormControl('');
-  thr = new FormControl('', [Validators.min(0)]);
-  typeSensor = new FormControl('');
+  username = new FormControl('', Validators.required);
+  name = new FormControl('', Validators.required);
+  surname = new FormControl('', Validators.required);
+  mail = new FormControl('', [Validators.email, Validators.required]);
+  dob = new FormControl('', Validators.required);
+  tc = new FormControl('', [Validators.max(16), Validators.required]);
+  phone = new FormControl('', [Validators.max(10), Validators.required]);
+  dor = new FormControl('', Validators.required);
+  address = new FormControl('', Validators.required);
+  role = new FormControl('', Validators.required);
+  description = new  FormControl('', Validators.required);
+  um = new FormControl('', Validators.required);
+  name_sensor = new FormControl('', Validators.required);
+  thr = new FormControl('', [Validators.min(0), Validators.required]);
+  typeSensor = new FormControl('', Validators.required);
 
   patientDoctor: String = '';
   doctorNotice: Notice = Notice.DEFAULT;
@@ -52,7 +52,6 @@ export class ModifyFormComponent implements OnInit {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
       this.clickedSensor = this.router.getCurrentNavigation()?.extras.state?.clickedSensor;
-      console.log(this.clickedSensor);
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {

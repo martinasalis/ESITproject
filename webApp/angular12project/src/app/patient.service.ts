@@ -16,7 +16,6 @@ const baseUrl = 'http://localhost:8080';
 @Injectable({
   providedIn: 'root'
 })
-
 export class PatientService {
 
   private patient: Patient = {_id: '', address: '', dor: Date.prototype, doctor: '', board: '', description: ''};

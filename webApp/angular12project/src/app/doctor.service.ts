@@ -20,7 +20,6 @@ const baseUrl = 'http://localhost:8080';
 @Injectable({
   providedIn: 'root'
 })
-
 export class DoctorService {
 
   private doctor: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};

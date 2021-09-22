@@ -26,7 +26,6 @@ const baseUrl = 'http://localhost:8080';
 @Injectable({
   providedIn: 'root'
 })
-
 export class UserService {
 
   private user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};

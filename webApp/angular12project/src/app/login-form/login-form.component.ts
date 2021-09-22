@@ -39,6 +39,7 @@ export class LoginFormComponent implements OnInit {
           this.openDialog();
         }
       });
+
     }
   }
 

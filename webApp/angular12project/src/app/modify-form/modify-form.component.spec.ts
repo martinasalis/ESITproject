@@ -1,11 +1,31 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ModifyFormComponent } from './modify-form.component';
-import { HttpClientModule } from "@angular/common/http";
-import { RouterTestingModule } from "@angular/router/testing";
-import { MatDialogModule } from "@angular/material/dialog";
-import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import {ModifyFormComponent} from './modify-form.component';
+import {HttpClientModule} from "@angular/common/http";
+import {RouterTestingModule} from "@angular/router/testing";
+import {MatDialogModule} from "@angular/material/dialog";
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Type, UserService} from "../user.service";
+import {DoctorService} from "../doctor.service";
+import {PatientService} from "../patient.service";
+import {SensorService} from "../sensor.service";
+import {Router} from "@angular/router";
+
+class MockRouter {
+  getCurrentNavigation() {
+    return {
+      extras: {
+        state: {
+          clickedUser: {_id: 'GRSLCU97L14E281J', name: 'Luca', surname: 'Grassi', username: 'luca',
+            password: '12345', dob: new Date('14/07/1997'), phone: '3333415523', mail: 'lucagra97@gmail.com',
+            type: Type.DOCTOR},
+          clickedSensor: {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0}
+        }
+      }
+    };
+  }
+}
 
 describe('ModifyFormComponent', () => {
   let component: ModifyFormComponent;
@@ -20,12 +40,28 @@ describe('ModifyFormComponent', () => {
         MatDialogModule,
         BrowserModule,
         BrowserAnimationsModule
+      ],
+      providers: [
+        UserService,
+        DoctorService,
+        PatientService,
+        SensorService,
+        {provide: Router, useClass: MockRouter}
       ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+    // Define session variables
+    /*
+    spyOn(sessionStorage, 'getItem')
+      .withArgs('login').and.returnValue(JSON.stringify(true))
+      .withArgs('user').and.returnValue(JSON.stringify({_id: 'GRSLCU97L14E281J', name: 'Luca',
+      surname: 'Grassi', username: 'luca', password: '12345', dob: new Date('14/07/1997'),
+      phone: '3333415523', mail: 'lucagra97@gmail.com', type: Type.DOCTOR}));
+
+     */
     fixture = TestBed.createComponent(ModifyFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -38,6 +74,7 @@ describe('ModifyFormComponent', () => {
 
   it('control invalid form modify doctor', () => {
     if(component.modify_doctor){
+      // Set value
       component.username.setValue('');
       component.name.setValue('');
       component.surname.setValue('');
@@ -46,6 +83,8 @@ describe('ModifyFormComponent', () => {
       component.tc.setValue('');
       component.role.setValue('');
       component.phone.setValue('');
+
+      // Tests
       expect(component.username.valid).toBeFalsy();
       expect(component.name.valid).toBeFalsy();
       expect(component.surname.valid).toBeFalsy();
@@ -53,12 +92,13 @@ describe('ModifyFormComponent', () => {
       expect(component.dob.valid).toBeFalsy();
       expect(component.tc.valid).toBeFalsy();
       expect(component.role.valid).toBeFalsy();
-      expect(component.phone.valid).toBeFalsy();
+      expect(component.phone.valid).toBeFalsy()
     }
   });
 
   it('control valid form modify doctor', () => {
     if(component.modify_doctor){
+      // Set values
       component.username.setValue('aaa');
       component.name.setValue('aaa');
       component.surname.setValue('aaa');
@@ -67,6 +107,8 @@ describe('ModifyFormComponent', () => {
       component.tc.setValue('aaa');
       component.role.setValue('aaaaaaaaaaaaaaaa');
       component.phone.setValue('aaaaaaaaaa');
+
+      // Tests
       expect(component.username.valid).toBeTruthy();
       expect(component.name.valid).toBeTruthy();
       expect(component.surname.valid).toBeTruthy();
@@ -80,6 +122,7 @@ describe('ModifyFormComponent', () => {
 
   it('control invalid form modify patient', () => {
     if(component.modify_patient) {
+      // Set values
       component.username.setValue('');
       component.name.setValue('');
       component.surname.setValue('');
@@ -90,6 +133,8 @@ describe('ModifyFormComponent', () => {
       component.phone.setValue('');
       component.dor.setValue('');
       component.address.setValue('');
+
+      // Tests
       expect(component.username.valid).toBeFalsy();
       expect(component.name.valid).toBeFalsy();
       expect(component.surname.valid).toBeFalsy();
@@ -105,6 +150,7 @@ describe('ModifyFormComponent', () => {
 
   it('control valid form modify patient', () => {
     if(component.modify_patient) {
+      // Set values
       component.username.setValue('aaa');
       component.name.setValue('aaa');
       component.surname.setValue('aa');
@@ -115,6 +161,8 @@ describe('ModifyFormComponent', () => {
       component.phone.setValue('aaaaaaaaaa');
       component.dor.setValue('25/12/2021');
       component.address.setValue('aaa');
+
+      // Tests
       expect(component.username.valid).toBeTruthy();
       expect(component.name.valid).toBeTruthy();
       expect(component.surname.valid).toBeTruthy();
@@ -130,8 +178,11 @@ describe('ModifyFormComponent', () => {
 
   it('control invalid form modify sensor', () => {
     if(component.modify_sensor) {
+      // Set values
       component.name_sensor.setValue('');
       component.um.setValue('');
+
+      // Tests
       expect(component.name_sensor.valid).toBeFalsy();
       expect(component.um.valid).toBeFalsy();
     }
@@ -139,8 +190,11 @@ describe('ModifyFormComponent', () => {
 
   it('control valid form modify sensor', () => {
     if(component.modify_sensor) {
+      // Set values
       component.name_sensor.setValue('aaa');
       component.um.setValue('aaa');
+
+      // Tests
       expect(component.name_sensor.valid).toBeTruthy();
       expect(component.um.valid).toBeTruthy();
     }

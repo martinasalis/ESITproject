@@ -16,7 +16,6 @@ const baseUrl = 'http://localhost:8080';
 @Injectable({
   providedIn: 'root'
 })
-
 export class SensorService {
 
   private sensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
