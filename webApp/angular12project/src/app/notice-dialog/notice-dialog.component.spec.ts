@@ -4,6 +4,7 @@ import { NoticeDialogComponent } from './notice-dialog.component';
 import { RouterTestingModule } from "@angular/router/testing";
 import {FormsModule} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('NoticeDialogComponent', () => {
   let component: NoticeDialogComponent;
@@ -15,7 +16,8 @@ describe('NoticeDialogComponent', () => {
       imports: [
         RouterTestingModule,
         FormsModule,
-        MatDialogModule
+        MatDialogModule,
+        HttpClientModule
       ],
       providers: [
         {

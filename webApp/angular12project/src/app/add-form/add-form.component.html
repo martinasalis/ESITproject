@@ -127,11 +127,13 @@
               <mat-error *ngIf="address.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
-            <mat-form-field>
-              <mat-label>Dottore</mat-label>
-              <input matInput type="text" placeholder="" name="doctor" [formControl]="doctor" required>
-              <mat-error *ngIf="doctor.invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
+            <div *ngIf="user.type == 'ADMIN'">
+              <mat-form-field>
+                <mat-label>Dottore</mat-label>
+                <input matInput type="text" placeholder="" name="doctor" [formControl]="doctor" required>
+                <mat-error *ngIf="doctor.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
 
             <mat-form-field>
               <mat-label>Descrizione</mat-label>

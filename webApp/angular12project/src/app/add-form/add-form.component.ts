@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from "@angular/forms";
-import { Type, User, UserService } from "../user.service";
-import { Doctor, DoctorService, Notice } from "../doctor.service";
-import { Patient, PatientService } from "../patient.service";
-import { Router } from "@angular/router";
-import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
-import { MatDialog } from "@angular/material/dialog";
-import { Sensor, SensorService } from "../sensor.service";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, Validators} from "@angular/forms";
+import {Type, User, UserService} from "../user.service";
+import {Doctor, DoctorService, Notice} from "../doctor.service";
+import {Patient, PatientService} from "../patient.service";
+import {Router} from "@angular/router";
+import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {Sensor, SensorService} from "../sensor.service";
 
 @Component({
   selector: 'app-add-form',
@@ -112,8 +112,15 @@ export class AddFormComponent implements OnInit {
       }
     }
     else if(this.add_patient) {
+      let doctor_patient: String = '';
+
+      if(this.user.type == Type.DOCTOR)
+        doctor_patient = this.user._id;
+      else
+        doctor_patient = this.doctor.value;
+
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', mail: this.mail.value, phone: this.phone.value, dob: this.dob.value, type: Type.PATIENT};
-      let newPatient: Patient = {_id: this.tc.value, dor: this.dor.value, address: this.address.value, doctor: this.doctor.value, board: '', description: this.description.value};
+      let newPatient: Patient = {_id: this.tc.value, dor: this.dor.value, address: this.address.value, doctor: doctor_patient, board: '', description: this.description.value};
 
       if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || this.dor.value == '' || newUser.mail == '' || newUser.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == '') {
         this.empty_field = true;
