@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
           this.doctorService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
-          this.router.navigate(['home']).then();
+          //this.router.navigate(['home']).then();
         }
       });
     }
@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit {
           this.patientService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
-          this.router.navigate(['home']).then();
+          //this.router.navigate(['home']).then();
         }
       });
     }
@@ -150,7 +150,7 @@ export class HomeComponent implements OnInit {
           this.sensorService.delete(this.clickedSensor._id).subscribe(data => {
             console.log(data);
           });
-          this.router.navigate(['home']).then();
+          //this.router.navigate(['home']).then();
         }
       });
     }
@@ -250,6 +250,11 @@ export class HomeComponent implements OnInit {
 
   insert_mac(): void {
     this.router.navigate(['mac-address']).then();
+  }
+
+  delete(): void{
+    this.openDialog();
+    this.router.navigate(['home']).then();
   }
 
 }

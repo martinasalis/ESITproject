@@ -175,8 +175,15 @@
 </ng-template>
 
 <ng-template #no_mail>
-  <div>
+  <div *ngIf="data.flag == 11; else duplicate_user">
     <mat-icon class="icon_error">error</mat-icon>
     <p>E-Mail non presente nel database!</p>
+  </div>
+</ng-template>
+
+<ng-template #duplicate_user>
+  <div>
+    <mat-icon class="icon_error">error</mat-icon>
+    <p>E' già presente un utente con lo stesso codice fiscale!</p>
   </div>
 </ng-template>

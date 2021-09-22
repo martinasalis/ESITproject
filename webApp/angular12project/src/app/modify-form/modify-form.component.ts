@@ -20,6 +20,7 @@ export class ModifyFormComponent implements OnInit {
   modify_patient = false;
   modify_sensor = false;
   modify_sensor_doctor = false;
+  duplicate_user = false;
 
   username = new FormControl('', Validators.required);
   name = new FormControl('', Validators.required);
@@ -140,33 +141,55 @@ export class ModifyFormComponent implements OnInit {
       let newUser: User = {_id: this.clickedRow._id, name: this.name.value, surname: this.surname.value,
         username: this.username.value, password: this.clickedRow.password, mail: this.mail.value, phone: this.phone.value,
         dob: this.dob.value, type: this.clickedRow.type};
-      this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
-        console.log(data);
+      let newDoctor: Doctor = {_id: this.clickedRow._id, role: this.role.value, notice: this.doctorNotice};
+
+      this.userService.info(this.tc.value).subscribe(data => {
+        if(data == null) {
+          this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
+            console.log(data);
+
+            this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
+              console.log(data);
+            });
+            this.router.navigate(['home']).then();
+            this.openDialog();
+          });
+        }
+        else{
+          this.duplicate_user = true;
+          this.openDialog();
+          this.duplicate_user = false;
+        }
       });
 
-      let newDoctor: Doctor = {_id: this.clickedRow._id, role: this.role.value, notice: this.doctorNotice};
-      this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
-        console.log(data);
-      });
-      this.router.navigate(['home']).then();
-      this.openDialog();
     }
     else if(this.modify_patient) {
       // Update user's data
       let newUser: User = {_id: this.clickedRow._id, name: this.name.value, surname: this.surname.value,
         username: this.username.value, password: this.clickedRow.password, mail: this.mail.value, phone: this.phone.value,
         dob: this.dob.value, type: this.clickedRow.type};
-      this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
-        console.log(data);
-      });
-
       let newPatient: Patient = {_id: this.clickedRow._id, dor: this.dor.value, address: this.address.value,
         doctor: this.patientDoctor, board: this.patBoard, description: this.description.value};
-      this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
-        console.log(data);
+
+      this.userService.info(this.tc.value).subscribe(data => {
+        if(data == null) {
+          this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
+            console.log(data);
+          });
+          this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
+            console.log(data);
+          });
+          this.router.navigate(['home']).then();
+          this.openDialog();
+        }
+        else{
+          this.duplicate_user = true;
+          this.openDialog();
+          this.duplicate_user = false;
+        }
       });
-      this.router.navigate(['home']).then();
-      this.openDialog();
+
+
     }
     else {
       let newSensor: Sensor = {_id: this.clickedSensor._id, name: this.name_sensor.value, um: this.um.value,
@@ -187,7 +210,17 @@ export class ModifyFormComponent implements OnInit {
 
   openDialog() {
 
-    if (this.modify_doctor) {
+    if(this.duplicate_user){
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {flag: 12}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else if (this.modify_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 1, flag: 2}
@@ -249,6 +282,10 @@ export class ModifyFormComponent implements OnInit {
       this.name_sensor.hasError('required') || this.thr.hasError('required') ||
       this.typeSensor.hasError('required')) {
       return 'Devi inserire il campo';
+    }
+
+    if(this.mail.hasError('email')){
+      return 'E-Mail non valida'
     }
 
     return this.thr.hasError('min') ? 'Il valore minimo è 0' : '';

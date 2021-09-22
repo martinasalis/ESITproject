@@ -20,6 +20,7 @@ export class AddFormComponent implements OnInit {
   add_sensor = false;
   add_sensor_patient = false;
   empty_field = false;
+  duplicate_user = false;
   button = Number();
 
   username = new FormControl('');
@@ -100,15 +101,25 @@ export class AddFormComponent implements OnInit {
         this.openDialog();
       }
       else {
-        this.userService.insert(newUser).subscribe(data => {
-          console.log(data);
-        });
-        this.doctorService.insert(newDoctor, newUser.mail, newUser.phone).subscribe(data => {
-          console.log(data);
-        });
+        this.userService.info(this.tc.value).subscribe(data => {
 
-        this.router.navigate(['home']).then();
-        this.openDialog();
+          if(data == null) {
+            this.userService.insert(newUser).subscribe(data => {
+              console.log(data);
+            });
+            this.doctorService.insert(newDoctor, newUser.mail, newUser.phone).subscribe(data => {
+              console.log(data);
+            });
+
+            this.router.navigate(['home']).then();
+            this.openDialog();
+          }
+          else{
+            this.duplicate_user = true;
+            this.openDialog();
+            this.duplicate_user = false;
+          }
+        });
       }
     }
     else if(this.add_patient) {
@@ -127,16 +138,27 @@ export class AddFormComponent implements OnInit {
         this.openDialog();
       }
       else {
-        this.userService.insert(newUser).subscribe(data => {
+        this.userService.info(this.tc.value).subscribe(data => {
           console.log(data);
+          if(data == null) {
+            this.userService.insert(newUser).subscribe(data => {
+              console.log(data);
+            });
+
+            this.patientService.insert(newPatient).subscribe(data => {
+              console.log(data);
+            });
+
+            this.router.navigate(['home']).then();
+            this.openDialog();
+          }
+          else{
+            this.duplicate_user = true;
+            this.openDialog();
+            this.duplicate_user = false;
+          }
         });
 
-        this.patientService.insert(newPatient).subscribe(data => {
-          console.log(data);
-        });
-
-        this.router.navigate(['home']).then();
-        this.openDialog();
       }
     }
     else if(this.add_sensor){
@@ -188,6 +210,16 @@ export class AddFormComponent implements OnInit {
       });
 
       this.empty_field = false;
+    }
+    else if(this.duplicate_user){
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {flag: 12}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
     }
     else if (this.add_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
@@ -251,6 +283,10 @@ export class AddFormComponent implements OnInit {
       this.thr.hasError('required') || this.typeSensor.hasError('required') ||
       this.type.hasError('required') || this.doctor.hasError('required')) {
       return 'Devi inserire il campo';
+    }
+
+    if(this.mail.hasError('email')){
+      return 'E-Mail non valida'
     }
 
     return this.thr.hasError('min') ? 'Il valore minimo è 0' : '';
