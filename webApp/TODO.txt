@@ -5,4 +5,3 @@ Luca:
 TO DO:
 - Test
 - Funzionamento sms
-- Aggiunta unità di misura nelle notifiche (e-mail e sms)
