@@ -54,14 +54,12 @@ describe('ModifyFormComponent', () => {
 
   beforeEach(() => {
     // Define session variables
-    /*
     spyOn(sessionStorage, 'getItem')
       .withArgs('login').and.returnValue(JSON.stringify(true))
       .withArgs('user').and.returnValue(JSON.stringify({_id: 'GRSLCU97L14E281J', name: 'Luca',
       surname: 'Grassi', username: 'luca', password: '12345', dob: new Date('14/07/1997'),
       phone: '3333415523', mail: 'lucagra97@gmail.com', type: Type.DOCTOR}));
 
-     */
     fixture = TestBed.createComponent(ModifyFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -92,7 +90,7 @@ describe('ModifyFormComponent', () => {
       expect(component.dob.valid).toBeFalsy();
       expect(component.tc.valid).toBeFalsy();
       expect(component.role.valid).toBeFalsy();
-      expect(component.phone.valid).toBeFalsy()
+      expect(component.phone.valid).toBeFalsy();
     }
   });
 

@@ -150,7 +150,7 @@
 
 <!-- Recovery password -->
 <ng-template #recovery_password>
-  <div *ngIf="data.flag == 10">
+  <div *ngIf="data.flag == 10; else no_mail">
     <div class="grandParentContainer">
       <h1><b>Recupero password</b></h1>
       <div class="parentContainer">
@@ -165,13 +165,18 @@
               <mat-error *ngIf="mail.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
-            <button mat-button type="button" class="button_mail">Recupera password</button>
+            <button mat-button type="button" class="button_mail" (click)="recovery()">Recupera password</button>
 
           </div>
         </form>
       </div>
     </div>
   </div>
+</ng-template>
 
-
+<ng-template #no_mail>
+  <div>
+    <mat-icon class="icon_error">error</mat-icon>
+    <p>E-Mail non presente nel database!</p>
+  </div>
 </ng-template>

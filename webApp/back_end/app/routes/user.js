@@ -21,14 +21,65 @@ exports = module.exports = function(app) {
         });
     });
 
+    app.post('/recoveryPassword', function(req, res) {
+        // Generate default password for new user
+        let password = generator.generate({
+            length: 10,
+            numbers: true
+        });
+
+        const params_mail = {
+            Source: "lucagra97@live.it",
+            Destination: {
+                ToAddresses: [
+                    req.body.mail
+                ],
+            },
+            Message: {
+                Subject: {
+                    Data: "Nuova password utente",
+                    Charset: "UTF-8"
+                },
+                Body: {
+                    Text: {
+                        Data: "Nuova password utente",
+                        Charset: "UTF-8"
+                    },
+                    Html: {
+                        Data: "<html><head></head><body><h1>Nuova password</h1><p>La tua nuova password è: " + password + "</p></body></html>",
+                        Charset: "UTF-8"
+                    }
+                }
+            }
+        };
+
+        ses.sendEmail(params_mail, function(err, data) {
+            if(err) {
+                console.log(err.message);
+            }
+            else {
+                console.log("Email sent! Message ID: ", data.MessageId);
+            }
+        });
+
+        // Recovery password
+        User.updateOne({mail: req.body.mail}, {password: password}, function(err, user) {
+            // Error
+            if(err)
+                res.send(err);
+            else
+                res.json(user);
+        });
+    });
+
     app.post('/infoUser', function(req, res) {
         // Login
         User.findOne({_id: req.body._id}, function(err, user) {
             // Error occurred in login
             if(err)
                 res.send(err);
-
-            res.json(user);
+            else
+                res.json(user);
         });
     });
 
@@ -38,8 +89,8 @@ exports = module.exports = function(app) {
             // Error occurred
             if(err)
                 res.send(err);
-
-            res.json(users);
+            else
+                res.json(users);
         });
     });
 
@@ -49,8 +100,8 @@ exports = module.exports = function(app) {
             // Error occurred
             if(err)
                 res.send(err);
-
-            res.json(users);
+            else
+                res.json(users);
         });
     });
 
@@ -62,8 +113,8 @@ exports = module.exports = function(app) {
             // Error
             if(err)
                 res.send(err);
-
-            res.json(users);
+            else
+                res.json(users);
         });
     });
 
@@ -152,6 +203,44 @@ exports = module.exports = function(app) {
 
             res.json(user);
         });
+
+        const params_mail = {
+            Source: "lucagra97@live.it",
+            Destination: {
+                ToAddresses: [
+                    req.body.mail
+                ],
+            },
+            Message: {
+                Subject: {
+                    Data: "Password nuovo utente",
+                    Charset: "UTF-8"
+                },
+                Body: {
+                    Text: {
+                        Data: "Password nuovo utente",
+                        Charset: "UTF-8"
+                    },
+                    Html: {
+                        Data: "<html><head></head><body><h1>Nuova password</h1><p>La tua password è: " + password + "</p></body></html>",
+                        Charset: "UTF-8"
+                    }
+                }
+            }
+        };
+
+        // Send new password after two minutes
+        function send_mail() {
+            ses.sendEmail(params_mail, function(err, data) {
+                if(err) {
+                    console.log(err.message);
+                }
+                else {
+                    console.log("Email sent! Message ID: ", data.MessageId);
+                }
+            });
+        }
+        setTimeout(send_mail, 120000);
     });
 
 };

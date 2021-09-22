@@ -44,6 +44,10 @@ export class UserService {
     return this.http.post<User>(`${baseUrl}/infoUser`, body);
   }
 
+  recoveryPassword(mail: String): Observable<any> {
+    const body = {mail: mail};
+    return this.http.post(`${baseUrl}/recoveryPassword`, body);
+  }
 
   /**
    * This function perform login to the system

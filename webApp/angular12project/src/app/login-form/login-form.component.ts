@@ -18,7 +18,11 @@ export class LoginFormComponent implements OnInit {
   password = new FormControl('', Validators.required);
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
 
-  constructor(private userService: UserService, private router: Router, public dialog: MatDialog) { }
+  constructor(private userService: UserService, private router: Router, public dialog: MatDialog) {
+    if(JSON.parse(sessionStorage.getItem('login')!)) {
+      this.router.navigate(['home']).then();
+    }
+  }
 
   ngOnInit(): void {
     this.login();
