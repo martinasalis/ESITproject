@@ -102,9 +102,10 @@ export class SensorService {
   /**
    * This function delete all sensor associate to a board
    * @param {String} board - Board's MAC
+   * @param {String} doctor - Patient's doctor ID
    */
-  deleteAllSensorBoard(board: String): Observable<any> {
-    const body = {board: board};
+  deleteAllSensorBoard(board: String, doctor: String): Observable<any> {
+    const body = {board: board, doctor: doctor};
     return this.http.post(`${baseUrl}/deleteAllSensorBoard`, body);
   }
 

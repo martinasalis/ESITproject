@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit {
         if(result) {
           // Delete sensor's patient
           this.patientService.info(this.clickedRow._id).subscribe((data: Patient) => {
-            this.sensorService.deleteAllSensorBoard(data.board).subscribe(data => {
+            this.sensorService.deleteAllSensorBoard(data.board, data.doctor).subscribe(data => {
               console.log(data);
             });
           });

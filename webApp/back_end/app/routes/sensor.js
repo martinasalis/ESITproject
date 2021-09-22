@@ -8,6 +8,39 @@ exports = module.exports = function(app) {
     AWS.config.update({region: 'us-east-2'});
     const docClient = new AWS.DynamoDB.DocumentClient();
 
+    function patient_threshold_db(sensors, board, pat_doctor, pat_id) {
+        // This function inset or update if exist a item in patient_threshold table of DynamoDB
+        let data = [];
+
+        sensors.forEach((sensor) => {
+            let sensor_data = {};
+            sensor_data['type'] = sensor.type;
+            sensor_data['threshold'] = sensor.threshold;
+            sensor_data['um'] = sensor.um;
+            data.push(sensor_data);
+        });
+
+        const params = {
+            Item: {
+                "mac_address": board,
+                "doctor_id": pat_doctor,
+                "patient_id": pat_id,
+                "data": data
+            },
+            ReturnConsumedCapacity: "TOTAL",
+            "TableName": "patient_threshold"
+        };
+
+        docClient.put(params, function(err, data){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(data);
+            }
+        });
+    }
+
     // server routes ===========================================================
 
     app.post('/infoSensor', function(req, res) {
@@ -34,35 +67,7 @@ exports = module.exports = function(app) {
                         res.send(err);
                     else {
                         Sensor.find({board: req.body.board}, function(error, sensors) {
-                            let data = [];
-
-                            sensors.forEach((sensor) => {
-                                let sensor_data = {};
-                                sensor_data['type'] = sensor.type;
-                                sensor_data['threshold'] = sensor.threshold;
-                                data.push(sensor_data);
-                            });
-                            console.log(data);
-
-                            const params = {
-                                Item: {
-                                    "mac_address": req.body.board,
-                                    "doctor_id": pat.doctor,
-                                    "patient_id": pat._id,
-                                    "data": data
-                                },
-                                ReturnConsumedCapacity: "TOTAL",
-                                "TableName": "patient_threshold"
-                            };
-
-                            docClient.put(params, function(err, data){
-                                if(err){
-                                    console.log(err);
-                                }
-                                else{
-                                    console.log(data);
-                                }
-                            });
+                            patient_threshold_db(sensors, req.body.board, pat.doctor, pat._id);
                         });
                     }
                 });
@@ -72,6 +77,24 @@ exports = module.exports = function(app) {
     });
 
     app.post('/deleteAllSensorBoard', function(req, res) {
+
+        const params = {
+            TableName: "patient_threshold",
+            Key: {
+                mac_address: req.body.board,
+                doctor_id: req.body.doctor
+            }
+        };
+
+        docClient.delete(params, function(err, data){
+            if(err){
+                console.log(err);
+            }
+            else {
+                console.log(data);
+            }
+        });
+
         // Delete all sensor of patient's board
         Sensor.deleteMany({board: req.body.board}, function(err, snr) {
             // Error
@@ -140,33 +163,7 @@ exports = module.exports = function(app) {
                         console.log(pat);
                         if(pat != null) {
                             Sensor.find({board: req.body.board}, function (error, sensors) {
-                                let data = [];
-
-                                sensors.forEach((sensor) => {
-                                    let sensor_data = {};
-                                    sensor_data['type'] = sensor.type;
-                                    sensor_data['threshold'] = sensor.threshold;
-                                    data.push(sensor_data);
-                                });
-
-                                const params = {
-                                    Item: {
-                                        "mac_address": req.body.board,
-                                        "doctor_id": pat.doctor,
-                                        "patient_id": pat._id,
-                                        "data": data
-                                    },
-                                    ReturnConsumedCapacity: "TOTAL",
-                                    "TableName": "patient_threshold"
-                                };
-
-                                docClient.put(params, function (err, data) {
-                                    if (err) {
-                                        console.log(err);
-                                    } else {
-                                        console.log(data);
-                                    }
-                                });
+                                patient_threshold_db(sensors, req.body.board, pat.doctor, pat._id);
                             });
                         }
                     }
@@ -200,7 +197,6 @@ exports = module.exports = function(app) {
 
     app.post('/searchSensors', function(req, res) {
         let param = req.body.param;
-        console.log(param);
 
         // Get a sensor that match with param
         Sensor.find({name: {$regex: param, $options: 'i'}},

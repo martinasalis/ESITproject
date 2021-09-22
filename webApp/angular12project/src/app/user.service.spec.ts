@@ -28,9 +28,9 @@ describe('UserService', () => {
         _id: 'SLSMTN96D60B354H', name: 'Martina', surname: 'Salis', username: 'martina', password: '6789',
         phone: '3331203042', mail: 'marti.salis20@gmail.com', type: Type.DOCTOR});
 
-      //let res_date: String = data.dob.toISOString();
-      //expect(res_date).toEqual(new Date('1996-04-20').toISOString());
       done();
     });
   });
+
+
 });

@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const doctorSchema = new Schema({
     _id: {type: String, default: '', required: true}, // This is the Tax Code
     role: {type: String, default: ''},
-    notice: {type: String, enum: ['DEFAULT', 'E-MAIL', 'SMS', 'TELEGRAM'], default: ''}
+    notice: {type: String, enum: ['DEFAULT', 'E-MAIL', 'SMS'], default: ''}
 }, {versionKey: false});
 
 // module.exports allows us to pass this to other files when it is called

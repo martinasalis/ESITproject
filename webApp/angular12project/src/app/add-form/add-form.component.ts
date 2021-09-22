@@ -103,7 +103,7 @@ export class AddFormComponent implements OnInit {
         this.userService.insert(newUser).subscribe(data => {
           console.log(data);
         });
-        this.doctorService.insert(newDoctor).subscribe(data => {
+        this.doctorService.insert(newDoctor, newUser.mail, newUser.phone).subscribe(data => {
           console.log(data);
         });
 
