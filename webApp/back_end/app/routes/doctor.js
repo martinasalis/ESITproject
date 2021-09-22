@@ -101,32 +101,25 @@ exports = module.exports = function(app) {
 
     app.post('/insertDoctor', function (req, res) {
 
-        User.findOne({_id: req.body._id}, function(err, user) {
-            // If there is an error retrieving, send the error.
-            if(err)
-                res.send(err);
-            else {
-                const params = {
-                    Item: {
-                        "doctor_id": req.body._id,
-                        "data": {
-                            "notice_type": req.body.notice,
-                            "mail": user.mail,
-                            "phone": user.phone
-                        }
-                    },
-                    ReturnConsumedCapacity: "TOTAL",
-                    "TableName": "doctor_notice"
-                };
+        const params = {
+            Item: {
+                "doctor_id": req.body._id,
+                "data": {
+                    "notice_type": req.body.notice,
+                    "mail": req.body.mail,
+                    "phone": req.body.phone
+                }
+            },
+            ReturnConsumedCapacity: "TOTAL",
+            "TableName": "doctor_notice"
+        };
 
-                docClient.put(params, function(err, data){
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        console.log(data);
-                    }
-                });
+        docClient.put(params, function(err, data){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(data);
             }
         });
 

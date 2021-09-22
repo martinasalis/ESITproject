@@ -5,8 +5,7 @@ import { Observable } from "rxjs";
 export enum Notice {
   DEFAULT = 'DEFAULT',
   MAIL = 'E-MAIL',
-  SMS = 'SMS',
-  TELEGRAM = 'TELEGRAM'
+  SMS = 'SMS'
 }
 
 export interface Doctor {
@@ -77,9 +76,11 @@ export class DoctorService {
   /**
    * This function insert a new doctor
    * @param {Doctor} doc - New doctor data
+   * @param {String} mail - Doctor's e-mail
+   * @param {String} phone - Doctor's phone number
    */
-  insert(doc: Doctor): Observable<any> {
-    const body = {_id: doc._id, role: doc.role, notice: doc.notice};
+  insert(doc: Doctor, mail: String, phone: String): Observable<any> {
+    const body = {_id: doc._id, role: doc.role, notice: doc.notice, mail: mail, phone: phone};
     return this.http.post(`${baseUrl}/insertDoctor`, body);
   }
 

@@ -20,7 +20,7 @@ export class PageInfoComponent implements OnInit {
   doc: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};
   pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   selectedNotice: String = '';
-  noticeOptions: String[] = ['E-mail', 'SMS', 'Telegram'];
+  noticeOptions: String[] = ['E-mail', 'SMS'];
   noticeGroup: FormGroup = new FormGroup({notice: new FormControl()});
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
@@ -45,11 +45,8 @@ export class PageInfoComponent implements OnInit {
         if(this.doc.notice == Notice.MAIL) {
           this.noticeGroup.setControl("notice", new FormControl(this.noticeOptions[0]));
         }
-        else if(this.doc.notice == Notice.SMS) {
-          this.noticeGroup.setControl("notice", new FormControl(this.noticeOptions[1]));
-        }
         else {
-          this.noticeGroup.setControl("notice", new FormControl(this.noticeOptions[2]));
+          this.noticeGroup.setControl("notice", new FormControl(this.noticeOptions[1]));
         }
       });
     }
@@ -66,14 +63,8 @@ export class PageInfoComponent implements OnInit {
       });
       this.openDialog();
     }
-    else if(this.selectedNotice == this.noticeOptions[1]) {
-      this.doctorService.updateNotice(this.user._id, Notice.SMS).subscribe(data => {
-        console.log(data);
-      });
-      this.openDialog();
-    }
     else {
-      this.doctorService.updateNotice(this.user._id, Notice.TELEGRAM).subscribe(data => {
+      this.doctorService.updateNotice(this.user._id, Notice.SMS).subscribe(data => {
         console.log(data);
       });
       this.openDialog();
