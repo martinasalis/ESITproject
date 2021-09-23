@@ -223,7 +223,13 @@ export class HomeComponent implements OnInit {
   }
 
   visualize(): void {
-    this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}}).then();
+    if(this.clickedRow._id == ''){
+      this.router.navigate(['home']).then();
+      this.openDialog();
+    }
+    else {
+      this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}}).then();
+    }
   }
 
   modify(): void {
