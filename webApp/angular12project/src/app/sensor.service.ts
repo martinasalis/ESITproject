@@ -11,7 +11,7 @@ export interface Sensor {
   type: Number
 }
 
-const baseUrl = 'http://localhost:8080';
+const baseUrl = '/api';
 
 @Injectable({
   providedIn: 'root'
