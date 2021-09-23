@@ -6,23 +6,16 @@ const app = express();
 const mongoose = require('mongoose');
 const db = require('./config/db');
 
-//const fs = require('fs');
-//const path = require('path');
-//require('dotenv/config');
-
 app.use(cors());
 
 // configuration ===========================================
 
 // config files
+// connect to our mongoDB database
 mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // set our port
-const port = process.env.PORT || 8080;
-
-// connect to our mongoDB database
-// (uncomment after you enter in your own credentials in config/db.js)
-// mongoose.connect(db.url);
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 8080;
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
