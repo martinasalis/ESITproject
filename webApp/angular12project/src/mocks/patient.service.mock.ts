@@ -1,5 +1,4 @@
 import {Patient, PatientService} from "../app/patient.service";
-import {Doctor, Notice} from "../app/doctor.service";
 import {EMPTY, Observable, of} from "rxjs";
 
 class MockPatientService extends PatientService {
