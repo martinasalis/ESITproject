@@ -1,7 +1,7 @@
-import {Doctor, DoctorService, Notice} from "../app/doctor.service";
-import {EMPTY, Observable, of} from "rxjs";
+import { Doctor, DoctorService, Notice } from "../app/doctor.service";
+import { EMPTY, Observable, of } from "rxjs";
 
-class MockDoctorService extends DoctorService {
+export class MockDoctorService extends DoctorService {
 
   doctorMock: Doctor[] = [
     {_id: "GRSNCL04M30E281N", role: "doctor", notice: Notice.SMS},

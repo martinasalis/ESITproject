@@ -65,6 +65,17 @@ describe('AddFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('control if a new user is saved in the system', () => {
+    component.username.setValue('luca');
+    component.name.setValue('Luca');
+    component.surname.setValue('Grassi');
+    component.mail.setValue('lucagra97@gmail.com');
+    component.dob.setValue('1997-07-14');
+    component.tc.setValue('');
+    component.role.setValue('');
+    component.phone.setValue('');
+  });
+
   it('control invalid form add doctor', () => {
     if(component.add_doctor){
       component.username.setValue('');
@@ -206,7 +217,7 @@ describe('AddFormComponent', () => {
     if(component.add_sensor_patient) {
       component.sensorControl.setValue('aaaaaaaaaaaaaa');
       component.thr.setValue(10);
-      
+
       expect(component.sensorControl.valid).toBeTruthy();
       expect(component.thr.valid).toBeTruthy();
     }

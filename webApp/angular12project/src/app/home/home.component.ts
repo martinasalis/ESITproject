@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {
-      this.router.navigate(['']).then();
+      this.router.navigate(['']);
     }
   }
 
@@ -224,43 +224,43 @@ export class HomeComponent implements OnInit {
 
   visualize(): void {
     if(this.clickedRow._id == ''){
-      this.router.navigate(['home']).then();
+      this.router.navigate(['home']);
       this.openDialog();
     }
     else {
-      this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}}).then();
+      this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}});
     }
   }
 
   modify(): void {
-    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}}).then();
+    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}});
   }
 
   add(): void {
     if(this.selected.value == 0 && this.home_doctor){
-      this.router.navigate(['add-form'], {state: {data: 1}}).then();
+      this.router.navigate(['add-form'], {state: {data: 1}});
     }
     else {
-      this.router.navigate(['add-form'], {state: {data: this.selected.value}}).then();
+      this.router.navigate(['add-form'], {state: {data: this.selected.value}});
     }
   }
 
   modify_sensor(): void {
     console.log(this.clickedSensor);
-    this.router.navigate(['modify-form'], {state: {clickedSensor: this.clickedSensor, clickedUser: this.clickedRow}}).then();
+    this.router.navigate(['modify-form'], {state: {clickedSensor: this.clickedSensor, clickedUser: this.clickedRow}});
   }
 
   add_sensor(): void {
-    this.router.navigate(['add-form'], {state: {data: this.selected.value}}).then();
+    this.router.navigate(['add-form'], {state: {data: this.selected.value}});
   }
 
   insert_mac(): void {
-    this.router.navigate(['mac-address']).then();
+    this.router.navigate(['mac-address']);
   }
 
   delete(): void{
     this.openDialog();
-    this.router.navigate(['home']).then();
+    this.router.navigate(['home']);
   }
 
 }

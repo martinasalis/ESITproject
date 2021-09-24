@@ -6,21 +6,8 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MatDialogModule} from "@angular/material/dialog";
 import {Type, User, UserService} from "../user.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {Observable, of, EMPTY} from "rxjs";
+import {MockUserService} from "../../mocks/user.service.mock";
 
-class MockUserService extends UserService {
-
-  login(uname: String, psw: String): Observable<User> {
-    if(uname == 'luca' && psw == '12345') {
-      return of({_id: '1', name: 'Luca', surname: 'Grassi', username: 'luca', password: '12345',
-        dob: new Date('14/07/1997'), phone: '3333415523', mail: 'lucagra97@gmail.com', type: Type.DOCTOR});
-    }
-    else {
-      return EMPTY;
-    }
-  }
-
-}
 
 describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
@@ -37,7 +24,8 @@ describe('LoginFormComponent', () => {
         ReactiveFormsModule
       ],
       providers: [
-        { provide: UserService, useClass: MockUserService }
+        { provide: UserService, useClass: MockUserService },
+        MockUserService
       ]
     })
     .compileComponents();
@@ -66,9 +54,9 @@ describe('LoginFormComponent', () => {
     component.password.setValue('pluto');
     component.login();
     expect(JSON.parse(sessionStorage.getItem('login')!)).not.toEqual(JSON.parse('true'));
-    expect(sessionStorage.getItem('user')).not.toEqual(JSON.stringify({_id: '1', name: 'Luca',
-      surname: 'Grassi', username: 'luca', password: '12345', dob: new Date('14/07/1997'),
-      phone: '3333415523', mail: 'lucagra97@gmail.com', type: Type.DOCTOR}));
+    expect(sessionStorage.getItem('user')).not.toEqual(JSON.stringify({_id: "GRSLCU97L14E281J", name: "Luca",
+      surname: "Grassi", username: "luca", password: "12345", mail: "lucagra97@gmail.com", phone: "333415523",
+      dob: new Date("1997-07-14"), type: Type.DOCTOR}));
   });
 
   it('control valid user value form login', () => {
@@ -76,9 +64,9 @@ describe('LoginFormComponent', () => {
     component.password.setValue('12345');
     component.login();
     expect(JSON.parse(sessionStorage.getItem('login')!)).toEqual(JSON.parse('true'));
-    expect(sessionStorage.getItem('user')).toEqual(JSON.stringify({_id: '1', name: 'Luca',
-      surname: 'Grassi', username: 'luca', password: '12345', dob: new Date('14/07/1997'),
-      phone: '3333415523', mail: 'lucagra97@gmail.com', type: Type.DOCTOR}));
+    expect(sessionStorage.getItem('user')).toEqual(JSON.stringify({_id: "GRSLCU97L14E281J", name: "Luca",
+      surname: "Grassi", username: "luca", password: "12345", mail: "lucagra97@gmail.com", phone: "333415523",
+      dob: new Date("1997-07-14"), type: Type.DOCTOR}));
   });
 
 });

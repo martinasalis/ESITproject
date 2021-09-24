@@ -1,10 +1,10 @@
 import { UserService, User, Type } from "../app/user.service";
 import { Observable, of, EMPTY } from "rxjs";
 
-class MockUserService extends UserService {
+export class MockUserService extends UserService {
 
   userMock: User[] = [
-    {_id: "GRSLCU97L14E281J", name: "Luca", surname: "Grassi", username: "luca", password: "12345", mail: "lucagra97@gmail.com", phone: "3126784433", dob: new Date("1997-07-14"), type: Type.DOCTOR},
+    {_id: "GRSLCU97L14E281J", name: "Luca", surname: "Grassi", username: "luca", password: "12345", mail: "lucagra97@gmail.com", phone: "333415523", dob: new Date("1997-07-14"), type: Type.DOCTOR},
     {_id: "SLSMTN96D60B354H", name: "Martina", surname: "Salis", username: "martina", password: "6789", mail: "marti.salis20@gmail.com", phone: "3331203042", dob: new Date("1996-04-20"), type: Type.DOCTOR},
     {_id: "GRSNCL04M30E281N", name: "Nicola", surname: "Grassi", username: "nicola", password: "6789", mail: "n.grassi@gmail.com", phone: "3334123599", dob: new Date("2004-08-30"), type: Type.DOCTOR},
     {_id: "GRSLNE00R53E281N", name: "Elena", surname: "Grassi", username: "elena", password: "6789", mail: "e.grassi@gmail.com", phone: "3198632459", dob: new Date("2000-10-13"), type: Type.DOCTOR},
@@ -30,6 +30,81 @@ class MockUserService extends UserService {
     else {
       return EMPTY;
     }
+  }
+
+  recoveryPassword(mail: String): Observable<any> {
+    let index = this.userMock.findIndex(element => element.mail == mail);
+
+    if(index == -1) {
+      return of({nModified: 0, ok: 0});
+    }
+    else {
+      this.userMock[index].password = 'nuova_password';
+      return of({nModified: 1, ok: 1});
+    }
+  }
+
+  login(uname: String, psw: String): Observable<User> {
+    let res = this.userMock.find(element => element.username == uname && element.password == psw);
+    if(res == undefined) {
+      return EMPTY;
+    }
+    else {
+      return of(res);
+    }
+  }
+
+  patientsData(_ids: String[]): Observable<User[]> {
+    let res = this.userMock.filter(element => _ids.includes(element._id));
+    return of(res);
+  }
+
+  doctorsData(_ids: String[]): Observable<User[]> {
+    let res = this.userMock.filter(element => _ids.includes(element._id));
+    return of(res);
+  }
+
+  update(_id: String, user: User): Observable<any> {
+    let index = this.userMock.findIndex(element => element._id = _id);
+    if(index == -1) {
+      return of({nModified: 0, ok: 0});
+    }
+    else {
+      this.userMock[index] = user;
+      return of({nModified: 1, ok: 1});
+    }
+  }
+
+  delete(_id: String): Observable<any> {
+    let index = this.userMock.findIndex(element => element._id = _id);
+    if(index == -1) {
+      return of({nModified: 0, ok: 0});
+    }
+    else {
+      this.userMock.splice(index, 1);
+      return of({nModified: 1, ok: 1});
+    }
+  }
+
+  insert(user: User): Observable<any> {
+    this.userMock.push(user);
+    return of({nModified: 1, ok: 1});
+  }
+
+  searchDoctorPatient(param: String, type: String, _ids: String[]): Observable<User[]> {
+    let res = this.userMock.filter(element => (element._id.includes(param.toString()) ||
+      element.name.includes(param.toString()) || element.surname.includes(param.toString())) &&
+      element.type.toString() == type && _ids.includes(element._id));
+
+    return of(res);
+  }
+
+  searchAll(param: String, type: String): Observable<User[]> {
+    let res = this.userMock.filter(element => (element._id.includes(param.toString()) ||
+        element.name.includes(param.toString()) || element.surname.includes(param.toString())) &&
+      element.type.toString() == type);
+
+    return of(res);
   }
 
 }
