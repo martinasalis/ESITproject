@@ -183,17 +183,25 @@ exports = module.exports = function(app) {
 
         // Add e-mail address to aws ses
         const params = {
-            EmailAddress: req.body.mail
+            TemplateName: "templateVerificationMail",
+            TemplateContent: "<html><head></head><body style='font-family:sans-serif;'><h1 style='text-align:center'>Verifica nuovo utente</h1><p>Benvenuto in HealthApp.</p><p>La tua password è: " + password + "</p><p>Per ricevere notifiche sui tuoi pazienti conferma la tua iscrizione premendo il seguente link.</p></body></html>",
+            SuccessRedirectionURL: "https://www.google.it/"
         };
 
-        ses.verifyEmailIdentity(params, function(err, data) {
+        ses.updateCustomVerificationEmailTemplate(params, function(err, data) {
             if(err)
                 console.log(err, err.stack); // an error occurred
-            else
-                console.log(data);
-        });
+            else {
+                console.log(data);           // successful response
 
-        console.log(password);
+                ses.sendCustomVerificationEmail({EmailAddress: req.body.mail, TemplateName: "templateVerificationMail"}, function(err, data) {
+                    if(err)
+                        console.log(err, err.stack); // an error occurred
+                    else
+                        console.log(data);           // successful response
+                });
+            }
+        });
 
         // Insert new user
         User.insertMany([{_id: req.body._id, name: req.body.name, surname: req.body.surname, username: req.body.username, password: password, mail: req.body.mail, phone: req.body.phone, dob: req.body.dob, type: req.body.type}], function(err, user) {
@@ -203,44 +211,6 @@ exports = module.exports = function(app) {
 
             res.json(user);
         });
-
-        const params_mail = {
-            Source: "lucagra97@live.it",
-            Destination: {
-                ToAddresses: [
-                    req.body.mail
-                ],
-            },
-            Message: {
-                Subject: {
-                    Data: "Password nuovo utente",
-                    Charset: "UTF-8"
-                },
-                Body: {
-                    Text: {
-                        Data: "Password nuovo utente",
-                        Charset: "UTF-8"
-                    },
-                    Html: {
-                        Data: "<html><head></head><body><h1>Nuova password</h1><p>La tua password è: " + password + "</p></body></html>",
-                        Charset: "UTF-8"
-                    }
-                }
-            }
-        };
-
-        // Send new password after two minutes
-        function send_mail() {
-            ses.sendEmail(params_mail, function(err, data) {
-                if(err) {
-                    console.log(err.message);
-                }
-                else {
-                    console.log("Email sent! Message ID: ", data.MessageId);
-                }
-            });
-        }
-        setTimeout(send_mail, 120000);
     });
 
 };
