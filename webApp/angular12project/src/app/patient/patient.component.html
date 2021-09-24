@@ -9,12 +9,12 @@
     <div class="info">
       <p><b>Nome:</b> {{ user.name }} </p>
       <p><b>Cognome:</b> {{ user.surname }} </p>
-      <p><b>e-mail:</b> {{ clickedRow.mail }} </p>
-      <p><b>Data di nascita:</b> {{ clickedRow.dob | date: 'dd/MM/yyyy' }} </p>
+      <p><b>e-mail:</b> {{ user.mail }} </p>
+      <p><b>Data di nascita:</b> {{ user.dob | date: 'dd/MM/yyyy' }} </p>
       <p><b>Codice fiscale:</b> {{ user._id }} </p>
       <p><b>Indirizzo:</b> {{ pat.address }} </p>
       <p><b>Data ricovero:</b> {{ pat.dor | date: 'dd/MM/yyyy' }} </p>
-      <p><b>Recapito telefonico:</b> {{ clickedRow.phone }} </p>
+      <p><b>Recapito telefonico:</b> {{ user.phone }} </p>
       <p><b>Descrizione:</b> {{ pat.description }} </p>
     </div>
 

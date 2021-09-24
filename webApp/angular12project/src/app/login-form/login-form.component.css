@@ -70,10 +70,19 @@ container{
   display: table;
   height: 100%;
   margin: 0 auto;
+  align-content: center;
 }
 
 .parentContainer{
-  display: table-cell;
+  display: block;
+  vertical-align: middle;
+  horiz-align: center;
+  margin-left: 31px;
+}
+
+.logo{
+  margin-bottom: 10px;
+  margin-top: 50px;
   vertical-align: middle;
 }
 
