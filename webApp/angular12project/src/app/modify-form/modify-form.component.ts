@@ -27,8 +27,8 @@ export class ModifyFormComponent implements OnInit {
   surname = new FormControl('', Validators.required);
   mail = new FormControl('', [Validators.email, Validators.required]);
   dob = new FormControl('', Validators.required);
-  tc = new FormControl('', [Validators.max(16), Validators.required]);
-  phone = new FormControl('', [Validators.max(10), Validators.required]);
+  tc = new FormControl('', [Validators.maxLength(16), Validators.required]);
+  phone = new FormControl('', [Validators.maxLength(10), Validators.required]);
   dor = new FormControl('', Validators.required);
   address = new FormControl('', Validators.required);
   role = new FormControl('', Validators.required);
@@ -56,7 +56,7 @@ export class ModifyFormComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {
-      this.router.navigate(['']).then();
+      this.router.navigate(['']);
     }
   }
 
@@ -125,7 +125,7 @@ export class ModifyFormComponent implements OnInit {
       });
     }
     else {
-      this.router.navigate(['home']).then();
+      this.router.navigate(['home']);
       this.openDialog();
     }
   }
@@ -151,7 +151,7 @@ export class ModifyFormComponent implements OnInit {
             this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
               console.log(data);
             });
-            this.router.navigate(['home']).then();
+            this.router.navigate(['home']);
             this.openDialog();
           });
         }
@@ -179,7 +179,7 @@ export class ModifyFormComponent implements OnInit {
           this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
             console.log(data);
           });
-          this.router.navigate(['home']).then();
+          this.router.navigate(['home']);
           this.openDialog();
         }
         else{
@@ -198,11 +198,11 @@ export class ModifyFormComponent implements OnInit {
         console.log(data);
       });
       if(this.modify_sensor) {
-        this.router.navigate(['home']).then();
+        this.router.navigate(['home']);
         this.openDialog();
       }
       else{
-        this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}}).then();
+        this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}});
         this.openDialog();
       }
     }

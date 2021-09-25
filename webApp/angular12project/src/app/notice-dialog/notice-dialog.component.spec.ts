@@ -31,7 +31,7 @@ describe('NoticeDialogComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: {}
         },
-        { provide: UserService, useValue: MockUserService },
+        { provide: UserService, useClass: MockUserService },
         MockUserService
       ]
     })

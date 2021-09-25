@@ -15,6 +15,12 @@
         <div class="text">Valore corrente</div>
         <div class="value">{{last_day[last_day.length-1]}} {{um}}</div>
       </mat-card>
+
+      <mat-card>
+        <div class="text">Valore medio</div>
+        <div class="text">ultime 10 letture</div>
+        <div class="value">{{mean_last_day}} {{um}}</div>
+      </mat-card>
     </div>
 
     <button class="inner" mat-button type="submit"(click)="undo()">Torna alla pagina del paziente</button>
@@ -32,6 +38,12 @@
       <mat-card>
         <div class="text">Valore corrente</div>
         <div class="value">{{last_day[last_day.length-1]}} {{um}}</div>
+      </mat-card>
+
+      <mat-card>
+        <div class="text">Valore medio</div>
+        <div class="text">ultime 10 letture</div>
+        <div class="value">{{mean_last_day}} {{um}}</div>
       </mat-card>
     </div>
 

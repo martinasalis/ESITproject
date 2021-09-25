@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {
-      this.router.navigate(['']).then();
+      this.router.navigate(['']);
     }
   }
 
@@ -25,16 +25,16 @@ export class NavbarComponent implements OnInit {
   }
 
   page_info(): void {
-    this.router.navigate(['page-info']).then();
+    this.router.navigate(['page-info']);
   }
 
   home(): void {
-    this.router.navigate(['home']).then();
+    this.router.navigate(['home']);
   }
 
   logout(): void {
     sessionStorage.clear();
-    this.router.navigate(['']).then();
+    this.router.navigate(['']);
   }
 
 }

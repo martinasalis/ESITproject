@@ -30,6 +30,7 @@ export class PageSensorComponent implements OnInit {
   last_day: number[] = [];
   last2_day: number[] = [];
   last3_day: number[] = [];
+  mean_last_day: number = 0;
   date_last_day: string = '';
   date_last2_day: string = '';
   date_last3_day: string = '';
@@ -52,6 +53,7 @@ export class PageSensorComponent implements OnInit {
         this.um = data;
       });
 
+      let count = 0;
       for(let i = this.clickedSensor.Items.length - 1; i >= 0; i--) {
 
         if(this.clickedSensor.Items[i].data_timestamp >= start_last_date && this.clickedSensor.Items[i].data_timestamp <= end_last_date) {
@@ -60,6 +62,10 @@ export class PageSensorComponent implements OnInit {
           this.indices.push(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
           this.last_day.push(this.clickedSensor.Items[i].device_data.data[this.index].data);
 
+          if(count < 10) {
+            this.mean_last_day = this.mean_last_day + this.clickedSensor.Items[i].device_data.data[this.index].data;
+            count = count + 1;
+          }
         }
         else if(this.clickedSensor.Items[i].data_timestamp >= (start_last_date - 86400000) && this.clickedSensor.Items[i].data_timestamp <= (end_last_date - 86400000)) {
           const d = new Date(this.clickedSensor.Items[i].data_timestamp);
@@ -75,6 +81,7 @@ export class PageSensorComponent implements OnInit {
         }
       }
 
+      this.mean_last_day = this.mean_last_day / 10;
     }
     else {
       this.router.navigate(['']).then();

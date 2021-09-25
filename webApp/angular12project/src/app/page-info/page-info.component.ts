@@ -29,7 +29,7 @@ export class PageInfoComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {
-      this.router.navigate(['']).then();
+      this.router.navigate(['']);
     }
   }
 

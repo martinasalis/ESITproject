@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { FormControl, Validators } from "@angular/forms";
-import {UserService} from "../user.service";
+import { UserService } from "../user.service";
 
 export interface Result {
   res: number,
@@ -25,11 +25,11 @@ export class NoticeDialogComponent {
   onNoClick(): void {
     if(this.data.flag == 10 || this.data.flag == 11){
       this.dialogRef.close();
-      this.router.navigate(['login']).then();
+      this.router.navigate(['login']);
     }
     else {
       this.dialogRef.close();
-      this.router.navigate(['home']).then();
+      this.router.navigate(['home']);
     }
   }
 

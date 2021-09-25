@@ -34,7 +34,8 @@ export class MockDoctorService extends DoctorService {
       if (notice == "SMS") {
         this.doctorMock[index].notice = Notice.SMS;
 
-      } else {
+      }
+      else {
         this.doctorMock[index].notice = Notice.MAIL;
       }
       return of({nModified: 1, ok: 1});

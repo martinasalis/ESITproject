@@ -1,12 +1,10 @@
 import { Sensor, SensorService } from "../app/sensor.service";
 import { Observable, of, EMPTY } from "rxjs";
-import {elementAt} from "rxjs/operators";
-import {User} from "../app/user.service";
 
 export class MockSensorService extends SensorService {
 
   sensorMock: Sensor[] = [
-    {_id: '00001', name: "Pulse", um: "bpm", threshold: 0, board: "", type: 1},
+    {_id: '00001', name: "Pulse", um: "bpm", threshold: 0, board: "40:F5:20:05:16:37", type: 1},
     {_id: '00002', name: "Temperature", um: "C°", threshold: 0, board: "", type: 2}
   ];
 

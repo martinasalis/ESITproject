@@ -1,16 +1,20 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ModifyFormComponent} from './modify-form.component';
-import {HttpClientModule} from "@angular/common/http";
-import {RouterTestingModule} from "@angular/router/testing";
-import {MatDialogModule} from "@angular/material/dialog";
-import {BrowserModule} from "@angular/platform-browser";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {Type, UserService} from "../user.service";
-import {DoctorService} from "../doctor.service";
-import {PatientService} from "../patient.service";
-import {SensorService} from "../sensor.service";
-import {Router} from "@angular/router";
+import { ModifyFormComponent } from './modify-form.component';
+import { HttpClientModule } from "@angular/common/http";
+import { RouterTestingModule } from "@angular/router/testing";
+import { MatDialogModule } from "@angular/material/dialog";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { Router } from "@angular/router";
+import { Type, UserService } from "../user.service";
+import { MockUserService } from "../../mocks/user.service.mock";
+import { MockDoctorService } from "../../mocks/doctor.service.mock";
+import { MockPatientService } from "../../mocks/patient.service.mock";
+import { MockSensorService } from "../../mocks/sensor.service.mock";
+import { DoctorService } from "../doctor.service";
+import { PatientService } from "../patient.service";
+import { SensorService } from "../sensor.service";
 
 class MockRouter {
   getCurrentNavigation() {
@@ -18,7 +22,7 @@ class MockRouter {
       extras: {
         state: {
           clickedUser: {_id: 'GRSLCU97L14E281J', name: 'Luca', surname: 'Grassi', username: 'luca',
-            password: '12345', dob: new Date('14/07/1997'), phone: '3333415523', mail: 'lucagra97@gmail.com',
+            password: '12345', dob: new Date('1997-07-14'), phone: '3333415523', mail: 'lucagra97@gmail.com',
             type: Type.DOCTOR},
           clickedSensor: {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0}
         }
@@ -42,11 +46,15 @@ describe('ModifyFormComponent', () => {
         BrowserAnimationsModule
       ],
       providers: [
-        UserService,
-        DoctorService,
-        PatientService,
-        SensorService,
-        {provide: Router, useClass: MockRouter}
+        { provide: Router, useClass: MockRouter },
+        { provide: UserService, useClass: MockUserService },
+        MockUserService,
+        { provide: DoctorService, useClass: MockDoctorService },
+        MockDoctorService,
+        { provide: PatientService, useClass: MockPatientService },
+        MockPatientService,
+        { provide: SensorService, useClass: MockSensorService },
+        MockSensorService
       ]
     })
     .compileComponents();
@@ -56,9 +64,9 @@ describe('ModifyFormComponent', () => {
     // Define session variables
     spyOn(sessionStorage, 'getItem')
       .withArgs('login').and.returnValue(JSON.stringify(true))
-      .withArgs('user').and.returnValue(JSON.stringify({_id: 'GRSLCU97L14E281J', name: 'Luca',
-      surname: 'Grassi', username: 'luca', password: '12345', dob: new Date('14/07/1997'),
-      phone: '3333415523', mail: 'lucagra97@gmail.com', type: Type.DOCTOR}));
+      .withArgs('user').and.returnValue(JSON.stringify({_id: "CSNZNE62A12L736G", name: "Zeno",
+      surname: "Cosini", username: "admin", password: "123", mail: "lucagra97@gmail.com", phone: "3268793592",
+      dob: new Date("1965-08-12"), type: Type.ADMIN}));
 
     fixture = TestBed.createComponent(ModifyFormComponent);
     component = fixture.componentInstance;

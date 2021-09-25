@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Type, User, UserService} from "../user.service";
-import {DoctorService} from "../doctor.service";
-import {Patient, PatientService} from "../patient.service";
-import {Router} from "@angular/router";
-import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {Sensor, SensorService} from "../sensor.service";
+import { Component, OnInit } from '@angular/core';
+import { Type, User, UserService } from "../user.service";
+import { DoctorService } from "../doctor.service";
+import { Patient, PatientService } from "../patient.service";
+import { Router } from "@angular/router";
+import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { Sensor, SensorService } from "../sensor.service";
 
 @Component({
   selector: 'app-patient',
@@ -33,7 +33,7 @@ export class PatientComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {
-      this.router.navigate(['']).then();
+      this.router.navigate(['']);
     }
   }
 
@@ -132,19 +132,19 @@ export class PatientComponent implements OnInit {
 
 
   modify(): void {
-    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}}).then();
+    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}});
   }
 
   modify_sensor(sensor: Sensor): void {
-    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: sensor}}).then();
+    this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: sensor}});
   }
 
   add_sensor(): void {
-    this.router.navigate(['add-form'], {state: {clickedUser: this.clickedRow, data: 3}}).then();
+    this.router.navigate(['add-form'], {state: {clickedUser: this.clickedRow, data: 3}});
   }
 
   visualize(i: Number): void {
-    this.router.navigate(['page-sensor'], {state: {boardData: this.patBoardData, index: i, clickedUser: this.clickedRow}}).then();
+    this.router.navigate(['page-sensor'], {state: {boardData: this.patBoardData, index: i, clickedUser: this.clickedRow}});
   }
 
 }
