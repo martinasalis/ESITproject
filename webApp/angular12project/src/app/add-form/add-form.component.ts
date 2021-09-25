@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
-import {Type, User, UserService} from "../user.service";
-import {Doctor, DoctorService, Notice} from "../doctor.service";
-import {Patient, PatientService} from "../patient.service";
-import {Router} from "@angular/router";
-import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {Sensor, SensorService} from "../sensor.service";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from "@angular/forms";
+import { Type, User, UserService } from "../user.service";
+import { Doctor, DoctorService, Notice } from "../doctor.service";
+import { Patient, PatientService } from "../patient.service";
+import { Router } from "@angular/router";
+import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { Sensor, SensorService } from "../sensor.service";
 
 @Component({
   selector: 'app-add-form',
@@ -28,8 +28,8 @@ export class AddFormComponent implements OnInit {
   surname = new FormControl('');
   mail = new FormControl('', Validators.email);
   dob = new FormControl('');
-  tc = new FormControl('', [Validators.max(16)]);
-  phone = new FormControl('',[Validators.max(10)]);
+  tc = new FormControl('', [Validators.maxLength(16)]);
+  phone = new FormControl('',[Validators.maxLength(10)]);
   dor = new FormControl('');
   address = new FormControl('');
   role = new FormControl('');
@@ -60,7 +60,7 @@ export class AddFormComponent implements OnInit {
       }
     }
     else {
-      this.router.navigate(['']).then();
+      this.router.navigate(['']);
     }
   }
 
@@ -81,7 +81,7 @@ export class AddFormComponent implements OnInit {
         this.sens = this.sensorService.getSensors();
 
         if(this.sens.length == 0) {
-          this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}}).then();
+          this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}});
           this.openDialog();
         }
       });
@@ -111,7 +111,7 @@ export class AddFormComponent implements OnInit {
               console.log(data);
             });
 
-            this.router.navigate(['home']).then();
+            this.router.navigate(['home']);
             this.openDialog();
           }
           else{
@@ -149,7 +149,7 @@ export class AddFormComponent implements OnInit {
               console.log(data);
             });
 
-            this.router.navigate(['home']).then();
+            this.router.navigate(['home']);
             this.openDialog();
           }
           else{
@@ -173,7 +173,7 @@ export class AddFormComponent implements OnInit {
           console.log(data);
         });
 
-        this.router.navigate(['home']).then();
+        this.router.navigate(['home']);
         this.openDialog();
       }
     }
@@ -190,7 +190,7 @@ export class AddFormComponent implements OnInit {
           console.log(data);
         });
 
-        this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}}).then();
+        this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}});
         this.openDialog();
       }
 

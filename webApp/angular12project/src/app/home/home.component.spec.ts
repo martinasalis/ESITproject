@@ -1,19 +1,19 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import { HttpClientModule } from "@angular/common/http";
 import { RouterTestingModule } from "@angular/router/testing";
 import { MatDialogModule } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-import {Type, UserService} from "../user.service";
+import { Type, UserService } from "../user.service";
 import { MockUserService } from "../../mocks/user.service.mock";
 import { MockDoctorService } from "../../mocks/doctor.service.mock";
 import { MockPatientService } from "../../mocks/patient.service.mock";
 import { MockSensorService } from "../../mocks/sensor.service.mock";
 import { DoctorService } from "../doctor.service";
-import {PatientService} from "../patient.service";
-import {SensorService} from "../sensor.service";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { PatientService } from "../patient.service";
+import { SensorService } from "../sensor.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -53,9 +53,12 @@ describe('HomeComponent', () => {
   });
 
   beforeEach(() => {
+    // Define session variables
     spyOn(sessionStorage, 'getItem')
       .withArgs('login').and.returnValue(JSON.stringify(true))
-      .withArgs('user').and.returnValue(JSON.stringify({_id: "CSNZNE62A12L736G", name: "Zeno", surname: "Cosini", username: "admin", password: "123", mail: "lucagra97@gmail.com", phone: "3268793592", dob: new Date("1965-08-12"), type: Type.ADMIN}));
+      .withArgs('user').and.returnValue(JSON.stringify({_id: "CSNZNE62A12L736G", name: "Zeno",
+      surname: "Cosini", username: "admin", password: "123", mail: "lucagra97@gmail.com", phone: "3268793592",
+      dob: new Date("1965-08-12"), type: Type.ADMIN}));
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;

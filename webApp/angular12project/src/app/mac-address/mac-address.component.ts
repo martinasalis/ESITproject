@@ -26,7 +26,7 @@ export class MACAddressComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {
-      this.router.navigate(['']).then();
+      this.router.navigate(['']);
     }
   }
 
@@ -47,7 +47,7 @@ export class MACAddressComponent implements OnInit {
         this.patientService.insertBoard(pat, this.mac.value).subscribe(data => {
           console.log(data);
         });
-        this.router.navigate(['home']).then();
+        this.router.navigate(['home']);
         this.openDialog();
       });
     }

@@ -1,13 +1,21 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {AddFormComponent} from './add-form.component';
-import {HttpClientModule} from "@angular/common/http";
-import {RouterTestingModule} from "@angular/router/testing";
-import {MatDialogModule} from "@angular/material/dialog";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NoticeDialogComponent} from "../notice-dialog/notice-dialog.component";
-import {Type} from "../user.service";
-import {Router} from "@angular/router";
+import { AddFormComponent } from './add-form.component';
+import { HttpClientModule } from "@angular/common/http";
+import { RouterTestingModule } from "@angular/router/testing";
+import { MatDialogModule } from "@angular/material/dialog";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
+import { Type } from "../user.service";
+import { Router } from "@angular/router";
+import { MockUserService } from "../../mocks/user.service.mock";
+import { MockDoctorService } from "../../mocks/doctor.service.mock";
+import { MockPatientService } from "../../mocks/patient.service.mock";
+import { MockSensorService } from "../../mocks/sensor.service.mock";
+import { UserService } from "../user.service";
+import { DoctorService } from "../doctor.service";
+import { PatientService } from "../patient.service";
+import { SensorService } from "../sensor.service";
 
 class MockRouter {
   getCurrentNavigation() {
@@ -17,7 +25,7 @@ class MockRouter {
           clickedUser: {_id: 'MRNMRZ93C30E410S', name: 'Maurizio', surname: 'Marini', username: 'maurizio',
             password: '6789', dob: new Date('1993-03-30'), phone: '1993-03-30', mail: 'maur_marini@tiscali.com',
             type: Type.PATIENT},
-          data: 1
+          data: 0
         }
       }
     };
@@ -27,6 +35,10 @@ class MockRouter {
 describe('AddFormComponent', () => {
   let component: AddFormComponent;
   let fixture: ComponentFixture<AddFormComponent>;
+  let userService: MockUserService;
+  let doctorService: MockDoctorService;
+  let patientService: MockPatientService;
+  let sensorService: MockSensorService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -42,7 +54,15 @@ describe('AddFormComponent', () => {
         ReactiveFormsModule
       ],
       providers: [
-        {provide: Router, useClass: MockRouter}
+        { provide: Router, useClass: MockRouter },
+        { provide: UserService, useClass: MockUserService },
+        MockUserService,
+        { provide: DoctorService, useClass: MockDoctorService },
+        MockDoctorService,
+        { provide: PatientService, useClass: MockPatientService },
+        MockPatientService,
+        { provide: SensorService, useClass: MockSensorService },
+        MockSensorService
       ]
     })
     .compileComponents();
@@ -59,25 +79,20 @@ describe('AddFormComponent', () => {
     fixture = TestBed.createComponent(AddFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    userService = TestBed.inject(MockUserService);
+    doctorService = TestBed.inject(MockDoctorService);
+    patientService = TestBed.inject(MockPatientService);
+    sensorService = TestBed.inject(MockSensorService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('control if a new user is saved in the system', () => {
-    component.username.setValue('luca');
-    component.name.setValue('Luca');
-    component.surname.setValue('Grassi');
-    component.mail.setValue('lucagra97@gmail.com');
-    component.dob.setValue('1997-07-14');
-    component.tc.setValue('');
-    component.role.setValue('');
-    component.phone.setValue('');
-  });
-
   it('control invalid form add doctor', () => {
-    if(component.add_doctor){
+    if(component.add_doctor) {
+      // Set values
       component.username.setValue('');
       component.name.setValue('');
       component.surname.setValue('');
@@ -86,6 +101,8 @@ describe('AddFormComponent', () => {
       component.tc.setValue('');
       component.role.setValue('');
       component.phone.setValue('');
+
+      // Tests
       expect(component.username.valid).toBeFalsy();
       expect(component.name.valid).toBeFalsy();
       expect(component.surname.valid).toBeFalsy();
@@ -98,15 +115,18 @@ describe('AddFormComponent', () => {
   });
 
   it('control valid form add doctor', () => {
-    if(component.add_doctor){
-      component.username.setValue('aaa');
-      component.name.setValue('aaa');
-      component.surname.setValue('aaa');
-      component.mail.setValue('aaa@aaa');
-      component.dob.setValue('25/12/2021');
-      component.tc.setValue('aaa');
-      component.role.setValue('aaaaaaaaaaaaaaaa');
-      component.phone.setValue('aaaaaaaaaa');
+    if(component.add_doctor) {
+      // Set values
+      component.username.setValue('marco');
+      component.name.setValue('Marco');
+      component.surname.setValue('Piras');
+      component.mail.setValue('marco_piras@gmail.com');
+      component.dob.setValue('1997-07-14');
+      component.tc.setValue('PRSMRC03B10E281Z');
+      component.role.setValue('Medico');
+      component.phone.setValue('3393421144');
+
+      // Tests
       expect(component.username.valid).toBeTruthy();
       expect(component.name.valid).toBeTruthy();
       expect(component.surname.valid).toBeTruthy();
@@ -120,6 +140,7 @@ describe('AddFormComponent', () => {
 
   it('control invalid form add patient', () => {
     if(component.add_patient) {
+      // Set values
       component.username.setValue('');
       component.name.setValue('');
       component.surname.setValue('');
@@ -130,6 +151,7 @@ describe('AddFormComponent', () => {
       component.dor.setValue('');
       component.address.setValue('');
 
+      // Tests
       expect(component.username.valid).toBeFalsy();
       expect(component.name.valid).toBeFalsy();
       expect(component.surname.valid).toBeFalsy();
@@ -149,6 +171,7 @@ describe('AddFormComponent', () => {
 
   it('control valid form add patient', () => {
     if(component.add_patient) {
+      // Values
       component.username.setValue('aaa');
       component.name.setValue('aaa');
       component.surname.setValue('aa');
@@ -161,6 +184,7 @@ describe('AddFormComponent', () => {
       component.address.setValue('aaa');
       component.doctor.setValue('aaa');
 
+      // Tests
       expect(component.username.valid).toBeTruthy();
       expect(component.name.valid).toBeTruthy();
       expect(component.surname.valid).toBeTruthy();
@@ -177,11 +201,13 @@ describe('AddFormComponent', () => {
 
   it('control invalid form add sensor', () => {
     if(component.add_sensor) {
+      // Values
       component.typeSensor.setValue('');
       component.name.setValue('');
       component.um.setValue('');
       component.thr.setValue('');
 
+      // Tests
       expect(component.typeSensor.valid).toBeFalsy();
       expect(component.name.valid).toBeFalsy();
       expect(component.um.valid).toBeFalsy();
@@ -191,11 +217,13 @@ describe('AddFormComponent', () => {
 
   it('control valid form add sensor', () => {
     if(component.add_sensor) {
+      // Values
       component.typeSensor.setValue('aaa');
       component.name.setValue('aaa');
       component.um.setValue('aaa');
       component.thr.setValue(10);
 
+      // Tests
       expect(component.typeSensor.valid).toBeTruthy();
       expect(component.name.valid).toBeTruthy();
       expect(component.um.valid).toBeTruthy();
@@ -205,9 +233,11 @@ describe('AddFormComponent', () => {
 
   it('control invalid form add sensor patient', () => {
     if(component.add_sensor_patient) {
+      // Values
       component.sensorControl.setValue('');
       component.thr.setValue('');
 
+      // Tests
       expect(component.sensorControl.valid).toBeFalsy();
       expect(component.thr.valid).toBeFalsy();
     }
@@ -215,9 +245,11 @@ describe('AddFormComponent', () => {
 
   it('control valid form add sensor patient', () => {
     if(component.add_sensor_patient) {
+      // Values
       component.sensorControl.setValue('aaaaaaaaaaaaaa');
       component.thr.setValue(10);
 
+      // Tests
       expect(component.sensorControl.valid).toBeTruthy();
       expect(component.thr.valid).toBeTruthy();
     }
