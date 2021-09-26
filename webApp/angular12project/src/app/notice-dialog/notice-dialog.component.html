@@ -182,8 +182,15 @@
 </ng-template>
 
 <ng-template #duplicate_user>
-  <div>
+  <div *ngIf="data.flag == 12; else no_board">
     <mat-icon class="icon_error">error</mat-icon>
     <p>E' già presente un utente con lo stesso codice fiscale!</p>
+  </div>
+</ng-template>
+
+<ng-template #no_board>
+  <div>
+    <mat-icon class="icon_error">error</mat-icon>
+    <p>Il paziente non è associato ad una board!</p>
   </div>
 </ng-template>

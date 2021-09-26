@@ -20,7 +20,7 @@ export class ModifyFormComponent implements OnInit {
   modify_patient = false;
   modify_sensor = false;
   modify_sensor_doctor = false;
-  duplicate_user = false;
+  empty_field = false;
 
   username = new FormControl('', Validators.required);
   name = new FormControl('', Validators.required);
@@ -37,6 +37,7 @@ export class ModifyFormComponent implements OnInit {
   name_sensor = new FormControl('', Validators.required);
   thr = new FormControl('', [Validators.min(0), Validators.required]);
   typeSensor = new FormControl('', Validators.required);
+  doctor = new FormControl('', [Validators.maxLength(16), Validators.required]);
 
   patientDoctor: String = '';
   doctorNotice: Notice = Notice.DEFAULT;
@@ -47,6 +48,7 @@ export class ModifyFormComponent implements OnInit {
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   clickedSensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
   patBoard: String = '';
+  user_tc: String = '';
 
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private  sensorService: SensorService) {
@@ -73,6 +75,7 @@ export class ModifyFormComponent implements OnInit {
       this.dob.setValue(moment(new Date(this.clickedRow.dob)).format('YYYY-MM-DD'));
       this.mail.setValue(this.clickedRow.mail);
       this.phone.setValue(this.clickedRow.phone);
+      this.user_tc = this.clickedRow._id;
 
       // Set current values
       this.doctorService.info(this.clickedRow._id).subscribe((data: Doctor) => {
@@ -91,6 +94,7 @@ export class ModifyFormComponent implements OnInit {
       this.dob.setValue(moment(new Date(this.clickedRow.dob)).format('YYYY-MM-DD'));
       this.mail.setValue(this.clickedRow.mail);
       this.phone.setValue(this.clickedRow.phone);
+      this.user_tc = this.clickedRow._id;
 
       // Set current values
       this.patientService.info(this.clickedRow._id).subscribe((data: Patient) => {
@@ -99,6 +103,7 @@ export class ModifyFormComponent implements OnInit {
         this.patientDoctor = data.doctor;
         this.description.setValue(data.description);
         this.patBoard = data.board;
+        this.doctor.setValue(data.doctor);
       });
     }
     else if(this.clickedSensor._id != '' && this.clickedRow.type == Type.DEFAULT){
@@ -143,25 +148,21 @@ export class ModifyFormComponent implements OnInit {
         dob: this.dob.value, type: this.clickedRow.type};
       let newDoctor: Doctor = {_id: this.clickedRow._id, role: this.role.value, notice: this.doctorNotice};
 
-      this.userService.info(this.tc.value).subscribe(data => {
-        if(data == null) {
-          this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || newUser.mail == '' || newUser.phone == '' || newDoctor.role == '') {
+        this.empty_field = true;
+        this.openDialog();
+      }
+      else {
+        this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
+          console.log(data);
+
+          this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
             console.log(data);
-
-            this.doctorService.update(this.clickedRow._id, newDoctor).subscribe(data => {
-              console.log(data);
-            });
-            this.router.navigate(['home']);
-            this.openDialog();
           });
-        }
-        else{
-          this.duplicate_user = true;
+          this.router.navigate(['home']);
           this.openDialog();
-          this.duplicate_user = false;
-        }
-      });
-
+        });
+      }
     }
     else if(this.modify_patient) {
       // Update user's data
@@ -169,56 +170,60 @@ export class ModifyFormComponent implements OnInit {
         username: this.username.value, password: this.clickedRow.password, mail: this.mail.value, phone: this.phone.value,
         dob: this.dob.value, type: this.clickedRow.type};
       let newPatient: Patient = {_id: this.clickedRow._id, dor: this.dor.value, address: this.address.value,
-        doctor: this.patientDoctor, board: this.patBoard, description: this.description.value};
+        doctor: this.doctor.value, board: this.patBoard, description: this.description.value};
 
-      this.userService.info(this.tc.value).subscribe(data => {
-        if(data == null) {
-          this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
-            console.log(data);
-          });
-          this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
-            console.log(data);
-          });
-          this.router.navigate(['home']);
-          this.openDialog();
-        }
-        else{
-          this.duplicate_user = true;
-          this.openDialog();
-          this.duplicate_user = false;
-        }
-      });
-
-
+      if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || this.dor.value == '' || newUser.mail == '' || newUser.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == '') {
+        this.empty_field = true;
+        this.openDialog();
+      }
+      else {
+        this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
+          console.log(data);
+        });
+        this.patientService.update(this.clickedRow._id, newPatient).subscribe(data => {
+          console.log(data);
+        });
+        this.router.navigate(['home']);
+        this.openDialog();
+      }
     }
     else {
       let newSensor: Sensor = {_id: this.clickedSensor._id, name: this.name_sensor.value, um: this.um.value,
         threshold: this.thr.value, type: this.typeSensor.value, board: this.clickedSensor.board};
-      this.sensorService.update(this.clickedSensor._id, newSensor).subscribe(data =>{
-        console.log(data);
-      });
-      if(this.modify_sensor) {
-        this.router.navigate(['home']);
+
+      if(newSensor.name == '' || newSensor.um == '') {
+        this.empty_field = true;
         this.openDialog();
       }
-      else{
-        this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}});
-        this.openDialog();
+      else {
+        this.sensorService.update(this.clickedSensor._id, newSensor).subscribe(data => {
+          console.log(data);
+        });
+
+        if (this.modify_sensor) {
+          this.router.navigate(['home']);
+          this.openDialog();
+        } else {
+          this.router.navigate(['patient'], {state: {clickedUser: this.clickedRow}});
+          this.openDialog();
+        }
       }
     }
   }
 
   openDialog() {
 
-    if(this.duplicate_user){
+    if(this.empty_field){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
-        data: {flag: 12}
+        data: {flag: 6}
       });
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
       });
+
+      this.empty_field = false;
     }
     else if (this.modify_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {

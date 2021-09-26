@@ -25,6 +25,7 @@ export class PatientComponent implements OnInit {
   patBoardSensors: Sensor[] = [];
   patBoardData: any;
   clickedSensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
+  patient: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
@@ -38,8 +39,6 @@ export class PatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let patient: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
-
     if(this.user.type == Type.PATIENT) {
       this.page_patient = true;
       this.navbar = true;
@@ -47,34 +46,41 @@ export class PatientComponent implements OnInit {
         this.patientService.setPatient(data);
         this.pat = this.patientService.getPatient();
       });
-      patient = this.user;
+      this.patient = this.user;
     }
     else if(this.user.type == Type.ADMIN) {
       this.page_admin = true;
       this.navbar = true;
     }
     else {
-      patient = this.clickedRow;
+      this.patient = this.clickedRow;
     }
 
-    if(patient.type == Type.PATIENT) {
+    if(this.patient.type == Type.PATIENT) {
       this.page_info = true;
       this.navbar = true;
 
-      this.userService.info(patient._id).subscribe((data: User) => {
+      this.userService.info(this.patient._id).subscribe((data: User) => {
         console.log(data);
       });
 
-      this.patientService.info(patient._id).subscribe((data: Patient) => {
+      this.patientService.info(this.patient._id).subscribe((data: Patient) => {
         this.patientService.setPatient(data);
         this.pat = this.patientService.getPatient();
 
+        // Controllo "" == ""
         this.sensorService.boardSensors(this.pat.board).subscribe((data: Sensor[]) => {
           this.patBoardSensors = data;
-        });
+          console.log(data);
 
-        this.patientService.getBoardSensorData(this.pat).subscribe((data: any) => {
-          this.patBoardData = data;
+          if(this.patBoardSensors.length != 0) {
+            this.patientService.getBoardSensorData(this.pat).subscribe((data: any) => {
+              this.patBoardData = data;
+            });
+          }
+          else {
+            this.patBoardData = null;
+          }
         });
       });
     }

@@ -46,7 +46,7 @@ exports = module.exports = function(app) {
                         Charset: "UTF-8"
                     },
                     Html: {
-                        Data: "<html><head></head><body><h1>Nuova password</h1><p>La tua nuova password è: " + password + "</p></body></html>",
+                        Data: "<html><head></head><body><h1>Nuova password HealthApp</h1><p>La tua nuova password è: " + password + "</p></body></html>",
                         Charset: "UTF-8"
                     }
                 }
@@ -181,10 +181,20 @@ exports = module.exports = function(app) {
             numbers: true
         });
 
+        let mailContent = '';
+
+        if(req.body.type == 'DOCTOR') {
+            mailContent = "<html><head></head><body style='font-family:sans-serif;'><h1 style='text-align:center'>Verifica nuovo utente</h1><p>Benvenuto in HealthApp.</p><p>Il tuo username è: " + req.body.username + "</p><p>La tua password è: " + password + "</p><p>Per ricevere notifiche sui tuoi pazienti conferma la tua iscrizione premendo il seguente link.</p></body></html>";
+        }
+        else {
+            mailContent = "<html><head></head><body style='font-family:sans-serif;'><h1 style='text-align:center'>Verifica nuovo utente</h1><p>Benvenuto in HealthApp.</p><p>Il tuo username è: " + req.body.username + "</p><p>La tua password è: " + password + "</p><p>Conferma la tua iscrizione premendo il seguente link.</p></body></html>";
+        }
+
         // Add e-mail address to aws ses
         const params = {
             TemplateName: "templateVerificationMail",
-            TemplateContent: "<html><head></head><body style='font-family:sans-serif;'><h1 style='text-align:center'>Verifica nuovo utente</h1><p>Benvenuto in HealthApp.</p><p>La tua password è: " + password + "</p><p>Per ricevere notifiche sui tuoi pazienti conferma la tua iscrizione premendo il seguente link.</p></body></html>",
+            TemplateSubject: "Benvenuto in HealthApp",
+            TemplateContent: mailContent,
             SuccessRedirectionURL: "https://www.google.it/"
         };
 

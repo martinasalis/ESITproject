@@ -19,16 +19,18 @@
     </div>
 
     <h1><b>Sensori Paziente</b></h1>
-    <div *ngFor="let sensor of patBoardData.Items[patBoardData.Items.length - 1].device_data.data; let i = index" class="card-content">
-      <div *ngFor="let patient_sensor of patBoardSensors; let j = index">
-        <div *ngIf="patient_sensor.type == sensor.sensor">
-          <mat-card>
-            <div class="sensor">
-              <div class="sensor-name">ID sensore: {{patient_sensor.type}}</div>
-              <div class="last-value">Valore: {{sensor.data}} {{patient_sensor.um}}</div>
-              <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
-            </div>
-          </mat-card>
+    <div *ngIf="patBoardData != null">
+      <div *ngFor="let sensor of patBoardData?.Items[patBoardData.Items.length - 1].device_data.data; let i = index" class="card-content">
+        <div *ngFor="let patient_sensor of patBoardSensors; let j = index">
+          <div *ngIf="patient_sensor.type == sensor.sensor">
+            <mat-card>
+              <div class="sensor">
+                <div class="sensor-name">ID sensore: {{patient_sensor.type}}</div>
+                <div class="last-value">Valore: {{sensor.data}} {{patient_sensor.um}}</div>
+                <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
+              </div>
+            </mat-card>
+          </div>
         </div>
       </div>
     </div>
@@ -58,21 +60,22 @@
       </div>
 
       <h1><b>Sensori Paziente</b></h1>
-      <div *ngFor="let sensor of patBoardData.Items[patBoardData.Items.length - 1].device_data.data; let i = index" class="card-content">
-        <div *ngFor="let patient_sensor of patBoardSensors; let j = index">
-          <div *ngIf="patient_sensor.type == sensor.sensor">
-            <mat-card>
-              <div class="sensor">
-                <div class="sensor-name">ID sensore: {{patient_sensor.type}}</div>
-                <div class="last-value">Valore: {{sensor.data}} {{patient_sensor.um}}</div>
-                <button mat-button class="visualize-sensor" (click)=modify_sensor(patient_sensor) class="modify_button">Modifica</button>
-                <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
-              </div>
-            </mat-card>
+      <div *ngIf="patBoardData != null">
+        <div *ngFor="let sensor of patBoardData?.Items[patBoardData.Items.length - 1].device_data.data; let i = index" class="card-content">
+          <div *ngFor="let patient_sensor of patBoardSensors; let j = index">
+            <div *ngIf="patient_sensor.type == sensor.sensor">
+              <mat-card>
+                <div class="sensor">
+                  <div class="sensor-name">ID sensore: {{patient_sensor.type}}</div>
+                  <div class="last-value">Valore: {{sensor.data}} {{patient_sensor.um}}</div>
+                  <button mat-button class="visualize-sensor" (click)=modify_sensor(patient_sensor) class="modify_button">Modifica</button>
+                  <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
+                </div>
+              </mat-card>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </ng-template>
 

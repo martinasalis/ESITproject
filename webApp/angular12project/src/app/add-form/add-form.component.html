@@ -170,13 +170,13 @@
 
             <mat-form-field>
               <mat-label>Soglia sensore</mat-label>
-              <input matInput type="text" placeholder="" name="thr" [formControl]="thr" required>
+              <input matInput type="number" placeholder="" name="thr" [formControl]="thr" required>
               <mat-error *ngIf="thr.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Tipo sensore</mat-label>
-              <input matInput type="text" placeholder="" name="typeSensor" [formControl]="typeSensor" required>
+              <input matInput type="number" placeholder="" name="typeSensor" [formControl]="typeSensor" required>
               <mat-error *ngIf="typeSensor.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
 

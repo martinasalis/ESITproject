@@ -28,6 +28,7 @@ export class NoticeDialogComponent {
       this.router.navigate(['login']);
     }
     else {
+      console.log('close');
       this.dialogRef.close();
       this.router.navigate(['home']);
     }

@@ -52,10 +52,31 @@ export class AddFormComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
       this.button = this.router.getCurrentNavigation()?.extras.state?.data;
       this.selectedPat = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
+      console.log(this.selectedPat);
 
       if(this.selectedPat) {
         this.patientService.info(this.selectedPat._id).subscribe((data: Patient) => {
-          this.pat = data;
+          console.log(data);
+          this.patientService.setPatient(data);
+          this.pat = this.patientService.getPatient();
+
+          if(this.pat.board != '') {
+            this.add_sensor_patient = true;
+            this.sensorService.allFreeSensors().subscribe((data: Sensor[]) => {
+              this.sensorService.setSensors(data);
+              this.sens = this.sensorService.getSensors();
+              console.log(this.sens);
+
+              if(this.sens.length == 0) {
+                this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}});
+                this.openDialog();
+              }
+            });
+          }
+          else {
+            this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}});
+            this.openDialog();
+          }
         });
       }
     }
@@ -74,19 +95,6 @@ export class AddFormComponent implements OnInit {
     else if(this.button == 2) {
       this.add_sensor = true;
     }
-    else {
-      this.add_sensor_patient = true;
-      this.sensorService.allFreeSensors().subscribe((data: Sensor[]) => {
-        this.sensorService.setSensors(data);
-        this.sens = this.sensorService.getSensors();
-
-        if(this.sens.length == 0) {
-          this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}});
-          this.openDialog();
-        }
-      });
-    }
-
   }
 
   add(): void {
@@ -102,7 +110,6 @@ export class AddFormComponent implements OnInit {
       }
       else {
         this.userService.info(this.tc.value).subscribe(data => {
-
           if(data == null) {
             this.userService.insert(newUser).subscribe(data => {
               console.log(data);
@@ -114,7 +121,7 @@ export class AddFormComponent implements OnInit {
             this.router.navigate(['home']);
             this.openDialog();
           }
-          else{
+          else {
             this.duplicate_user = true;
             this.openDialog();
             this.duplicate_user = false;
@@ -152,7 +159,7 @@ export class AddFormComponent implements OnInit {
             this.router.navigate(['home']);
             this.openDialog();
           }
-          else{
+          else {
             this.duplicate_user = true;
             this.openDialog();
             this.duplicate_user = false;
@@ -162,9 +169,9 @@ export class AddFormComponent implements OnInit {
       }
     }
     else if(this.add_sensor){
-      let newSensor: Sensor = {_id: '', name: this.name.value, um: this.um.value, threshold: this.thr.value,type: this.typeSensor.value, board: ''};
+      let newSensor: Sensor = {_id: '', name: this.name.value, um: this.um.value, threshold: this.thr.value, type: this.typeSensor.value, board: ''};
 
-      if(newSensor.name == '' || newSensor.um == '' || newSensor.threshold != 0 || newSensor.type != 0){
+      if(newSensor.name == '' || newSensor.um == '' || newSensor.threshold == 0 || newSensor.type == 0){
         this.empty_field = true;
         this.openDialog();
       }
@@ -261,10 +268,20 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-    else {
+    else if(this.add_sensor_patient && this.sens.length == 0) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {flag: 9}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else {
+      const dialogRef = this.dialog.open(NoticeDialogComponent, {
+        width: '250px',
+        data: {flag: 13}
       });
 
       dialogRef.afterClosed().subscribe(result => {
