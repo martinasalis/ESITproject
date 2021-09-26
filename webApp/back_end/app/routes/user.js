@@ -183,7 +183,7 @@ exports = module.exports = function(app) {
 
         let mailContent = '';
 
-        if(req.body.type == 'DOCTOR') {
+        if(req.body.type === 'DOCTOR') {
             mailContent = "<html><head></head><body style='font-family:sans-serif;'><h1 style='text-align:center'>Verifica nuovo utente</h1><p>Benvenuto in HealthApp.</p><p>Il tuo username è: " + req.body.username + "</p><p>La tua password è: " + password + "</p><p>Per ricevere notifiche sui tuoi pazienti conferma la tua iscrizione premendo il seguente link.</p></body></html>";
         }
         else {

@@ -83,4 +83,28 @@ describe('PageSensorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('control invalid form N value min', () => {
+    component.last_n.setValue(-1);
+
+    expect(component.last_n.valid).toBeFalsy();
+  });
+
+  it('control invalid form N value max', () => {
+    component.last_n.setValue(8);
+
+    expect(component.last_n.valid).toBeFalsy();
+  });
+
+  it('control invalid form N value', () => {
+    component.last_n.setValue('');
+
+    expect(component.last_n.valid).toBeFalsy();
+  });
+
+  it('control valid form N value', () => {
+    component.last_n.setValue(5);
+
+    expect(component.last_n.valid).toBeTruthy();
+  });
 });

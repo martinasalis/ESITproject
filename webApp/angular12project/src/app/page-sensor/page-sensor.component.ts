@@ -5,6 +5,7 @@ import { Doctor, DoctorService, Notice } from "../doctor.service";
 import { Patient, PatientService } from "../patient.service";
 import { MatDialog } from "@angular/material/dialog";
 import { SensorService } from "../sensor.service";
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-page-sensor',
@@ -30,12 +31,14 @@ export class PageSensorComponent implements OnInit {
   last_day: number[] = [];
   last2_day: number[] = [];
   last3_day: number[] = [];
-  mean_last_day: number = 0;
+  mean_last_n: number = 0;
   date_last_day: string = '';
   date_last2_day: string = '';
   date_last3_day: string = '';
   date: string = '';
   um: String = '';
+  N: number = 0;
+  last_n = new FormControl('');
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
@@ -53,7 +56,8 @@ export class PageSensorComponent implements OnInit {
         this.um = data;
       });
 
-      let count = 0;
+      this.last_n.setValidators([Validators.min(0), Validators.max(this.clickedSensor.Items.length), Validators.required]);
+
       for(let i = this.clickedSensor.Items.length - 1; i >= 0; i--) {
 
         if(this.clickedSensor.Items[i].data_timestamp >= start_last_date && this.clickedSensor.Items[i].data_timestamp <= end_last_date) {
@@ -61,11 +65,6 @@ export class PageSensorComponent implements OnInit {
           this.date_last_day = d.toLocaleDateString();
           this.indices.push(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
           this.last_day.push(this.clickedSensor.Items[i].device_data.data[this.index].data);
-
-          if(count < 10) {
-            this.mean_last_day = this.mean_last_day + this.clickedSensor.Items[i].device_data.data[this.index].data;
-            count = count + 1;
-          }
         }
         else if(this.clickedSensor.Items[i].data_timestamp >= (start_last_date - 86400000) && this.clickedSensor.Items[i].data_timestamp <= (end_last_date - 86400000)) {
           const d = new Date(this.clickedSensor.Items[i].data_timestamp);
@@ -80,18 +79,13 @@ export class PageSensorComponent implements OnInit {
           this.last3_day.push(this.clickedSensor.Items[i].device_data.data[this.index].data);
         }
       }
-
-      this.mean_last_day = this.mean_last_day / 10;
     }
     else {
       this.router.navigate(['']).then();
     }
   }
 
-
-
   ngOnInit(): void {
-
     if(this.user.type == Type.DOCTOR){
       this.page_doctor = true;
       this.doc = this.doctorService.getDoctor();
@@ -159,6 +153,29 @@ export class PageSensorComponent implements OnInit {
 
   undo(): void {
     this.router.navigate(['patient'], {state: {clickedUser: this.clickedPatient}}).then();
+  }
+
+  last_n_data(N: number): void {
+    this.N = N;
+
+    let i = this.clickedSensor.Items.length - 1;
+
+    for(let j = 0; j < N; j++) {
+      this.mean_last_n = this.mean_last_n + this.clickedSensor.Items[i].device_data.data[this.index].data;
+      i = i - 1;
+    }
+
+    this.mean_last_n = this.mean_last_n / N;
+  }
+
+  getErrorMessage() {
+    if(this.last_n.hasError('required')) {
+      return 'Devi inserire un valore';
+    }
+    else if(this.last_n.hasError('min')) {
+      return 'Devi inserire un valore maggiore di 0';
+    }
+    return this.last_n.hasError('max') ? 'Devi inerire un valore inferiore a ' +  this.clickedSensor.Items.length : '';
   }
 
 }
