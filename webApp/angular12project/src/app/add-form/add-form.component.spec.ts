@@ -235,7 +235,7 @@ describe('AddFormComponent', () => {
     if(component.add_sensor_patient) {
       // Values
       component.sensorControl.setValue('');
-      component.thr.setValue('');
+      component.thr.setValue(-1);
 
       // Tests
       expect(component.sensorControl.valid).toBeFalsy();

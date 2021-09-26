@@ -54,7 +54,7 @@ export class NoticeDialogComponent {
   }
 
   getErrorMessage() {
-    if (this.mail.hasError('required')) {
+    if(this.mail.hasError('required')) {
       return 'Devi inserire la mail';
     }
 

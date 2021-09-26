@@ -48,7 +48,7 @@ export class SensorService {
    */
   allFreeSensors(): Observable<Sensor[]> {
     const body = {};
-    return this.http.post<Sensor[]>(`${baseUrl}/allSensors`, body);
+    return this.http.post<Sensor[]>(`${baseUrl}/allFreeSensors`, body);
   }
 
   /**

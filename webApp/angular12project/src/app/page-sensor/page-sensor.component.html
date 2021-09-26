@@ -18,9 +18,22 @@
 
       <mat-card>
         <div class="text">Valore medio</div>
-        <div class="text">ultime 10 letture</div>
-        <div class="value">{{mean_last_day}} {{um}}</div>
+        <div class="text">ultime {{N}} letture</div>
+        <div class="value">{{mean_last_n.toFixed(2)}} {{um}}</div>
       </mat-card>
+
+      <div class="parentContainer">
+        <form action="page-sensor.component.ts" method="post" class="last_n_value">
+          <div class="container">
+            <mat-form-field appearance="legacy">
+              <mat-label>Valore medio ultime N letture</mat-label>
+              <input matInput type="number" placeholder="Inserisci il numero di letture" name="last_n" [formControl]="last_n" required>
+              <mat-error *ngIf="last_n.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <button mat-button type="button" class="button_last_n" (click)="last_n_data(last_n.value)">Calcola</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <button class="inner" mat-button type="submit"(click)="undo()">Torna alla pagina del paziente</button>
@@ -42,9 +55,22 @@
 
       <mat-card>
         <div class="text">Valore medio</div>
-        <div class="text">ultime 10 letture</div>
-        <div class="value">{{mean_last_day}} {{um}}</div>
+        <div class="text">ultime {{N}} letture</div>
+        <div class="value">{{mean_last_n.toFixed(2)}} {{um}}</div>
       </mat-card>
+
+      <div class="parentContainer">
+        <form action="page-sensor.component.ts" method="post" class="last_n_value">
+          <div class="container">
+            <mat-form-field appearance="legacy" class="form_last_n">
+              <mat-label>Valore medio ultime N letture</mat-label>
+              <input matInput type="number" placeholder="Inserisci il numero di letture" name="last_n" [formControl]="last_n" required>
+              <mat-error *ngIf="last_n.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <button mat-button type="button" class="button_last_n" (click)="last_n_data(last_n.value)">Calcola</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <button class="inner" mat-button type="submit"(click)="undo()">Torna alla pagina del paziente</button>

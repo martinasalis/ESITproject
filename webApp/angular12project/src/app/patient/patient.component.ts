@@ -68,20 +68,24 @@ export class PatientComponent implements OnInit {
         this.patientService.setPatient(data);
         this.pat = this.patientService.getPatient();
 
-        // Controllo "" == ""
-        this.sensorService.boardSensors(this.pat.board).subscribe((data: Sensor[]) => {
-          this.patBoardSensors = data;
-          console.log(data);
+        if(this.pat.board != "") {
+          this.sensorService.boardSensors(this.pat.board).subscribe((data: Sensor[]) => {
+            this.patBoardSensors = data;
+            console.log(data);
 
-          if(this.patBoardSensors.length != 0) {
-            this.patientService.getBoardSensorData(this.pat).subscribe((data: any) => {
-              this.patBoardData = data;
-            });
-          }
-          else {
-            this.patBoardData = null;
-          }
-        });
+            if(this.patBoardSensors.length != 0) {
+              this.patientService.getBoardSensorData(this.pat).subscribe((data: any) => {
+                this.patBoardData = data;
+              });
+            }
+            else {
+              this.patBoardData = null;
+            }
+          });
+        }
+        else {
+          this.patBoardData = null;
+        }
       });
     }
   }

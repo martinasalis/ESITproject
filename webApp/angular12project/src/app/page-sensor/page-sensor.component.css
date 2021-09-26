@@ -36,12 +36,53 @@ mat-card{
 button {
   background-color: #04AA6D;
   color: white;
-  padding: 5px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 5px 10px 5px 10px;
   border: none;
   cursor: pointer;
   float: right;
+}
+
+.button_last_n {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.inner {
   margin-top: 400px;
   margin-right: 50px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 16px;
+  display: table;
+  width: 100%;
+}
+
+@media screen and (max-width: 270px) {
+  span.last_n {
+    display: block;
+    float: none;
+  }
+}
+
+.parentContainer{
+  display: table-cell;
+  vertical-align: middle;
+  margin-bottom: 20px;
+}
+
+form {
+  width: 270px;
+  float: right;
+}
+
+.mat-form-field {
+  display: block;
 }
