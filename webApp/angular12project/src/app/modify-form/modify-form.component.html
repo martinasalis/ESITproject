@@ -1,32 +1,38 @@
 <div>
+  <!-- Navbar -->
   <div>
     <app-navbar></app-navbar>
   </div>
 
+  <!-- Modify doctor -->
   <div class="grandParentContainer" *ngIf="modify_doctor; else Patient">
     <h1><b>Modifica Dottore</b></h1>
     <div class="parentContainer">
       <form action="modify-form.component.ts" method="post" id="modify_form"> <!--[formGroup]="angForm" novalidate-->
 
         <div class="container">
+          <!-- Username -->
           <mat-form-field>
             <mat-label>Username</mat-label>
             <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
             <mat-error *ngIf="username.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- Name -->
           <mat-form-field>
             <mat-label>Nome</mat-label>
             <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
             <mat-error *ngIf="name.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- Surname -->
           <mat-form-field>
             <mat-label>Cognome</mat-label>
             <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
             <mat-error *ngIf="surname.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- E-mail -->
           <mat-form-field>
             <mat-label>e-mail</mat-label>
             <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
@@ -34,23 +40,27 @@
             <mat-error *ngIf="mail.hasError('email')">Devi inserire una mail valida</mat-error>
           </mat-form-field>
 
+          <!-- Date of birth -->
           <mat-form-field>
             <mat-label>Data di nascita</mat-label>
             <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
             <mat-error *ngIf="dob.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- Tax code -->
           <mat-form-field>
             <mat-label>Codice fiscale</mat-label>
             <input matInput type="text" placeholder="" name="tc" [formControl]="tc" readonly>
           </mat-form-field>
 
+          <!-- Role -->
           <mat-form-field>
             <mat-label>Ruolo</mat-label>
             <input matInput type="text" placeholder="" name="role" [formControl]="role" required>
             <mat-error *ngIf="role.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- Number -->
           <mat-form-field>
             <mat-label>Numero di Telefono</mat-label>
             <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
@@ -65,6 +75,7 @@
     </div>
   </div>
 
+  <!-- Modify patient -->
   <ng-template #Patient>
     <div class="grandParentContainer" *ngIf="modify_patient; else Sensor">
       <h1><b>Modifica Paziente</b></h1>
@@ -72,24 +83,28 @@
         <form action="modify-form.component.ts" method="post" id="modify_form_patient">
 
           <div class="container">
+            <!-- Username -->
             <mat-form-field>
               <mat-label>Username</mat-label>
               <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
               <mat-error *ngIf="username.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Name -->
             <mat-form-field>
               <mat-label>Nome</mat-label>
               <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
               <mat-error *ngIf="name.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Surname -->
             <mat-form-field>
               <mat-label>Cognome</mat-label>
               <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
               <mat-error *ngIf="surname.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- E-mail -->
             <mat-form-field>
               <mat-label>e-mail</mat-label>
               <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
@@ -97,17 +112,20 @@
               <mat-error *ngIf="mail.hasError('email')">Devi inserire una mail valida</mat-error>
             </mat-form-field>
 
+            <!-- Date of birth -->
             <mat-form-field>
               <mat-label>Data di nascita</mat-label>
               <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
               <mat-error *ngIf="dob.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Tax code -->
             <mat-form-field>
               <mat-label>Codice fiscale</mat-label>
               <input matInput type="text" placeholder="" name="tc" [formControl]="tc" readonly>
             </mat-form-field>
 
+            <!-- Doctor -->
             <div *ngIf="user.type == 'ADMIN'">
               <mat-form-field>
                 <mat-label>Dottore</mat-label>
@@ -117,6 +135,7 @@
               </mat-form-field>
             </div>
 
+            <!-- Number -->
             <mat-form-field>
               <mat-label>Recapito telefonico</mat-label>
               <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
@@ -124,18 +143,21 @@
               <mat-error *ngIf="phone.hasError('maxlength')">Devi inserire un numero valido</mat-error>
             </mat-form-field>
 
+            <!-- Date of recovery -->
             <mat-form-field>
               <mat-label>Data di ricovero</mat-label>
               <input matInput type="date" placeholder="" name="dor" [formControl]="dor" required>
               <mat-error *ngIf="dor.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Address -->
             <mat-form-field>
               <mat-label>Indirizzo</mat-label>
               <input matInput type="text" placeholder="" name="address" [formControl]="address" required>
               <mat-error *ngIf="address.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Description -->
             <mat-form-field>
               <mat-label>Descrizione</mat-label>
               <input matInput type="text" placeholder="" name="description" [formControl]="description" required>
@@ -150,6 +172,7 @@
     </div>
   </ng-template>
 
+  <!-- Modify sensor -->
   <ng-template #Sensor>
     <div class="grandParentContainer" *ngIf="modify_sensor; else modifySensorDoctor">
       <h1><b>Modifica Sensore</b></h1>
@@ -157,24 +180,27 @@
         <form action="modify-form.component.ts" method="post" id="modify_form_sensor">
 
           <div class="container">
-
+            <!-- Name -->
             <mat-form-field>
               <mat-label>Nome</mat-label>
               <input matInput type="text" placeholder="" name="name" [formControl]="name_sensor" required>
               <mat-error *ngIf="name_sensor.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Unit -->
             <mat-form-field>
               <mat-label>Unità di misura</mat-label>
               <input matInput type="text" placeholder="" name="um" [formControl]="um" required>
               <mat-error *ngIf="um.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Threshold -->
             <mat-form-field>
               <mat-label>Soglia sensore</mat-label>
               <input matInput type="text" placeholder="" name="thr" [formControl]="thr" readonly>
             </mat-form-field>
 
+            <!-- Type sensor -->
             <mat-form-field>
               <mat-label>Tipo sensore</mat-label>
               <input matInput type="text" placeholder="" name="typeSensor" [formControl]="typeSensor" readonly>
@@ -188,6 +214,7 @@
     </div>
   </ng-template>
 
+  <!-- Modify sensor by doctor -->
   <ng-template #modifySensorDoctor>
     <div class="grandParentContainer" *ngIf="modify_sensor_doctor">
       <h1><b>Modifica Sensore</b></h1>
@@ -195,17 +222,19 @@
         <form action="modify-form.component.ts" method="post" id="modify_form_sensor_doctor">
 
           <div class="container">
-
+            <!-- Name -->
             <mat-form-field>
               <mat-label>Nome</mat-label>
               <input matInput type="text" placeholder="" name="name" [formControl]="name_sensor" readonly>
             </mat-form-field>
 
+            <!-- Unit -->
             <mat-form-field>
               <mat-label>Unità di misura</mat-label>
               <input matInput type="text" placeholder="" name="um" [formControl]="um" readonly>
             </mat-form-field>
 
+            <!-- Threshold -->
             <mat-form-field>
               <mat-label>Soglia sensore</mat-label>
               <input matInput type="text" placeholder="" name="thr" [formControl]="thr" required>
@@ -213,6 +242,7 @@
               <mat-error *ngIf="tc.hasError('min')">Devi inserire un valore positivo</mat-error>
             </mat-form-field>
 
+            <!-- Type -->
             <mat-form-field>
               <mat-label>Tipo sensore</mat-label>
               <input matInput type="text" placeholder="" name="typeSensor" [formControl]="typeSensor" readonly>
