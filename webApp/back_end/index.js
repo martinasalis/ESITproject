@@ -12,7 +12,7 @@ app.use(cors());
 
 // config files
 // connect to our mongoDB database
-//mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(db.url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // set our port
 const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 8080;
