@@ -24,14 +24,23 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  /**
+   * This function send to the personal page of a user
+   */
   page_info(): void {
     this.router.navigate(['page-info']);
   }
 
+  /**
+   * This function send to the home
+   */
   home(): void {
     this.router.navigate(['home']);
   }
 
+  /**
+   * This function clear the session
+   */
   logout(): void {
     sessionStorage.clear();
     this.router.navigate(['']);

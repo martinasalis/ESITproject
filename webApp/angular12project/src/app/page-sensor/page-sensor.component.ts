@@ -95,6 +95,7 @@ export class PageSensorComponent implements OnInit {
       this.pat = this.patientService.getPatient();
     }
 
+    // Data for page doctor
     this.chartData = [
       {
         data: this.last_day,
@@ -110,6 +111,7 @@ export class PageSensorComponent implements OnInit {
       }
     ];
 
+    // Data for page patient
     this.charSingleData = [
       {
         data: this.last_day,
@@ -151,10 +153,17 @@ export class PageSensorComponent implements OnInit {
     };
   }
 
+  /**
+   * This function send to the previous page
+   */
   undo(): void {
     this.router.navigate(['patient'], {state: {clickedUser: this.clickedPatient}}).then();
   }
 
+  /**
+   * This function compute the average to N data
+   * @param {number} N - Number of data
+   */
   last_n_data(N: number): void {
     if(Number.isNaN(N)) {
       this.mean_last_n = 0;
@@ -173,6 +182,9 @@ export class PageSensorComponent implements OnInit {
     }
   }
 
+  /**
+   * This function open the error message for form fied
+   */
   getErrorMessage() {
     if(this.last_n.hasError('required')) {
       return 'Devi inserire un valore';

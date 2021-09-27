@@ -41,7 +41,11 @@ export class MACAddressComponent implements OnInit {
 
   }
 
+  /**
+   * This function associate te MAC address to a patient
+   */
   insert(): void {
+    // If the fields are valid
     if(this.patientControl.value != '' && this.mac.value != '') {
       this.patientService.info(this.patientControl.value._id).subscribe((pat: Patient) => {
         this.patientService.insertBoard(pat, this.mac.value).subscribe(data => {
@@ -51,12 +55,17 @@ export class MACAddressComponent implements OnInit {
         this.openDialog();
       });
     }
+    // Show message for error empty fields
     else {
       this.openDialog();
     }
   }
 
+  /**
+   * This function open the dialog message
+   */
   openDialog() {
+    // Dialog error ok MAC address
     if(this.patientControl.value != '' && this.mac.value != '') {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -67,6 +76,7 @@ export class MACAddressComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog error empty fields
     else {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',

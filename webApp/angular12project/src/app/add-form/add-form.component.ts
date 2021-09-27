@@ -15,6 +15,7 @@ import { Sensor, SensorService } from "../sensor.service";
 })
 export class AddFormComponent implements OnInit {
 
+  // Flags type of element to add
   add_doctor = false;
   add_patient = false;
   add_sensor = false;
@@ -23,6 +24,7 @@ export class AddFormComponent implements OnInit {
   duplicate_user = false;
   button = Number();
 
+  // Form fields
   username = new FormControl('');
   name = new FormControl('');
   surname = new FormControl('');
@@ -86,30 +88,40 @@ export class AddFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // If the clicked button is in page doctor
     if(this.button == 0) {
       this.add_doctor = true;
     }
+    // If the clicked button is in page patient
     else if(this.button == 1) {
       this.add_patient = true;
     }
+    // If the clicked button is in page sensor
     else if(this.button == 2) {
       this.add_sensor = true;
     }
   }
 
+  /**
+   * This function added the element on db
+   */
   add(): void {
 
-    // Check if the user is a patient or a doctor
+    // If the user is a doctor
     if(this.add_doctor) {
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', mail: this.mail.value, phone: this.phone.value, dob: this.dob.value, type: Type.DOCTOR};
       let newDoctor: Doctor = {_id: this.tc.value, role: this.role.value, notice: Notice.SMS};
 
+      // If the fields are empty
       if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || newUser.mail == '' || newUser.phone == '' || newDoctor.role == '') {
         this.empty_field = true;
+        // Show error message
         this.openDialog();
       }
+      // Add doctor in db
       else {
         this.userService.info(this.tc.value).subscribe(data => {
+          // If the doctor isn't in db
           if(data == null) {
             this.userService.insert(newUser).subscribe(data => {
               console.log(data);
@@ -121,6 +133,7 @@ export class AddFormComponent implements OnInit {
             this.router.navigate(['home']);
             this.openDialog();
           }
+          // Show error message
           else {
             this.duplicate_user = true;
             this.openDialog();
@@ -129,6 +142,7 @@ export class AddFormComponent implements OnInit {
         });
       }
     }
+    // If the user is a patient
     else if(this.add_patient) {
       let doctor_patient: String = '';
 
@@ -140,13 +154,17 @@ export class AddFormComponent implements OnInit {
       let newUser: User = {_id: this.tc.value, name: this.name.value, surname: this.surname.value, username: this.username.value, password: '', mail: this.mail.value, phone: this.phone.value, dob: this.dob.value, type: Type.PATIENT};
       let newPatient: Patient = {_id: this.tc.value, dor: this.dor.value, address: this.address.value, doctor: doctor_patient, board: '', description: this.description.value};
 
+      // If the fields are empty
       if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || this.dor.value == '' || newUser.mail == '' || newUser.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == '') {
         this.empty_field = true;
+        // Show error message
         this.openDialog();
       }
+      // Add patient in db
       else {
         this.userService.info(this.tc.value).subscribe(data => {
           console.log(data);
+          // If the patient isn't in db
           if(data == null) {
             this.userService.insert(newUser).subscribe(data => {
               console.log(data);
@@ -159,6 +177,7 @@ export class AddFormComponent implements OnInit {
             this.router.navigate(['home']);
             this.openDialog();
           }
+          // Show error message
           else {
             this.duplicate_user = true;
             this.openDialog();
@@ -168,13 +187,17 @@ export class AddFormComponent implements OnInit {
 
       }
     }
+    // Add sensor
     else if(this.add_sensor){
       let newSensor: Sensor = {_id: '', name: this.name.value, um: this.um.value, threshold: this.thr.value, type: this.typeSensor.value, board: ''};
 
+      // If the fields are empty
       if(newSensor.name == '' || newSensor.um == '' || newSensor.threshold == 0 || newSensor.type == 0){
         this.empty_field = true;
+        // Show error message
         this.openDialog();
       }
+      // Add sensor in db
       else {
         this.sensorService.insert(newSensor).subscribe(data => {
           console.log(data);
@@ -184,14 +207,18 @@ export class AddFormComponent implements OnInit {
         this.openDialog();
       }
     }
+    // Add sensor to patient
     else if(this.add_sensor_patient) {
       let newSensor: Sensor = {_id: this.sensorControl.value._id, name: this.sensorControl.value.name,
         type: this.sensorControl.value.type, um: this.sensorControl.value.um, board: this.pat.board, threshold: this.thr.value};
 
+      // If the threshold isn't valid
       if(newSensor.threshold == 0){
         this.empty_field = true;
+        // Show error message
         this.openDialog();
       }
+      // Add sensor to patient in db
       else{
         this.sensorService.insertBoard(newSensor).subscribe(data => {
           console.log(data);
@@ -204,8 +231,11 @@ export class AddFormComponent implements OnInit {
     }
   }
 
+  /**
+   * This function open the dialog message
+   */
   openDialog() {
-
+    // Dialog Error empty field
     if(this.empty_field){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -218,6 +248,7 @@ export class AddFormComponent implements OnInit {
 
       this.empty_field = false;
     }
+    // Dialog Error duplicate users
     else if(this.duplicate_user){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -228,6 +259,7 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog added doctor
     else if (this.add_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -238,6 +270,7 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog added patient
     else if (this.add_patient) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -248,6 +281,7 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog added sensor
     else if(this.add_sensor){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -258,6 +292,7 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog added sensor to patient
     else if(this.add_sensor_patient && this.sens.length != 0) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -268,6 +303,7 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog error message no sensor available
     else if(this.add_sensor_patient && this.sens.length == 0) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -278,6 +314,7 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog error no connected board
     else {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',

@@ -22,6 +22,10 @@ export class NoticeDialogComponent {
               @Inject(MAT_DIALOG_DATA) public data: Result, private userService: UserService, private dialog: MatDialog) {
   }
 
+
+  /**
+   * This function serves to manege the response to the dialog
+   */
   onNoClick(): void {
     if(this.data.flag == 10 || this.data.flag == 11){
       this.dialogRef.close();
@@ -34,8 +38,12 @@ export class NoticeDialogComponent {
     }
   }
 
+  /**
+   * This function open the dialog to insert mail to recovery password
+   */
   recovery(): void{
     this.userService.recoveryPassword(this.mail.value).subscribe(data => {
+      // If the mail isn't in db
       if(data.nModified == 0) {
         const dialogRef = this.dialog.open(NoticeDialogComponent, {
           width: '250px',
@@ -53,6 +61,9 @@ export class NoticeDialogComponent {
     });
   }
 
+  /**
+   * This function show the mail's error
+   */
   getErrorMessage() {
     if(this.mail.hasError('required')) {
       return 'Devi inserire la mail';

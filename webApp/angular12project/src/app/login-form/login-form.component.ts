@@ -14,8 +14,11 @@ import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component"
 export class LoginFormComponent implements OnInit {
 
   recovery_password = false;
+
+  // Form fields
   username = new FormControl('', Validators.required);
   password = new FormControl('', Validators.required);
+
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
 
   constructor(private userService: UserService, private router: Router, public dialog: MatDialog) {
@@ -47,13 +50,20 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
+  /**
+   * This function open a dialog with a form to recovery password
+   */
   recoveryPassword(): void {
     this.recovery_password = true;
     this.openDialog();
     this.recovery_password = false;
   }
 
+  /**
+   * This function open the dialog message
+   */
   openDialog() {
+    // Dialog recovery password
     if(this.recovery_password) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '600px',
@@ -64,6 +74,7 @@ export class LoginFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog Error empty fields
     else {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',

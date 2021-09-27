@@ -1,9 +1,11 @@
 <div>
 
+  <!-- Navbar -->
   <div *ngIf="navbar && home_doctor">
     <app-navbar></app-navbar>
   </div>
 
+  <!-- Info doctor -->
   <div class="content" *ngIf="home_doctor; else Patient">
     <div class="info">
       <p><b>Ruolo:</b> {{ doc.role }} </p>
@@ -14,6 +16,7 @@
       <p><b>Codice fiscale:</b> {{ user._id }} </p>
     </div>
 
+    <!-- Notice ratio -->
     <div class="notice">
       <form>
         <div class="font_el" [formGroup]="noticeGroup">
@@ -30,6 +33,7 @@
     </div>
   </div>
 
+  <!-- Home page patient -->
   <ng-template #Patient>
     <app-patient></app-patient>
   </ng-template>

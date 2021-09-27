@@ -14,13 +14,17 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class PageInfoComponent implements OnInit {
 
+  // Flags type of element to add
   navbar = false;
   home_doctor = false;
+
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   doc: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};
   pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   selectedNotice: String = '';
   noticeOptions: String[] = ['E-mail', 'SMS'];
+
+  // Form field
   noticeGroup: FormGroup = new FormGroup({notice: new FormControl()});
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
@@ -52,10 +56,16 @@ export class PageInfoComponent implements OnInit {
     }
   }
 
+  /**
+   * This function ??
+   */
   changeNotice(notice: String) {
     this.selectedNotice = notice;
   }
 
+  /**
+   * This function save the type of notice of doctor
+   */
   saveNotice() {
     if(this.selectedNotice == this.noticeOptions[0]) {
       this.doctorService.updateNotice(this.user._id, Notice.MAIL).subscribe(data => {
@@ -71,7 +81,11 @@ export class PageInfoComponent implements OnInit {
     }
   }
 
+  /**
+   * This function open the dialog message
+   */
   openDialog(){
+    // Added patient to sensor ok
     const dialogRef = this.dialog.open(NoticeDialogComponent, {
       width: '250px',
       data: {res: 4, flag: 2}

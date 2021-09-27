@@ -1,4 +1,5 @@
 <div>
+  <!-- Navbar -->
   <div>
     <app-navbar></app-navbar>
   </div>
@@ -8,6 +9,7 @@
       <form action="mac-address.component.ts" method="post" id="mac_form"> <!--[formGroup]="angForm" novalidate-->
 
         <div class="container">
+          <!-- MAC address -->
           <mat-form-field appearance="legacy">
             <mat-label>Indirizzo MAC</mat-label>
             <input matInput type="text" placeholder="Inserisci l'indirizzo MAC della board" name="mac" [formControl]="mac" required>
@@ -15,6 +17,7 @@
             <mat-error *ngIf="mac.hasError('maxlength')">Devi inserire un MAC valido</mat-error>
           </mat-form-field>
 
+          <!-- Patients -->
           <mat-form-field appearance="fill">
             <mat-label>Pazienti</mat-label>
             <mat-select [formControl]="patientControl" required>

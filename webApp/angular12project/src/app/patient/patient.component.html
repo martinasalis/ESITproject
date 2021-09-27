@@ -1,9 +1,11 @@
 <div>
 
+  <!-- Navbar -->
   <div *ngIf="(navbar && page_patient) || (page_info && navbar) || (page_admin && navbar)">
     <app-navbar></app-navbar>
   </div>
 
+  <!-- Info patient page patient-->
   <div class="content" *ngIf="page_patient; else page_info_patient">
     <h1><b>Paziente:</b> {{ pat._id }} </h1>
     <div class="info">
@@ -18,6 +20,7 @@
       <p><b>Descrizione:</b> {{ pat.description }} </p>
     </div>
 
+    <!-- Sensors's patient -->
     <h1><b>Sensori Paziente</b></h1>
     <div *ngIf="patBoardData != null">
       <div *ngFor="let sensor of patBoardData?.Items[patBoardData.Items.length - 1].device_data.data; let i = index" class="card-content">
@@ -37,6 +40,7 @@
 
   </div>
 
+  <!-- Info patient page doctor -->
   <ng-template #page_info_patient>
     <div class="content" *ngIf="page_info; else Admin">
       <h1><b>Paziente:</b> {{ pat._id }} </h1>
@@ -59,6 +63,7 @@
         <button class="inner" mat-button type="submit" (click)="openDialog()">Elimina paziente</button>
       </div>
 
+      <!-- Sensors's patient -->
       <h1><b>Sensori Paziente</b></h1>
       <div *ngIf="patBoardData != null">
         <div *ngFor="let sensor of patBoardData?.Items[patBoardData.Items.length - 1].device_data.data; let i = index" class="card-content">
@@ -79,6 +84,7 @@
     </div>
   </ng-template>
 
+  <!-- Admin personal page -->
   <ng-template #Admin>
     <div class="content" *ngIf="page_admin">
       <h1><b>Admin:</b> {{ user._id }} </h1>
