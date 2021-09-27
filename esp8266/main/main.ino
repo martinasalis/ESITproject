@@ -14,6 +14,7 @@
 
 // Define board MAC address
 String mac;
+String THINGNAME;
 
 //Define MQTT port
 const int MQTT_PORT = 8883;
@@ -273,6 +274,9 @@ void sendData(void)
 }
 
 void setup(){
+
+  mac = WiFi.macAddress();
+  THINGNAME = "obj-" + mac;
   
   Serial.begin(115200);
   delay(5000);
@@ -304,7 +308,6 @@ void setup(){
   stack_sensor_1.setPrinter(Serial);
   stack_sensor_2.setPrinter(Serial);
 
-  mac = WiFi.macAddress();
 }
 
 void loop(){
