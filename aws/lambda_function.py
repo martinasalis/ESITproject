@@ -1,11 +1,39 @@
 import json
 import boto3
+import logging
 from botocore.exceptions import ClientError
+
+logger = logging.getLogger(__name__)
 
 print('Loading function')
 client = boto3.client('dynamodb')
 client_ses = boto3.client('ses',region_name='us-east-2')
 client_mqtt = boto3.client('iot-data', region_name='us-east-2')
+client_sns = boto3.client('sns')
+
+
+def publish_text_message(message, phone_number):
+    """
+    Publishes a text message directly to a phone number without need for a
+    subscription.
+
+    :param phone_number: The phone number that receives the message. This must be
+                             in E.164 format. For example, a United States phone
+                             number might be +12065550101.
+    :param message: The message to send.
+    :return: The ID of the message.
+     """
+    try:
+        response = boto3.resource('sns').meta.client.publish(PhoneNumber=phone_number, Message=message)
+        message_id = response['MessageId']
+        print("Published message to " + phone_number + ".")
+        logger.info("Published message to %s.", phone_number)
+    except ClientError:
+        logger.exception("Couldn't publish message to %s.", phone_number)
+        raise
+    else:
+        return message_id
+
 
 def send_notice(patient, sensor_type, sensor_data, doctor, board):
     response = client.query(TableName='doctor_notice', KeyConditionExpression="#DYNOBASE_doctor_id = :pkey", ExpressionAttributeNames={"#DYNOBASE_doctor_id": "doctor_id"}, ExpressionAttributeValues={":pkey": doctor})
@@ -17,12 +45,13 @@ def send_notice(patient, sensor_type, sensor_data, doctor, board):
     print(response_mqtt)
     print(response['Items'][0]['data']['M']['notice_type']['S'] == 'E-MAIL')
 
+    string_sensor = ''
+    if(sensor_type == '1'):
+        string_sensor = ' battito cardiaco'
+    else:
+        string_sensor = 'la temperatura'
+
     if(response['Items'][0]['data']['M']['notice_type']['S'] == 'E-MAIL'):
-        string_sensor = ''
-        if(sensor_type == '1'):
-            string_sensor = ' battito cardiaco'
-        else:
-            string_sensor = 'la temperatura'
 
         try:
             response = client_ses.send_email(
@@ -53,6 +82,11 @@ def send_notice(patient, sensor_type, sensor_data, doctor, board):
             print("Email sent! Message ID:")
             print(response['MessageId'])
 
+    else:
+        print('+39' + response['Items'][0]['data']['M']['phone']['S'])
+        publish_text_message(message='Il sensore del' + string_sensor + ' del paziente ' + patient + ' ha superato la soglia limite e ha un valore di ' + sensor_data + '.', phone_number='+39' + response['Items'][0]['data']['M']['phone']['S'])
+        #print(client_sns)
+
 
 
 def lambda_handler(event, context):
@@ -73,4 +107,3 @@ def lambda_handler(event, context):
         print(record['eventName'])
         print("DynamoDB Record: " + json.dumps(record['dynamodb']['NewImage']['device_data'], indent=2))
     return 'Successfully processed {} records.'.format(len(event['Records']))
-

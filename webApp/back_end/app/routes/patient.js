@@ -1,3 +1,4 @@
+// Import all required modules and patient model
 const Patient = require('../models/patient');
 const AWS = require("aws-sdk");
 
@@ -12,21 +13,18 @@ exports = module.exports = function(app) {
     app.post('/infoPatient', function(req, res) {
         // Get patient info
         Patient.findOne({_id: req.body._id}, function(err, pat) {
-            // Error
             if (err)
-                res.send(err);
-
-            res.json(pat);
+                res.send(err);  // Error
+            else
+                res.json(pat);
         });
     });
 
     app.post('/insertPatientBoard', function(req, res) {
-        // Insert a new board
+        // Associated a board to a patient
         Patient.updateOne({_id: req.body.patient._id}, {board: req.body.board}, function(err, pat) {
-            // Error occurred
             if(err)
-                res.send(err);
-
+                res.send(err);  // Error occurred
             else
                 res.json(pat);
         });
@@ -35,34 +33,30 @@ exports = module.exports = function(app) {
     app.post('/doctorPatients', function(req, res) {
         // Get all patients of a doctor
         Patient.find({doctor: req.body.doctor}, function(err, pats) {
-            // Send the error occurred
             if(err)
-                res.send(err);
-
-            // Send the patients of a doctor (from 0 to N)
-            res.json(pats);
+                res.send(err);  // Send the error occurred
+            else
+                res.json(pats); // Send the patients of a doctor (from 0 to N)
         });
     });
 
     app.post('/allPatients', function(req, res) {
         // Get all patients
         Patient.find({}, function(err, pats) {
-            // Error occurred
             if(err)
-                res.send(err);
-
-            res.json(pats);
+                res.send(err);  // Error occurred
+            else
+                res.json(pats);
         });
     });
 
     app.post('/allFreePatients', function(req, res) {
         // Get all patients with no board associate
         Patient.find({board: ''}, function(err, pats) {
-            // Error occurred
             if(err)
-                res.send(err);
-
-            res.json(pats);
+                res.send(err);  // Error occurred
+            else
+                res.json(pats);
         });
     });
 
@@ -71,32 +65,30 @@ exports = module.exports = function(app) {
 
         // Update a specific patient
         Patient.updateOne({_id: req.body._id}, {_id: updateData._id, address: updateData.address, dor: updateData.dor, doctor: updateData.doctor, board: updateData.board, description: updateData.description}, function (err, pat) {
-            if(err) // Error in update patient
-                res.send(err);
-
-            res.json(pat.ok);
+            if(err)
+                res.send(err);  // Error in update patient
+            else
+                res.json(pat.ok);
         });
     });
 
     app.post('/deletePatient', function(req, res) {
         // Delete a specific patient
         Patient.deleteOne({_id: req.body._id}, function(err, pat) {
-            // Error occurred
             if(err)
-                res.send(err);
-
-            res.json(pat.ok);
+                res.send(err);  // Error occurred
+            else
+                res.json(pat.ok);
         });
     });
 
     app.post('/insertPatient', function(req, res) {
         // Insert a new patient
         Patient.insertMany([{_id: req.body._id, address: req.body.address, dor: req.body.dor, doctor: req.body.doctor, board: req.body.board, description: req.body.description}], function(err, user) {
-            // Error
             if(err)
-                res.send(err);
-
-            res.json(user);
+                res.send(err);  // Error
+            else
+                res.json(user);
         });
     });
 
@@ -114,14 +106,12 @@ exports = module.exports = function(app) {
             "ScanIndexForward": true
         };
 
-
+        // Get the data collected by the sensors associated to a board and stored in DynamoDB
         docClient.query(params, function(err, data){
-            if(err){
+            if(err)
                 res.send(err);
-            }
-            else{
+            else
                 res.send(data);
-            }
         });
     });
 
