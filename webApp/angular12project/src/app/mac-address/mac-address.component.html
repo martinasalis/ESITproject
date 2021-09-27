@@ -11,7 +11,8 @@
           <mat-form-field appearance="legacy">
             <mat-label>Indirizzo MAC</mat-label>
             <input matInput type="text" placeholder="Inserisci l'indirizzo MAC della board" name="mac" [formControl]="mac" required>
-            <mat-error *ngIf="mac.hasError('required')"> Devi inserire il mac della board.</mat-error>
+            <mat-error *ngIf="mac.hasError('required')"> Devi inserire il mac della board</mat-error>
+            <mat-error *ngIf="mac.hasError('maxlength')">Devi inserire un MAC valido</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -22,7 +23,7 @@
                 {{pat._id}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="patientControl.hasError('required')">Inserisci un codice fiscale tra quelli presenti.</mat-error>
+            <mat-error *ngIf="patientControl.hasError('required')">Inserisci un codice fiscale tra quelli presenti</mat-error>
           </mat-form-field>
 
           <button mat-button type="button" (click)=insert()>Inserisci</button>

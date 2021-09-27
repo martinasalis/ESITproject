@@ -36,7 +36,7 @@ export class ModifyFormComponent implements OnInit {
   um = new FormControl('', Validators.required);
   name_sensor = new FormControl('', Validators.required);
   thr = new FormControl('', [Validators.min(0), Validators.required]);
-  typeSensor = new FormControl('', Validators.required);
+  typeSensor = new FormControl('', [Validators.min(1), Validators.required]);
   doctor = new FormControl('', [Validators.maxLength(16), Validators.required]);
 
   patientDoctor: String = '';
@@ -275,25 +275,6 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-  }
-
-  getErrorMessage() {
-    if (this.username.hasError('required') || this.name.hasError('required')
-      || this.surname.hasError('required') || this.mail.hasError('required') ||
-      this.dob.hasError('required') || this.tc.hasError('required') ||
-      this.phone.hasError('required') || this.dor.hasError('required') ||
-      this.address.hasError('required') || this.role.hasError('required') ||
-      this.description.hasError('required') || this.um.hasError('required') ||
-      this.name_sensor.hasError('required') || this.thr.hasError('required') ||
-      this.typeSensor.hasError('required')) {
-      return 'Devi inserire il campo';
-    }
-
-    if(this.mail.hasError('email')){
-      return 'E-Mail non valida'
-    }
-
-    return this.thr.hasError('min') ? 'Il valore minimo è 0' : '';
   }
 
 }

@@ -78,7 +78,7 @@ describe('ModifyFormComponent', () => {
   });
 
 
-  it('control invalid form modify doctor', () => {
+  it('control empty form modify doctor', () => {
     if(component.modify_doctor){
       // Set value
       component.username.setValue('');
@@ -86,7 +86,6 @@ describe('ModifyFormComponent', () => {
       component.surname.setValue('');
       component.mail.setValue('');
       component.dob.setValue('');
-      component.tc.setValue('');
       component.role.setValue('');
       component.phone.setValue('');
 
@@ -96,8 +95,19 @@ describe('ModifyFormComponent', () => {
       expect(component.surname.valid).toBeFalsy();
       expect(component.mail.valid).toBeFalsy();
       expect(component.dob.valid).toBeFalsy();
-      expect(component.tc.valid).toBeFalsy();
       expect(component.role.valid).toBeFalsy();
+      expect(component.phone.valid).toBeFalsy();
+    }
+  });
+
+  it('control invalid form modify doctor', () => {
+    if(component.modify_doctor) {
+      // Set values
+      component.mail.setValue('ssssssssssssssssssssssssssssssss');
+      component.phone.setValue('44444444444444444444444444444444');
+
+      // Tests
+      expect(component.mail.valid).toBeFalsy();
       expect(component.phone.valid).toBeFalsy();
     }
   });
@@ -110,7 +120,6 @@ describe('ModifyFormComponent', () => {
       component.surname.setValue('aaa');
       component.mail.setValue('aaa@aaa');
       component.dob.setValue('25/12/2021');
-      component.tc.setValue('aaa');
       component.role.setValue('aaaaaaaaaaaaaaaa');
       component.phone.setValue('aaaaaaaaaa');
 
@@ -120,13 +129,12 @@ describe('ModifyFormComponent', () => {
       expect(component.surname.valid).toBeTruthy();
       expect(component.mail.valid).toBeTruthy();
       expect(component.dob.valid).toBeTruthy();
-      expect(component.tc.valid).toBeTruthy();
       expect(component.role.valid).toBeTruthy();
       expect(component.phone.valid).toBeTruthy();
     }
   });
 
-  it('control invalid form modify patient', () => {
+  it('control empty form modify patient', () => {
     if(component.modify_patient) {
       // Set values
       component.username.setValue('');
@@ -134,7 +142,6 @@ describe('ModifyFormComponent', () => {
       component.surname.setValue('');
       component.mail.setValue('');
       component.dob.setValue('');
-      component.tc.setValue('');
       component.role.setValue('');
       component.phone.setValue('');
       component.dor.setValue('');
@@ -146,11 +153,27 @@ describe('ModifyFormComponent', () => {
       expect(component.surname.valid).toBeFalsy();
       expect(component.mail.valid).toBeFalsy();
       expect(component.dob.valid).toBeFalsy();
-      expect(component.tc.valid).toBeFalsy();
       expect(component.role.valid).toBeFalsy();
       expect(component.phone.valid).toBeFalsy();
       expect(component.dor.valid).toBeFalsy();
       expect(component.address.valid).toBeFalsy();
+    }
+  });
+
+  it('control invalid form modify patient', () => {
+    if(component.modify_patient) {
+      // Set values
+      component.mail.setValue('sssssssssssssssssssssss');
+      component.phone.setValue('3333333333333333333333333333333333333');
+
+      // Tests
+      expect(component.mail.valid).toBeFalsy();
+      expect(component.phone.valid).toBeFalsy();
+
+      if(component.user.type == Type.ADMIN) {
+        component.doctor.setValue('ppppppppppppppppppppppppppppppppppppppp');
+        expect(component.doctor.valid).toBeFalsy();
+      }
     }
   });
 
@@ -162,7 +185,6 @@ describe('ModifyFormComponent', () => {
       component.surname.setValue('aa');
       component.mail.setValue('aaa@aaa');
       component.dob.setValue('25/12/2021');
-      component.tc.setValue('aaaaaaaaaaaaaaaa');
       component.role.setValue('aaa');
       component.phone.setValue('aaaaaaaaaa');
       component.dor.setValue('25/12/2021');
@@ -174,7 +196,6 @@ describe('ModifyFormComponent', () => {
       expect(component.surname.valid).toBeTruthy();
       expect(component.mail.valid).toBeTruthy();
       expect(component.dob.valid).toBeTruthy();
-      expect(component.tc.valid).toBeTruthy();
       expect(component.role.valid).toBeTruthy();
       expect(component.phone.valid).toBeTruthy();
       expect(component.dor.valid).toBeTruthy();
@@ -182,7 +203,7 @@ describe('ModifyFormComponent', () => {
     }
   });
 
-  it('control invalid form modify sensor', () => {
+  it('control empty form modify sensor', () => {
     if(component.modify_sensor) {
       // Set values
       component.name_sensor.setValue('');
@@ -203,6 +224,13 @@ describe('ModifyFormComponent', () => {
       // Tests
       expect(component.name_sensor.valid).toBeTruthy();
       expect(component.um.valid).toBeTruthy();
+    }
+  });
+
+  it('control empty form modify sensor by doctor', () => {
+    if(component.modify_sensor_doctor) {
+      component.thr.setValue('');
+      expect(component.thr.valid).toBeFalsy();
     }
   });
 

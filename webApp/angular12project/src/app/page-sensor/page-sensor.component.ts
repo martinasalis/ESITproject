@@ -156,16 +156,21 @@ export class PageSensorComponent implements OnInit {
   }
 
   last_n_data(N: number): void {
-    this.N = N;
-
-    let i = this.clickedSensor.Items.length - 1;
-
-    for(let j = 0; j < N; j++) {
-      this.mean_last_n = this.mean_last_n + this.clickedSensor.Items[i].device_data.data[this.index].data;
-      i = i - 1;
+    if(Number.isNaN(N)) {
+      this.mean_last_n = 0;
     }
+    else {
+      this.N = N;
+      this.mean_last_n = 0;
+      let i = this.clickedSensor.Items.length - 1;
 
-    this.mean_last_n = this.mean_last_n / N;
+      for (let j = 0; j < N; j++) {
+        this.mean_last_n = this.mean_last_n + this.clickedSensor.Items[i].device_data.data[this.index].data;
+        i = i - 1;
+      }
+
+      this.mean_last_n = this.mean_last_n / N;
+    }
   }
 
   getErrorMessage() {

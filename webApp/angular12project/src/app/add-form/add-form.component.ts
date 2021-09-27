@@ -28,17 +28,17 @@ export class AddFormComponent implements OnInit {
   surname = new FormControl('');
   mail = new FormControl('', Validators.email);
   dob = new FormControl('');
-  tc = new FormControl('', [Validators.maxLength(16)]);
-  phone = new FormControl('',[Validators.maxLength(10)]);
+  tc = new FormControl('', Validators.maxLength(16));
+  phone = new FormControl('', Validators.maxLength(10));
   dor = new FormControl('');
   address = new FormControl('');
   role = new FormControl('');
-  doctor = new FormControl('');
+  doctor = new FormControl('', Validators.maxLength(16));
   description = new FormControl('');
   um = new FormControl('');
-  thr = new FormControl('', [Validators.min(0)]);
+  thr = new FormControl('', Validators.min(0));
   type = new FormControl('');
-  typeSensor = new FormControl('');
+  typeSensor = new FormControl('', [Validators.min(1)]);
   sensorControl = new FormControl('', Validators.required);
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '',  dob: Date.prototype, type: Type.DEFAULT};
@@ -52,7 +52,7 @@ export class AddFormComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
       this.button = this.router.getCurrentNavigation()?.extras.state?.data;
       this.selectedPat = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
-      console.log(this.selectedPat);
+      this.thr.setValue(0);
 
       if(this.selectedPat) {
         this.patientService.info(this.selectedPat._id).subscribe((data: Patient) => {
@@ -288,25 +288,5 @@ export class AddFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-  }
-
-  getErrorMessage() {
-    if (this.username.hasError('required') || this.name.hasError('required') ||
-      this.surname.hasError('required') || this.mail.hasError('required') ||
-      this.dob.hasError('required') || this.tc.hasError('required') ||
-      this.phone.hasError('required') || this.dor.hasError('required') ||
-      this.address.hasError('required') || this.role.hasError('required') ||
-      this.description.hasError('required') || this.um.hasError('required') ||
-      this.thr.hasError('required') || this.typeSensor.hasError('required') ||
-      this.type.hasError('required') || this.doctor.hasError('required')) {
-      return 'Devi inserire il campo';
-    }
-
-    if(this.mail.hasError('email')){
-      return 'E-Mail non valida'
-    }
-
-    return this.thr.hasError('min') ? 'Il valore minimo è 0' : '';
-
   }
 }

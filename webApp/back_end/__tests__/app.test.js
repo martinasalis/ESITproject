@@ -32,7 +32,7 @@ describe('Insert new user', () => {
 
     it('Insert new user in users collection', async () => {
         const user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla", password: "",
-            mail: "carla.bianchi@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let res = await supertest(app).post('/insertUser').send(user);
 
@@ -69,7 +69,7 @@ describe('Insert new sensor', () => {
 describe('Reject duplicated user', () => {
     it('Reject duplicated user in users collection', async () => {
         const user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla", password: "",
-            mail: "carla.bianchi@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let res_1 = await supertest(app).post('/insertUser').send(user);
 
@@ -110,14 +110,14 @@ describe('Reject duplicated user', () => {
 describe('Modify user', () => {
     it('Modify user in users collection', async () => {
         const user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla", password: "",
-            mail: "carla.bianchi@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let res = await supertest(app).post('/insertUser').send(user);
 
         expect(res.body[0]._id).toEqual(user._id);
 
         const new_user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla_bianchi", password: "",
-            mail: "carla.bianchi.2@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let new_res = await supertest(app).post('/updateUser').send({_id: new_user._id, info: new_user});
 
@@ -177,10 +177,25 @@ describe('Modify sensor', () => {
     });
 });
 
+describe('Modify patient board', () => {
+    it('Modify patient board', async () => {
+        const patient = {_id: "BNCCRL75P55B153R", address: "Via delle Rose 32",
+            dor: new Date("2012-03-06").toISOString(), doctor: "GRSLCU97L14E281J", board: "", description: ""};
+
+        let res = await supertest(app).post('/insertPatient').send(patient);
+
+        expect(res.body[0]).toEqual(patient);
+
+        let new_res = await supertest(app).post('/insertPatientBoard').send({patient: patient, board: "40:F5:20:05:16:37"});
+
+        expect(new_res.body.ok).toEqual(1);
+    });
+});
+
 describe('Delete user', () => {
     it('Delete user in users collection', async () => {
         const user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla", password: "",
-            mail: "carla.bianchi@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let res = await supertest(app).post('/insertUser').send(user);
 
@@ -238,6 +253,11 @@ describe('Delete sensor', () => {
 
 describe('Modify doctor notice in doctors collection', () => {
     it('Modify doctor notice in doctors collection', async () => {
+        const user = {_id: "GRSNCL04M30E281N", name: "Carla", surname: "Bianchi", username: "carla", password: "",
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+
+        await supertest(app).post('/insertUser').send(user);
+
         const doctor = {_id: "GRSNCL04M30E281N", role: "doctor", notice: "SMS"};
 
         let res = await supertest(app).post('/insertDoctor').send(doctor);
