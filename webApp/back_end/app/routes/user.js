@@ -1,3 +1,4 @@
+// Import all required modules and user model
 const User = require('../models/user');
 const AWS = require("aws-sdk");
 const generator = require('generate-password');
@@ -13,11 +14,10 @@ exports = module.exports = function(app) {
     app.post('/login', function(req, res) {
         // Login
         User.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
-            // Error occurred in login
             if(err)
-                res.send(err);
-
-            res.json(user);
+                res.send(err);  // Error occurred in login
+            else
+                res.json(user);
         });
     });
 
@@ -53,53 +53,48 @@ exports = module.exports = function(app) {
             }
         };
 
+        // Send e-mail with new password
         ses.sendEmail(params_mail, function(err, data) {
-            if(err) {
+            if(err)
                 console.log(err.message);
-            }
-            else {
+            else
                 console.log("Email sent! Message ID: ", data.MessageId);
-            }
         });
 
         // Recovery password
         User.updateOne({mail: req.body.mail}, {password: password}, function(err, user) {
-            // Error
             if(err)
-                res.send(err);
+                res.send(err);  // Error
             else
                 res.json(user);
         });
     });
 
     app.post('/infoUser', function(req, res) {
-        // Login
+        // Get data of a user
         User.findOne({_id: req.body._id}, function(err, user) {
-            // Error occurred in login
             if(err)
-                res.send(err);
+                res.send(err);  // Error occurred
             else
                 res.json(user);
         });
     });
 
     app.post('/patientsData', function(req, res) {
-        // Get all users data
+        // Get all patients data
         User.find({_id: {$in:req.body._ids}}, function(err, users) {
-            // Error occurred
             if(err)
-                res.send(err);
+                res.send(err);  // Error occurred
             else
                 res.json(users);
         });
     });
 
     app.post('/doctorsData', function(req, res) {
-        // Get all users data
+        // Get all doctors data
         User.find({_id: {$in:req.body._ids}}, function(err, users) {
-            // Error occurred
             if(err)
-                res.send(err);
+                res.send(err);  // Error occurred
             else
                 res.json(users);
         });
@@ -108,11 +103,10 @@ exports = module.exports = function(app) {
     app.post('/searchDoctorUsers', function(req, res) {
         let param = req.body.param;
 
-        // Get a user that match with param and type
+        // Get a doctor that match with param and type
         User.find({$and: [{$or: [{_id: {$regex: param, $options: 'i'}}, {name: {$regex: param, $options: 'i'}}, {surname: {$regex: param, $options: 'i'}}]}, {type: req.body.type}, {_id: {$in:req.body._ids}}]}, function(err, users) {
-            // Error
             if(err)
-                res.send(err);
+                res.send(err);  // Error
             else
                 res.json(users);
         });
@@ -124,11 +118,10 @@ exports = module.exports = function(app) {
         // Get a user that match with param and type
         User.find({$and: [{$or: [{_id: {$regex: param, $options: 'i'}}, {name: {$regex: param, $options: 'i'}}, {surname: {$regex: param, $options: 'i'}}]}, {type: req.body.type}]},
             function(err, users) {
-                // Error
                 if(err)
-                    res.send(err);
-
-                res.json(users);
+                    res.send(err);  // Error
+                else
+                    res.json(users);
             });
     });
 
@@ -137,40 +130,39 @@ exports = module.exports = function(app) {
 
         // Update user
         User.updateOne({_id: req.body._id}, {_id: updateData._id, name: updateData.name, surname: updateData.surname, username: updateData.username, password: updateData.password, mail: updateData.mail, phone: updateData.phone, dob: updateData.dob, type: updateData.type}, function(err, user) {
-            if(err) // Error in update
-                res.send(err);
-
-            res.json(user.ok);
+            if(err)
+                res.send(err);  // Error in update
+            else
+                res.json(user.ok);
         });
     });
 
     app.post('/deleteUser', function(req, res) {
         // Delete e-mail address from aws ses
         User.findOne({_id: req.body._id}, function(err, user) {
-            // Error occurred in login
             if(err)
-                res.send(err);
+                res.send(err); // Error occurred
             else {
                 const params = {
                     Identity: user.mail
                 };
 
+                // Delete e-mail from aws ses
                 ses.deleteIdentity(params, function(err, data) {
                     if(err)
-                        console.log(err, err.stack); // an error occurred
+                        console.log(err, err.stack); // An error occurred
                     else
-                        console.log(data);           // successful response
+                        console.log(data);           // Successful response
                 });
             }
         });
 
         // Delete a specific user
         User.deleteOne({_id: req.body._id}, function(err, user) {
-            // Error
             if(err)
-                res.send(err);
-
-            res.json(user.ok);
+                res.send(err);  // Error
+            else
+                res.json(user.ok);
         });
     });
 
@@ -198,17 +190,19 @@ exports = module.exports = function(app) {
             SuccessRedirectionURL: "https://www.google.it/"
         };
 
+        // Update verification e-mail template
         ses.updateCustomVerificationEmailTemplate(params, function(err, data) {
             if(err)
-                console.log(err, err.stack); // an error occurred
+                console.log(err, err.stack); // An error occurred
             else {
-                console.log(data);           // successful response
+                console.log(data);           // Successful response
 
+                // Send verification e-mail with password and username
                 ses.sendCustomVerificationEmail({EmailAddress: req.body.mail, TemplateName: "templateVerificationMail"}, function(err, data) {
                     if(err)
-                        console.log(err, err.stack); // an error occurred
+                        console.log(err, err.stack); // An error occurred
                     else
-                        console.log(data);           // successful response
+                        console.log(data);           // Successful response
                 });
             }
         });
@@ -218,8 +212,8 @@ exports = module.exports = function(app) {
             // Error
             if(err)
                 res.send(err);
-
-            res.json(user);
+            else
+                res.json(user);
         });
     });
 

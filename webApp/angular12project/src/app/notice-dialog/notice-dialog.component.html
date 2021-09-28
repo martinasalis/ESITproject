@@ -109,7 +109,6 @@
     <mat-icon class="icon_save">check_circle</mat-icon>
     <p>L'indirizzo MAC è stato inserito con successo.</p>
   </div>
-
 </ng-template>
 
 <!-- Empty field dialog -->
@@ -118,7 +117,6 @@
     <mat-icon class="icon_error">error</mat-icon>
     <p>Inserisci tutti i campi!</p>
   </div>
-
 </ng-template>
 
 <!-- Empty field dialog -->
@@ -127,7 +125,6 @@
     <mat-icon class="icon_error">error</mat-icon>
     <p>Non hai compilato tutti i campi!</p>
   </div>
-
 </ng-template>
 
 <!-- No selected row dialog -->
@@ -136,7 +133,6 @@
     <mat-icon class="icon_error">error</mat-icon>
     <p>Non hai selezionato nessuna riga!</p>
   </div>
-
 </ng-template>
 
 <!-- No sensors -->
@@ -145,7 +141,6 @@
     <mat-icon class="icon_error">error</mat-icon>
     <p>Non sono disponibili sensori!</p>
   </div>
-
 </ng-template>
 
 <!-- Recovery password -->
@@ -174,6 +169,7 @@
   </div>
 </ng-template>
 
+<!-- No mail in db -->
 <ng-template #no_mail>
   <div *ngIf="data.flag == 11; else duplicate_user">
     <mat-icon class="icon_error">error</mat-icon>
@@ -181,6 +177,7 @@
   </div>
 </ng-template>
 
+<!-- Duplicate user -->
 <ng-template #duplicate_user>
   <div *ngIf="data.flag == 12; else no_board">
     <mat-icon class="icon_error">error</mat-icon>
@@ -188,6 +185,7 @@
   </div>
 </ng-template>
 
+<!-- No board -->
 <ng-template #no_board>
   <div>
     <mat-icon class="icon_error">error</mat-icon>

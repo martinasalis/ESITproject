@@ -1,60 +1,73 @@
 <div>
+  <!-- Navbar -->
   <div>
     <app-navbar></app-navbar>
   </div>
 
+  <!-- Add doctor -->
   <div class="grandParentContainer" *ngIf="add_doctor; else Patient">
     <h1><b>Aggiunta Dottore</b></h1>
     <div class="parentContainer">
-      <form action="add-form.component.ts" method="post" id="add_form"> <!--[formGroup]="angForm" novalidate-->
+      <form action="add-form.component.ts" method="post" id="add_form">
 
         <div class="container">
+          <!-- Username -->
           <mat-form-field>
             <mat-label>Username</mat-label>
             <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
-            <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="username.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- Name -->
           <mat-form-field>
             <mat-label>Nome</mat-label>
             <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
-            <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="name.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- Surname -->
           <mat-form-field>
             <mat-label>Cognome</mat-label>
             <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
-            <mat-error *ngIf="surname.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="surname.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- E-mail -->
           <mat-form-field>
             <mat-label>e-mail</mat-label>
             <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
-            <mat-error *ngIf="mail.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="mail.hasError('required')">Devi inserire il campo</mat-error>
+            <mat-error *ngIf="mail.hasError('email')">Devi inserire una mail valida</mat-error>
           </mat-form-field>
 
+          <!-- Date of birth -->
           <mat-form-field>
             <mat-label>Data di nascita</mat-label>
             <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
-            <mat-error *ngIf="dob.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="dob.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- Tax code -->
           <mat-form-field>
             <mat-label>Codice fiscale</mat-label>
             <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
-            <mat-error *ngIf="tc.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="tc.hasError('required')">Devi inserire il campo</mat-error>
+            <mat-error *ngIf="tc.hasError('maxlength')">Devi inserire un CF valido</mat-error>
           </mat-form-field>
 
+          <!-- Role -->
           <mat-form-field>
             <mat-label>Ruolo</mat-label>
             <input matInput type="text" placeholder="" name="role" [formControl]="role" required>
-            <mat-error *ngIf="role.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="role.hasError('required')">Devi inserire il campo</mat-error>
           </mat-form-field>
 
+          <!-- Number -->
           <mat-form-field>
             <mat-label>Numero di Telefono</mat-label>
             <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
-            <mat-error *ngIf="phone.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="phone.hasError('required')">Devi inserire il campo</mat-error>
+            <mat-error *ngIf="phone.hasError('maxlength')"> Devi inserire un numero valido</mat-error>
           </mat-form-field>
 
           <button mat-button type="submit" (click)="add()">Aggiungi</button>
@@ -64,8 +77,7 @@
     </div>
   </div>
 
-  <!--pat: Patient = {_id: '', dob: Date.prototype, mail: '', phone: '', dor: Date.prototype, address: ''};-->
-
+  <!-- Add patient -->
   <ng-template #Patient>
     <div class="grandParentContainer" *ngIf="add_patient; else Sensor">
       <h1><b>Aggiunta Paziente</b></h1>
@@ -73,72 +85,87 @@
         <form action="add-form.component.ts" method="post" id="add_form_patient"> <!--[formGroup]="angForm" novalidate-->
 
           <div class="container">
+            <!-- Username -->
             <mat-form-field>
               <mat-label>Username</mat-label>
               <input matInput type="text" placeholder="" name="username" [formControl]="username" required>
-              <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="username.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Name -->
             <mat-form-field>
               <mat-label>Nome</mat-label>
               <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
-              <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="name.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Surname -->
             <mat-form-field>
               <mat-label>Cognome</mat-label>
               <input matInput type="text" placeholder="" name="surname" [formControl]="surname" required>
-              <mat-error *ngIf="surname.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="surname.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- E-mail -->
             <mat-form-field>
               <mat-label>e-mail</mat-label>
               <input matInput type="email" placeholder="" name="mail" [formControl]="mail" required>
-              <mat-error *ngIf="mail.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="mail.hasError('required')">Devi inserire il campo</mat-error>
+              <mat-error *ngIf="mail.hasError('email')"> Devi inserire una mail valida</mat-error>
             </mat-form-field>
 
+            <!-- Date of birth -->
             <mat-form-field>
               <mat-label>Data di nascita</mat-label>
               <input matInput type="date" placeholder="" name="dob" [formControl]="dob" required>
-              <mat-error *ngIf="dob.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="dob.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Tax code -->
             <mat-form-field>
               <mat-label>Codice fiscale</mat-label>
               <input matInput type="text" placeholder="" name="tc" [formControl]="tc" required>
-              <mat-error *ngIf="tc.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="tc.hasError('required')">Devi inserire il campo</mat-error>
+              <mat-error *ngIf="tc.hasError('maxlength')"> Devi inserire un codice fiscale valido</mat-error>
             </mat-form-field>
 
+            <!-- Number -->
             <mat-form-field>
               <mat-label>Recapito telefonico</mat-label>
               <input matInput type="text" placeholder="" name="phone" [formControl]="phone" required>
-              <mat-error *ngIf="phone.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="phone.hasError('required')">Devi inserire il campo</mat-error>
+              <mat-error *ngIf="phone.hasError('maxlength')"> Devi inserire un numero valido</mat-error>
             </mat-form-field>
 
+            <!-- Date of recovery -->
             <mat-form-field>
               <mat-label>Data di ricovero</mat-label>
               <input matInput type="date" placeholder="" name="dor" [formControl]="dor" required>
-              <mat-error *ngIf="dor.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="dor.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Address -->
             <mat-form-field>
               <mat-label>Indirizzo</mat-label>
               <input matInput type="text" placeholder="" name="address" [formControl]="address" required>
-              <mat-error *ngIf="address.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="address.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Doctor -->
             <div *ngIf="user.type == 'ADMIN'">
               <mat-form-field>
                 <mat-label>Dottore</mat-label>
                 <input matInput type="text" placeholder="" name="doctor" [formControl]="doctor" required>
-                <mat-error *ngIf="doctor.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-error *ngIf="doctor.hasError('required')">Devi inserire il campo</mat-error>
+                <mat-error *ngIf="doctor.hasError('maxlength')">Devi inserire un CF valido</mat-error>
               </mat-form-field>
             </div>
 
+            <!-- Description -->
             <mat-form-field>
               <mat-label>Descrizione</mat-label>
               <input matInput type="text" placeholder="" name="description" [formControl]="description" required>
-              <mat-error *ngIf="description.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="description.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
             <button mat-button (click)="add()">Aggiungi</button>
@@ -149,6 +176,7 @@
     </div>
   </ng-template>
 
+  <!-- Add sensor -->
   <ng-template #Sensor>
     <div class="grandParentContainer" *ngIf="add_sensor, else PatientSensor">
       <h1><b>Aggiunta Sensore</b></h1>
@@ -156,28 +184,33 @@
         <form action="add-form.component.ts" method="post" id="add_form_sensor"> <!--[formGroup]="angForm" novalidate-->
 
           <div class="container">
+            <!-- Name -->
             <mat-form-field>
               <mat-label>Nome</mat-label>
               <input matInput type="text" placeholder="" name="name" [formControl]="name" required>
-              <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="name.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Unit  -->
             <mat-form-field>
               <mat-label>Unità di misura</mat-label>
               <input matInput type="text" placeholder="" name="um" [formControl]="um" required>
-              <mat-error *ngIf="um.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="um.hasError('required')">Devi inserire il campo</mat-error>
             </mat-form-field>
 
+            <!-- Threshold -->
             <mat-form-field>
               <mat-label>Soglia sensore</mat-label>
-              <input matInput type="number" placeholder="" name="thr" [formControl]="thr" required>
-              <mat-error *ngIf="thr.invalid">{{getErrorMessage()}}</mat-error>
+              <input matInput type="number" placeholder="" name="thr" [formControl]="thr" [value]="0" readonly>
             </mat-form-field>
 
+            <!-- Type sonsor -->
             <mat-form-field>
               <mat-label>Tipo sensore</mat-label>
               <input matInput type="number" placeholder="" name="typeSensor" [formControl]="typeSensor" required>
-              <mat-error *ngIf="typeSensor.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="typeSensor.hasError('required')">Devi inserire il campo</mat-error>
+              <mat-error *ngIf="typeSensor.hasError('min')">Valore maggiore di 0</mat-error>
+              <mat-hint>Pulsazioni: 1 - Temperatura: 2</mat-hint>
             </mat-form-field>
 
             <button mat-button (click)="add()">Aggiungi</button>
@@ -188,6 +221,7 @@
     </div>
   </ng-template>
 
+  <!-- Add sensor to patient -->
   <ng-template #PatientSensor>
     <div class="grandParentContainer" *ngIf="add_sensor_patient">
       <h1><b>Aggiunta Sensore al Paziente</b></h1>
@@ -195,7 +229,7 @@
         <form action="add-form.component.ts" method="post" id="add_form_doctor_sensor"> <!--[formGroup]="angForm" novalidate-->
 
           <div class="container">
-
+            <!-- Name -->
             <mat-form-field appearance="fill">
               <mat-label>Nome sensore</mat-label>
               <mat-select [formControl]="sensorControl" required>
@@ -204,13 +238,15 @@
                   {{sen.name}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="sensorControl.hasError('required')">Inserisci sensore tra quelli presenti.</mat-error>
+              <mat-error *ngIf="sensorControl.hasError('required')">Inserisci sensore tra quelli presenti</mat-error>
             </mat-form-field>
 
+            <!-- Threshold -->
             <mat-form-field>
               <mat-label>Soglia</mat-label>
               <input matInput type="number" placeholder="" name="thr" [formControl]="thr" required>
-              <mat-error *ngIf="thr.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="thr.hasError('required')">Devi inserire il campo</mat-error>
+              <mat-error *ngIf="thr.hasError('min')">Il valore minimo è 0</mat-error>
             </mat-form-field>
 
             <button mat-button (click)="add()">Aggiungi</button>

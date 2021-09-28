@@ -16,18 +16,23 @@ import { Sensor, SensorService } from "../sensor.service";
 
 export class HomeComponent implements OnInit {
 
+  // Flags type of element to add
   home_doctor = false;
   navbar = false;
   home_admin = false;
   page_info = false;
+
+  // Form fields
   selected = new FormControl(0);
   searchString = new FormControl('');
   pats_id: any;
   docs_id: any;
 
+  // Table colums
   displayedColumnsDesc: String[] = ['_id', 'name', 'surname', 'description'];
   displayedColumns: String[] = ['_id', 'name', 'surname'];
   displayedColumnsSensor: String[] = ['_id', 'name', 'um'];
+
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   clickedSensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
@@ -90,8 +95,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * This function open the dialog message
+   */
   openDialog() {
 
+    // If the clicked user is a doctor and the clicked sensor isn't clicked
     if (this.clickedRow.type == Type.DOCTOR && this.clickedSensor._id == '') {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -108,10 +117,10 @@ export class HomeComponent implements OnInit {
           this.doctorService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
-          //this.router.navigate(['home']).then();
         }
       });
     }
+    // If the clicked user is a patient and the clicked sensor isn't clicked
     else if (this.clickedRow.type == Type.PATIENT && this.clickedSensor._id == '') {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -138,6 +147,7 @@ export class HomeComponent implements OnInit {
         }
       });
     }
+    // If is clicked a sensor and the user isn't clicked
     else if(this.clickedSensor._id != '' && this.clickedRow.type == Type.DEFAULT){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -150,10 +160,10 @@ export class HomeComponent implements OnInit {
           this.sensorService.delete(this.clickedSensor._id).subscribe(data => {
             console.log(data);
           });
-          //this.router.navigate(['home']).then();
         }
       });
     }
+    // Dialog error no selected row
     else {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -222,9 +232,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * This function send to the patient page
+   */
   visualize(): void {
+    // If isn't select any users
     if(this.clickedRow._id == ''){
       this.router.navigate(['home']);
+      // Show error message
       this.openDialog();
     }
     else {
@@ -232,10 +247,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * This function send to the modify-form
+   */
   modify(): void {
     this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}});
   }
 
+  /**
+   * This function send to the add-form
+   */
   add(): void {
     if(this.selected.value == 0 && this.home_doctor){
       this.router.navigate(['add-form'], {state: {data: 1}});
@@ -245,19 +266,31 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * This function send to the modify-form
+   */
   modify_sensor(): void {
     console.log(this.clickedSensor);
     this.router.navigate(['modify-form'], {state: {clickedSensor: this.clickedSensor, clickedUser: this.clickedRow}});
   }
 
+  /**
+   * This function send to the add-form
+   */
   add_sensor(): void {
     this.router.navigate(['add-form'], {state: {data: this.selected.value}});
   }
 
+  /**
+   * This function send to the page to insert mac
+   */
   insert_mac(): void {
     this.router.navigate(['mac-address']);
   }
 
+  /**
+   * This function delete the element
+   */
   delete(): void{
     this.openDialog();
     this.router.navigate(['home']);

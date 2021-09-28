@@ -95,6 +95,7 @@ export class PageSensorComponent implements OnInit {
       this.pat = this.patientService.getPatient();
     }
 
+    // Data for page doctor
     this.chartData = [
       {
         data: this.last_day,
@@ -110,6 +111,7 @@ export class PageSensorComponent implements OnInit {
       }
     ];
 
+    // Data for page patient
     this.charSingleData = [
       {
         data: this.last_day,
@@ -151,23 +153,38 @@ export class PageSensorComponent implements OnInit {
     };
   }
 
+  /**
+   * This function send to the previous page
+   */
   undo(): void {
     this.router.navigate(['patient'], {state: {clickedUser: this.clickedPatient}}).then();
   }
 
+  /**
+   * This function compute the average to N data
+   * @param {number} N - Number of data
+   */
   last_n_data(N: number): void {
-    this.N = N;
-
-    let i = this.clickedSensor.Items.length - 1;
-
-    for(let j = 0; j < N; j++) {
-      this.mean_last_n = this.mean_last_n + this.clickedSensor.Items[i].device_data.data[this.index].data;
-      i = i - 1;
+    if(Number.isNaN(N)) {
+      this.mean_last_n = 0;
     }
+    else {
+      this.N = N;
+      this.mean_last_n = 0;
+      let i = this.clickedSensor.Items.length - 1;
 
-    this.mean_last_n = this.mean_last_n / N;
+      for (let j = 0; j < N; j++) {
+        this.mean_last_n = this.mean_last_n + this.clickedSensor.Items[i].device_data.data[this.index].data;
+        i = i - 1;
+      }
+
+      this.mean_last_n = this.mean_last_n / N;
+    }
   }
 
+  /**
+   * This function open the error message for form fied
+   */
   getErrorMessage() {
     if(this.last_n.hasError('required')) {
       return 'Devi inserire un valore';

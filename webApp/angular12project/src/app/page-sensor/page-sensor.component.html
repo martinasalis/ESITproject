@@ -3,8 +3,10 @@
     <app-navbar></app-navbar>
   </div>
 
+  <!-- Page sensor of doctor -->
   <div *ngIf="page_doctor; else page_patient">
 
+    <!-- Chart -->
     <div class="chart">
       <canvas baseChart [chartType]="'line'" [legend]="true" [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions">
       </canvas>
@@ -22,6 +24,7 @@
         <div class="value">{{mean_last_n.toFixed(2)}} {{um}}</div>
       </mat-card>
 
+      <!-- Average value -->
       <div class="parentContainer">
         <form action="page-sensor.component.ts" method="post" class="last_n_value">
           <div class="container">
@@ -40,8 +43,10 @@
 
   </div>
 
+  <!-- Page sensor of patient -->
   <ng-template #page_patient>
 
+    <!-- Chart -->
     <div class="chart">
       <canvas baseChart [chartType]="'line'" [legend]="true" [datasets]="charSingleData" [labels]="chartLabels" [options]="chartOptions">
       </canvas>
@@ -59,6 +64,7 @@
         <div class="value">{{mean_last_n.toFixed(2)}} {{um}}</div>
       </mat-card>
 
+      <!-- Average value -->
       <div class="parentContainer">
         <form action="page-sensor.component.ts" method="post" class="last_n_value">
           <div class="container">
@@ -76,6 +82,5 @@
     <button class="inner" mat-button type="submit"(click)="undo()">Torna alla pagina del paziente</button>
 
   </ng-template>
-
 
 </div>

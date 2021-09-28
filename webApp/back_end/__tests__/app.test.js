@@ -1,25 +1,36 @@
+// Importing all required modules
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require('../index');
+
+// Importing all models of the data
 const User = require('../app/models/user');
 const Doctor = require('../app/models/doctor');
 const Patient = require('../app/models/patient');
 const Sensor = require('../app/models/sensor');
 
+// This operation is exec before each test
 beforeEach((done) => {
     jest.setTimeout(10000);
+
+    // Connect to our test database
     mongoose.connect("mongodb://localhost:27017/TestDB",
         { useNewUrlParser: true, useUnifiedTopology: true },
         () => done());
 });
 
+// This operation is exec after each test
 afterEach((done) => {
+
+    // Close the connection with our database and drop it
     mongoose.connection.db.dropDatabase(() => {
         mongoose.connection.close(() => done())
     });
 });
 
+// Test the insert operation in the database
 describe('Insert new user', () => {
+    // Test the insertion of a new patient
     it('Insert new patient in patients collection', async () => {
         const patient = {_id: "BNCCRL75P55B153R", address: "Via delle Rose 32",
             dor: new Date("2012-03-06").toISOString(), doctor: "GRSLCU97L14E281J", board: "40:F5:20:05:16:37",
@@ -30,9 +41,10 @@ describe('Insert new user', () => {
         expect(res.body).toEqual([patient]);
     });
 
+    // Test the insertion of a new user
     it('Insert new user in users collection', async () => {
         const user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla", password: "",
-            mail: "carla.bianchi@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let res = await supertest(app).post('/insertUser').send(user);
 
@@ -43,6 +55,7 @@ describe('Insert new user', () => {
         expect(res.body[0].mail).toEqual(user.mail);
     });
 
+    // Test the insertion of a new doctor
     it('Insert new doctor in doctors collection', async () => {
         const doctor = {_id: "GRSNCL04M30E281N", role: "doctor", notice: "SMS"};
 
@@ -52,7 +65,9 @@ describe('Insert new user', () => {
     });
 });
 
+// Test the insert operation in db
 describe('Insert new sensor', () => {
+    // Test the insertion of a new sensor
     it('Insert new sensor in sensors collection', async () => {
         const sensor = {name: "Temperature", um: "C°", threshold: 0, board: "", type: 2};
 
@@ -66,10 +81,12 @@ describe('Insert new sensor', () => {
     });
 });
 
+// Test if a duplicated user was rejected
 describe('Reject duplicated user', () => {
+    // Test the rejection of a duplicated user
     it('Reject duplicated user in users collection', async () => {
         const user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla", password: "",
-            mail: "carla.bianchi@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let res_1 = await supertest(app).post('/insertUser').send(user);
 
@@ -80,6 +97,7 @@ describe('Reject duplicated user', () => {
         expect(res_2.body[0]).toEqual(undefined);
     });
 
+    // Test the rejection of a duplicated doctor
     it('Reject duplicated doctor in doctors collection', async () => {
         const doctor = {_id: "GRSNCL04M30E281N", role: "doctor", notice: "SMS"};
 
@@ -92,6 +110,7 @@ describe('Reject duplicated user', () => {
         expect(res_2.body[0]).toEqual(undefined);
     });
 
+    // The the rejection of a duplicated patient
     it('Reject duplicated patient in patients collection', async () => {
         const patient = {_id: "BNCCRL75P55B153R", address: "Via delle Rose 32",
             dor: new Date("2012-03-06").toISOString(), doctor: "GRSLCU97L14E281J", board: "40:F5:20:05:16:37",
@@ -107,23 +126,26 @@ describe('Reject duplicated user', () => {
     });
 });
 
+// Test if the new data of a existing user was saved in the db
 describe('Modify user', () => {
+    // Test the data modification of a user
     it('Modify user in users collection', async () => {
         const user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla", password: "",
-            mail: "carla.bianchi@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let res = await supertest(app).post('/insertUser').send(user);
 
         expect(res.body[0]._id).toEqual(user._id);
 
         const new_user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla_bianchi", password: "",
-            mail: "carla.bianchi.2@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let new_res = await supertest(app).post('/updateUser').send({_id: new_user._id, info: new_user});
 
         expect(new_res.body).toEqual(1);
     });
 
+    // Test the data modification of a patient
     it('Modify patient in patients collection', async () => {
         const patient = {_id: "BNCCRL75P55B153R", address: "Via delle Rose 32",
             dor: new Date("2012-03-06").toISOString(), doctor: "GRSLCU97L14E281J", board: "40:F5:20:05:16:37",
@@ -142,6 +164,7 @@ describe('Modify user', () => {
         expect(new_res.body).toEqual(1);
     });
 
+    // Test the data modification of a doctor
     it('Modify doctor in doctors collection', async () => {
         const doctor = {_id: "GRSNCL04M30E281N", role: "doctor", notice: "SMS"};
 
@@ -157,7 +180,9 @@ describe('Modify user', () => {
     });
 });
 
+// Test if the new data of a existing sensor was saved in the db
 describe('Modify sensor', () => {
+    // Test the data modification of a sensor
     it('Modify sensor in sensors collection', async () => {
         const sensor = {name: "Temperature", um: "C°", threshold: 0, board: "", type: 2};
 
@@ -177,10 +202,29 @@ describe('Modify sensor', () => {
     });
 });
 
+// The if the new data related to the board associated to a patient was saved in the db
+describe('Modify patient board', () => {
+    // Test the data modification of the board associated to a patient
+    it('Modify patient board', async () => {
+        const patient = {_id: "BNCCRL75P55B153R", address: "Via delle Rose 32",
+            dor: new Date("2012-03-06").toISOString(), doctor: "GRSLCU97L14E281J", board: "", description: ""};
+
+        let res = await supertest(app).post('/insertPatient').send(patient);
+
+        expect(res.body[0]).toEqual(patient);
+
+        let new_res = await supertest(app).post('/insertPatientBoard').send({patient: patient, board: "40:F5:20:05:16:37"});
+
+        expect(new_res.body.ok).toEqual(1);
+    });
+});
+
+// Test if the data of a user was deleted in the db
 describe('Delete user', () => {
+    // Test the deletion of a user
     it('Delete user in users collection', async () => {
         const user = {_id: "BNCCRL75P55B153R", name: "Carla", surname: "Bianchi", username: "carla", password: "",
-            mail: "carla.bianchi@tiscali.it", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
 
         let res = await supertest(app).post('/insertUser').send(user);
 
@@ -191,6 +235,7 @@ describe('Delete user', () => {
         expect(delete_res.body).toEqual(1);
     });
 
+    // Test the deletion of a patient
     it('Delete patient in patients collection', async () => {
         const patient = {_id: "BNCCRL75P55B153R", address: "Via delle Rose 32",
             dor: new Date("2012-03-06").toISOString(), doctor: "GRSLCU97L14E281J", board: "40:F5:20:05:16:37",
@@ -205,6 +250,7 @@ describe('Delete user', () => {
         expect(delete_res.body).toEqual(1);
     });
 
+    // Test the deletion of a doctor
     it('Delete doctor in doctors collection', async () => {
         const doctor = {_id: "GRSNCL04M30E281N", role: "doctor", notice: "SMS"};
 
@@ -218,7 +264,9 @@ describe('Delete user', () => {
     });
 });
 
+// Test if the of a sensor was deleted in the db
 describe('Delete sensor', () => {
+    // Test the deletion of a sensor
     it('Delete sensor in sensors collection', async () => {
         const sensor = {name: "Temperature", um: "C°", threshold: 0, board: "", type: 2};
 
@@ -236,8 +284,15 @@ describe('Delete sensor', () => {
     });
 });
 
+// Test if the new data of the doctor notice was saved in the db
 describe('Modify doctor notice in doctors collection', () => {
+    // Test the update of the doctor notice
     it('Modify doctor notice in doctors collection', async () => {
+        const user = {_id: "GRSNCL04M30E281N", name: "Carla", surname: "Bianchi", username: "carla", password: "",
+            mail: "lucagra97@gmail.com", phone: "3248900776", dob: new Date("1975-09-15"), type: "PATIENT"};
+
+        await supertest(app).post('/insertUser').send(user);
+
         const doctor = {_id: "GRSNCL04M30E281N", role: "doctor", notice: "SMS"};
 
         let res = await supertest(app).post('/insertDoctor').send(doctor);

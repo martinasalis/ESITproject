@@ -1,7 +1,8 @@
+// Import all required modules
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Define sensor schema
+// Define our sensor schema
 const sensorSchema = new Schema({
     name: {type: String, default: ''},
     um: {type: String, default: ''},    //  Unit of measure
@@ -10,4 +11,5 @@ const sensorSchema = new Schema({
     type: {type: Number, default: 0}
 }, {versionKey: false});
 
+// Expose our sensor model
 exports = module.exports = mongoose.model('Sensor', sensorSchema, 'sensors');

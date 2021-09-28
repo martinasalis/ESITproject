@@ -90,7 +90,7 @@ describe('AddFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('control invalid form add doctor', () => {
+  it('control empty form add doctor', () => {
     if(component.add_doctor) {
       // Set values
       component.username.setValue('');
@@ -110,6 +110,20 @@ describe('AddFormComponent', () => {
       expect(component.dob.valid).toBeFalsy();
       expect(component.tc.valid).toBeFalsy();
       expect(component.role.valid).toBeFalsy();
+      expect(component.phone.valid).toBeFalsy();
+    }
+  });
+
+  it('control invalid form add doctor', () => {
+    if(component.add_doctor) {
+      // Set values
+      component.mail.setValue('ssssssssssssssssssssssssssssssss');
+      component.tc.setValue('dddddddddddddddddddddddddddddddddddddd');
+      component.phone.setValue('44444444444444444444444444444444');
+
+      // Tests
+      expect(component.mail.valid).toBeFalsy();
+      expect(component.tc.valid).toBeFalsy();
       expect(component.phone.valid).toBeFalsy();
     }
   });
@@ -138,7 +152,7 @@ describe('AddFormComponent', () => {
     }
   });
 
-  it('control invalid form add patient', () => {
+  it('control empty form add patient', () => {
     if(component.add_patient) {
       // Set values
       component.username.setValue('');
@@ -164,6 +178,25 @@ describe('AddFormComponent', () => {
 
       if(component.user.type == Type.ADMIN) {
         component.doctor.setValue('');
+        expect(component.doctor.valid).toBeFalsy();
+      }
+    }
+  });
+
+  it('control invalid form add patient', () => {
+    if(component.add_patient) {
+      // Set values
+      component.mail.setValue('sssssssssssssssssssssss');
+      component.tc.setValue('sssssssssssssssssssssssssssssssssssss');
+      component.phone.setValue('3333333333333333333333333333333333333');
+
+      // Tests
+      expect(component.mail.valid).toBeFalsy();
+      expect(component.tc.valid).toBeFalsy();
+      expect(component.phone.valid).toBeFalsy();
+
+      if(component.user.type == Type.ADMIN) {
+        component.doctor.setValue('ppppppppppppppppppppppppppppppppppppppp');
         expect(component.doctor.valid).toBeFalsy();
       }
     }
@@ -199,7 +232,7 @@ describe('AddFormComponent', () => {
     }
   });
 
-  it('control invalid form add sensor', () => {
+  it('control empty form add sensor', () => {
     if(component.add_sensor) {
       // Values
       component.typeSensor.setValue('');
@@ -212,6 +245,16 @@ describe('AddFormComponent', () => {
       expect(component.name.valid).toBeFalsy();
       expect(component.um.valid).toBeFalsy();
       expect(component.thr.valid).toBeFalsy();
+    }
+  });
+
+  it('control invalid form add sensor', () => {
+    if(component.add_sensor) {
+      // Values
+      component.typeSensor.setValue(-1);
+
+      // Tests
+      expect(component.typeSensor.valid).toBeFalsy();
     }
   });
 

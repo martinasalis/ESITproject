@@ -14,6 +14,7 @@ import { Sensor, SensorService } from "../sensor.service";
 })
 export class PatientComponent implements OnInit {
 
+  // Flags type of element to add
   navbar = false;
   page_patient = false;
   page_info = false;
@@ -90,6 +91,9 @@ export class PatientComponent implements OnInit {
     }
   }
 
+  /**
+   * This function open the dialog message to delete an element
+   */
   openDialog() {
 
     if (this.clickedRow.type == Type.DOCTOR) {
@@ -140,19 +144,30 @@ export class PatientComponent implements OnInit {
     }
   }
 
-
+  /**
+   * This function send to the modify-form page
+   */
   modify(): void {
     this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: this.clickedSensor}});
   }
 
+  /**
+   * This function send to the modify-form page
+   */
   modify_sensor(sensor: Sensor): void {
     this.router.navigate(['modify-form'], {state: {clickedUser: this.clickedRow, clickedSensor: sensor}});
   }
 
+  /**
+   * This function send to the add-form page
+   */
   add_sensor(): void {
     this.router.navigate(['add-form'], {state: {clickedUser: this.clickedRow, data: 3}});
   }
 
+  /**
+   * This function send to the page-sensor
+   */
   visualize(i: Number): void {
     this.router.navigate(['page-sensor'], {state: {boardData: this.patBoardData, index: i, clickedUser: this.clickedRow}});
   }

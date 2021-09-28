@@ -1,13 +1,13 @@
-// grab the mongoose module
+// Importing all required modules
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// define our user schema
+// Define our doctor schema
 const doctorSchema = new Schema({
     _id: {type: String, default: '', required: true}, // This is the Tax Code
     role: {type: String, default: ''},
     notice: {type: String, enum: ['DEFAULT', 'E-MAIL', 'SMS'], default: ''}
 }, {versionKey: false});
 
-// module.exports allows us to pass this to other files when it is called
+// Expose our doctor model
 exports = module.exports = mongoose.model('Doctor', doctorSchema, 'doctors');

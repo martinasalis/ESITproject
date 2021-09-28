@@ -16,12 +16,14 @@ import { Sensor, SensorService } from "../sensor.service";
 })
 export class ModifyFormComponent implements OnInit {
 
+  // Flags type of element to add
   modify_doctor = false;
   modify_patient = false;
   modify_sensor = false;
   modify_sensor_doctor = false;
   empty_field = false;
 
+  // Form fields
   username = new FormControl('', Validators.required);
   name = new FormControl('', Validators.required);
   surname = new FormControl('', Validators.required);
@@ -36,7 +38,7 @@ export class ModifyFormComponent implements OnInit {
   um = new FormControl('', Validators.required);
   name_sensor = new FormControl('', Validators.required);
   thr = new FormControl('', [Validators.min(0), Validators.required]);
-  typeSensor = new FormControl('', Validators.required);
+  typeSensor = new FormControl('', [Validators.min(1), Validators.required]);
   doctor = new FormControl('', [Validators.maxLength(16), Validators.required]);
 
   patientDoctor: String = '';
@@ -140,19 +142,21 @@ export class ModifyFormComponent implements OnInit {
    */
   save(): void {
 
-    // Check if the user is a patient or a doctor
+    // If the user is a doctor
     if(this.modify_doctor) {
-      // Update user's data
       let newUser: User = {_id: this.clickedRow._id, name: this.name.value, surname: this.surname.value,
         username: this.username.value, password: this.clickedRow.password, mail: this.mail.value, phone: this.phone.value,
         dob: this.dob.value, type: this.clickedRow.type};
       let newDoctor: Doctor = {_id: this.clickedRow._id, role: this.role.value, notice: this.doctorNotice};
 
+      // If the fiels are empty
       if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || newUser.mail == '' || newUser.phone == '' || newDoctor.role == '') {
         this.empty_field = true;
+        // Show error message
         this.openDialog();
       }
       else {
+        // Update doctor's data
         this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
           console.log(data);
 
@@ -164,6 +168,7 @@ export class ModifyFormComponent implements OnInit {
         });
       }
     }
+    // If the user is a doctor
     else if(this.modify_patient) {
       // Update user's data
       let newUser: User = {_id: this.clickedRow._id, name: this.name.value, surname: this.surname.value,
@@ -172,11 +177,14 @@ export class ModifyFormComponent implements OnInit {
       let newPatient: Patient = {_id: this.clickedRow._id, dor: this.dor.value, address: this.address.value,
         doctor: this.doctor.value, board: this.patBoard, description: this.description.value};
 
+      // If the fiels are empty
       if(newUser.name == '' || newUser._id == '' || newUser.surname == '' || newUser.username == '' || this.dob.value == '' || this.dor.value == '' || newUser.mail == '' || newUser.phone == '' || newPatient.address == '' || newPatient.doctor == '' || newPatient.description == '') {
         this.empty_field = true;
+        // Show error message
         this.openDialog();
       }
       else {
+        // Update patient's data
         this.userService.update(this.clickedRow._id, newUser).subscribe(data => {
           console.log(data);
         });
@@ -187,15 +195,19 @@ export class ModifyFormComponent implements OnInit {
         this.openDialog();
       }
     }
+    // If the modify sensor
     else {
       let newSensor: Sensor = {_id: this.clickedSensor._id, name: this.name_sensor.value, um: this.um.value,
         threshold: this.thr.value, type: this.typeSensor.value, board: this.clickedSensor.board};
 
+      // If the fiels are empty
       if(newSensor.name == '' || newSensor.um == '') {
         this.empty_field = true;
+        // Show error message
         this.openDialog();
       }
       else {
+        // Update sensor's data
         this.sensorService.update(this.clickedSensor._id, newSensor).subscribe(data => {
           console.log(data);
         });
@@ -211,8 +223,11 @@ export class ModifyFormComponent implements OnInit {
     }
   }
 
+  /**
+   * This function open the dialog message
+   */
   openDialog() {
-
+    // Dialog Error empty field
     if(this.empty_field){
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -225,6 +240,7 @@ export class ModifyFormComponent implements OnInit {
 
       this.empty_field = false;
     }
+    // Confirm modify doctor
     else if (this.modify_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -235,6 +251,7 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Confirm modify patient
     else if (this.modify_patient) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -245,6 +262,7 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Confirm modify sensor
     else if(this.modify_sensor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -255,6 +273,7 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Confirm modify sensor by doctor
     else if(this.modify_sensor_doctor) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -265,6 +284,7 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+    // Dialog Error no row selected
     else{
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
@@ -275,25 +295,6 @@ export class ModifyFormComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
-  }
-
-  getErrorMessage() {
-    if (this.username.hasError('required') || this.name.hasError('required')
-      || this.surname.hasError('required') || this.mail.hasError('required') ||
-      this.dob.hasError('required') || this.tc.hasError('required') ||
-      this.phone.hasError('required') || this.dor.hasError('required') ||
-      this.address.hasError('required') || this.role.hasError('required') ||
-      this.description.hasError('required') || this.um.hasError('required') ||
-      this.name_sensor.hasError('required') || this.thr.hasError('required') ||
-      this.typeSensor.hasError('required')) {
-      return 'Devi inserire il campo';
-    }
-
-    if(this.mail.hasError('email')){
-      return 'E-Mail non valida'
-    }
-
-    return this.thr.hasError('min') ? 'Il valore minimo è 0' : '';
   }
 
 }
