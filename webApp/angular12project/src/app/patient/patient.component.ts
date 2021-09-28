@@ -31,8 +31,9 @@ export class PatientComponent implements OnInit {
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
-      this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
       this.user = JSON.parse(sessionStorage.getItem('user')!);
+      // Set informations previous page
+      this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
     }
     else {
       this.router.navigate(['']);

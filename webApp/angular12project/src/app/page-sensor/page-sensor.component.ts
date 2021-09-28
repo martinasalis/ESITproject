@@ -14,14 +14,18 @@ import { FormControl, Validators } from "@angular/forms";
 })
 export class PageSensorComponent implements OnInit {
 
+  // Flags type of element to add
   navbar = false;
   page_doctor = false;
   page_patient = false;
+
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   doc: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};
   pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   clickedSensor: any;
   clickedPatient: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
+
+  // Variables for charts
   index: number = 0;
   indices: string[] = [];
   chartData: any;
@@ -44,20 +48,24 @@ export class PageSensorComponent implements OnInit {
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
+      // Set informations previous page
       this.clickedSensor = this.router.getCurrentNavigation()?.extras.state?.boardData;
       this.index = this.router.getCurrentNavigation()?.extras.state?.index;
       this.clickedPatient = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
 
+      // Compute data time
       let last_date = new Date(this.clickedSensor.Items[this.clickedSensor.Items.length - 1].data_timestamp);
       let start_last_date = new Date(last_date.getFullYear(), last_date.getMonth(), last_date.getDate()).getTime();
       let end_last_date = new Date(last_date.getFullYear(), last_date.getMonth(), last_date.getDate(), 23,59,59).getTime();
 
+      // Set unit of measure
       this.sensorService.getUnitMeasure(this.clickedSensor.Items[0].device_data.data[this.index].sensor).subscribe((data: String) => {
         this.um = data;
       });
 
       this.last_n.setValidators([Validators.min(0), Validators.max(this.clickedSensor.Items.length), Validators.required]);
 
+      // Create arrays to data graph for 3 days
       for(let i = this.clickedSensor.Items.length - 1; i >= 0; i--) {
 
         if(this.clickedSensor.Items[i].data_timestamp >= start_last_date && this.clickedSensor.Items[i].data_timestamp <= end_last_date) {

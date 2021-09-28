@@ -52,16 +52,19 @@ export class AddFormComponent implements OnInit {
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
+      // Set informations previous page
       this.button = this.router.getCurrentNavigation()?.extras.state?.data;
       this.selectedPat = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
       this.thr.setValue(0);
 
+      // If is selected a patient
       if(this.selectedPat) {
         this.patientService.info(this.selectedPat._id).subscribe((data: Patient) => {
           console.log(data);
           this.patientService.setPatient(data);
           this.pat = this.patientService.getPatient();
 
+          // If the board of patient isn't empty
           if(this.pat.board != '') {
             this.add_sensor_patient = true;
             this.sensorService.allFreeSensors().subscribe((data: Sensor[]) => {
@@ -69,14 +72,17 @@ export class AddFormComponent implements OnInit {
               this.sens = this.sensorService.getSensors();
               console.log(this.sens);
 
+              // If there aren't available sensor
               if(this.sens.length == 0) {
                 this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}});
+                // Show error message
                 this.openDialog();
               }
             });
           }
           else {
             this.router.navigate(['patient'], {state: {clickedUser: this.selectedPat}});
+            // Show error message
             this.openDialog();
           }
         });

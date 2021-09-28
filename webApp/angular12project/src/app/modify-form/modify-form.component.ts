@@ -55,9 +55,10 @@ export class ModifyFormComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private  sensorService: SensorService) {
     if(JSON.parse(sessionStorage.getItem('login')!)) {
+      this.user = JSON.parse(sessionStorage.getItem('user')!);
+      // Set information previous page
       this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
       this.clickedSensor = this.router.getCurrentNavigation()?.extras.state?.clickedSensor;
-      this.user = JSON.parse(sessionStorage.getItem('user')!);
     }
     else {
       this.router.navigate(['']);
