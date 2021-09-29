@@ -112,6 +112,9 @@ export class PatientComponent implements OnInit {
           this.patientService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
+          this.sensorService.deleteAllSensorBoard(this.pat.board, this.pat.doctor).subscribe(data => {
+            console.log(data);
+          });
           this.router.navigate(['home']);
         }
       });
