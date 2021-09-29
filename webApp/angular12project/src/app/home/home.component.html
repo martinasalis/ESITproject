@@ -31,12 +31,12 @@
         <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsDesc"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
         mat-row
         (click)="selectedUser(row)"
         class="row-is-clicked" tabindex="1"
-        *matRowDef="let row; columns: displayedColumnsDesc;"
+        *matRowDef="let row; columns: displayedColumns;"
       ></tr>
     </table>
 

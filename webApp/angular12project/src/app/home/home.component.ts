@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
   docs_id: any;
 
   // Table colums
-  displayedColumnsDesc: String[] = ['_id', 'name', 'surname'];
   displayedColumns: String[] = ['_id', 'name', 'surname'];
   displayedColumnsSensor: String[] = ['_id', 'name', 'um'];
 
@@ -101,7 +100,7 @@ export class HomeComponent implements OnInit {
   openDialog() {
 
     // If the clicked user is a doctor and the clicked sensor isn't clicked
-    if (this.clickedRow.type == Type.DOCTOR && this.clickedSensor._id == '') {
+    if(this.clickedRow.type == Type.DOCTOR && this.clickedSensor._id == '') {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 1, flag: 1}
@@ -117,6 +116,7 @@ export class HomeComponent implements OnInit {
           this.doctorService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
+          this.router.navigate(['home']);
         }
       });
     }
@@ -143,7 +143,7 @@ export class HomeComponent implements OnInit {
           this.patientService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
-          //this.router.navigate(['home']).then();
+          this.router.navigate(['home']);
         }
       });
     }
@@ -160,6 +160,7 @@ export class HomeComponent implements OnInit {
           this.sensorService.delete(this.clickedSensor._id).subscribe(data => {
             console.log(data);
           });
+          this.router.navigate(['home']);
         }
       });
     }

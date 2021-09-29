@@ -198,7 +198,7 @@ export class AddFormComponent implements OnInit {
       let newSensor: Sensor = {_id: '', name: this.name.value, um: this.um.value, threshold: this.thr.value, type: this.typeSensor.value, board: ''};
 
       // If the fields are empty
-      if(newSensor.name == '' || newSensor.um == '' || newSensor.threshold == 0 || newSensor.type == 0){
+      if(newSensor.name == '' || newSensor.um == '' || newSensor.type == 0) {
         this.empty_field = true;
         // Show error message
         this.openDialog();
@@ -219,7 +219,7 @@ export class AddFormComponent implements OnInit {
         type: this.sensorControl.value.type, um: this.sensorControl.value.um, board: this.pat.board, threshold: this.thr.value};
 
       // If the threshold isn't valid
-      if(newSensor.threshold == 0){
+      if(newSensor.threshold == 0) {
         this.empty_field = true;
         // Show error message
         this.openDialog();

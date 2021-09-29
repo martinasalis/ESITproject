@@ -97,25 +97,7 @@ export class PatientComponent implements OnInit {
    */
   openDialog() {
 
-    if (this.clickedRow.type == Type.DOCTOR) {
-      const dialogRef = this.dialog.open(NoticeDialogComponent, {
-        width: '250px',
-        data: {res: 1, flag: 1}
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-        if(result) {
-          this.userService.delete(this.clickedRow._id).subscribe(data => {
-            console.log(data);
-          });
-          this.doctorService.delete(this.clickedRow._id).subscribe(data => {
-            console.log(data);
-          });
-        }
-      });
-    }
-    else if (this.clickedRow.type == Type.PATIENT) {
+    if(this.clickedRow.type == Type.PATIENT) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
         width: '250px',
         data: {res: 2, flag: 1}
@@ -130,6 +112,7 @@ export class PatientComponent implements OnInit {
           this.patientService.delete(this.clickedRow._id).subscribe(data => {
             console.log(data);
           });
+          this.router.navigate(['home']);
         }
       });
     }
