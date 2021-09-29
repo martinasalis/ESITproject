@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   docs_id: any;
 
   // Table colums
-  displayedColumnsDesc: String[] = ['_id', 'name', 'surname', 'description'];
+  displayedColumnsDesc: String[] = ['_id', 'name', 'surname'];
   displayedColumns: String[] = ['_id', 'name', 'surname'];
   displayedColumnsSensor: String[] = ['_id', 'name', 'um'];
 
