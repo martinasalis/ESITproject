@@ -1,7 +1,0 @@
-Martina:
-
-Luca:
-
-TO DO:
-- Test
-- Funzionamento sms

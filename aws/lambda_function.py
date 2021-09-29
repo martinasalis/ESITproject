@@ -35,15 +35,12 @@ def publish_text_message(message, phone_number):
         return message_id
 
 
-def send_notice(patient, sensor_type, sensor_data, doctor, board):
+def send_notice(patient, sensor_type, sensor_data, um, doctor, board):
     response = client.query(TableName='doctor_notice', KeyConditionExpression="#DYNOBASE_doctor_id = :pkey", ExpressionAttributeNames={"#DYNOBASE_doctor_id": "doctor_id"}, ExpressionAttributeValues={":pkey": doctor})
-    print(response)
     topic = '$aws/things/obj-' + board +'/shadow/notice'
-    print(topic)
 
     response_mqtt = client_mqtt.publish(topic=topic, qos=0, payload=json.dumps({"foo":"bar"}))
     print(response_mqtt)
-    print(response['Items'][0]['data']['M']['notice_type']['S'] == 'E-MAIL')
 
     string_sensor = ''
     if(sensor_type == '1'):
@@ -63,10 +60,10 @@ def send_notice(patient, sensor_type, sensor_data, doctor, board):
                 Message = {
                     'Body': {
                         'Html': {
-                            'Data': '<html><head></head><body><h1>Notifica paziente ' + patient + '</h1><p>Il sensore del' + string_sensor + ' del paziente ' + patient + ' ha superato la soglia limite e ha un valore di ' + sensor_data + '.</p></body></html>'
+                            'Data': '<html><head></head><body><h1>Notifica paziente ' + patient + '</h1><p>Il sensore del' + string_sensor + ' del paziente ' + patient + ' ha superato la soglia limite e ha un valore di ' + sensor_data + ' ' + um + '.</p></body></html>'
                         },
                         'Text': {
-                            'Data': "Il sensore del" + string_sensor + " del paziente " + patient + "\r\n ha superato la soglia limite e ha un valore di " + sensor_data + "."
+                            'Data': "Il sensore del" + string_sensor + " del paziente " + patient + "\r\n ha superato la soglia limite e ha un valore di " + sensor_data + " " + um + "."
                         },
                     },
                     'Subject': {
@@ -84,9 +81,7 @@ def send_notice(patient, sensor_type, sensor_data, doctor, board):
 
     else:
         print('+39' + response['Items'][0]['data']['M']['phone']['S'])
-        publish_text_message(message='Il sensore del' + string_sensor + ' del paziente ' + patient + ' ha superato la soglia limite e ha un valore di ' + sensor_data + '.', phone_number='+39' + response['Items'][0]['data']['M']['phone']['S'])
-        #print(client_sns)
-
+        publish_text_message(message='Il sensore del' + string_sensor + ' del paziente ' + patient + ' ha superato la soglia limite e ha un valore di ' + sensor_data + ' ' + um + '.', phone_number='+39' + response['Items'][0]['data']['M']['phone']['S'])
 
 
 def lambda_handler(event, context):
@@ -99,8 +94,8 @@ def lambda_handler(event, context):
             for thr in item['data']['L']:
                 for single_data in record['dynamodb']['NewImage']['device_data']['M']['data']['L']:
                     if(single_data['M']['sensor']['N'] == thr['M']['type']['N']):
-                        if(single_data['M']['data']['N'] >= thr['M']['threshold']['N']):
-                            send_notice(patient=item['patient_id']['S'], sensor_type=thr['M']['type']['N'], sensor_data=single_data['M']['data']['N'], doctor=item['doctor_id'], board=item['mac_address']['S'])
+                        if(float(single_data['M']['data']['N']) >= float(thr['M']['threshold']['N'])):
+                            send_notice(patient=item['patient_id']['S'], sensor_type=thr['M']['type']['N'], sensor_data=single_data['M']['data']['N'], um=thr['M']['um']['S'], doctor=item['doctor_id'], board=item['mac_address']['S'])
 
 
         print(record['eventID'])
