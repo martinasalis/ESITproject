@@ -17,7 +17,7 @@ export class MACAddressComponent implements OnInit {
   patientControl = new FormControl('', Validators.required);
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
-  mac = new FormControl('', [Validators.required, Validators.maxLength(12)]);
+  mac = new FormControl('', [Validators.required, Validators.maxLength(17)]);
 
   pats: User[] = [];
   pats_id: any;
