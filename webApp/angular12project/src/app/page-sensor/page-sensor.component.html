@@ -8,14 +8,14 @@
 
     <!-- Chart -->
     <div class="chart">
-      <canvas baseChart [chartType]="'line'" [legend]="true" [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions">
+      <canvas baseChart [chartType]="'line'" [legend]="true" [datasets]="chartData" [options]="chartOptions">
       </canvas>
     </div>
 
     <div class="content">
       <mat-card>
         <div class="text">Valore corrente</div>
-        <div class="value">{{last_day[last_day.length-1]}} {{um}}</div>
+        <div class="value">{{last_values.data}} {{um}}</div>
       </mat-card>
 
       <mat-card>
@@ -48,14 +48,14 @@
 
     <!-- Chart -->
     <div class="chart">
-      <canvas baseChart [chartType]="'line'" [legend]="true" [datasets]="charSingleData" [labels]="chartLabels" [options]="chartOptions">
+      <canvas baseChart [chartType]="'line'" [legend]="true" [datasets]="charSingleData" [options]="chartOptions">
       </canvas>
     </div>
 
     <div class="content">
       <mat-card>
         <div class="text">Valore corrente</div>
-        <div class="value">{{last_day[last_day.length-1]}} {{um}}</div>
+        <div class="value">{{last_values.data}} {{um}}</div>
       </mat-card>
 
       <mat-card>

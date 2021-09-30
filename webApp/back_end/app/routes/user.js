@@ -51,7 +51,7 @@ exports = module.exports = function(app) {
                                 Charset: "UTF-8"
                             },
                             Html: {
-                                Data: "<html><head></head><body><h1>Nuova password HealthApp</h1><p>Il tuo username é: " + user.username + "</p><p>La tua nuova password è: " + password + "</p></body></html>",
+                                Data: "<html><head></head><body><h1>Nuova password HealthApp</h1><p>Il tuo username è: " + user.username + "</p><p>La tua nuova password è: " + password + "</p></body></html>",
                                 Charset: "UTF-8"
                             }
                         }

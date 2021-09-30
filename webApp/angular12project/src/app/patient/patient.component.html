@@ -29,7 +29,11 @@
             <mat-card>
               <div class="sensor">
                 <div class="sensor-name">ID sensore: {{patient_sensor.type}}</div>
-                <div class="last-value">Valore: {{sensor.data}} {{patient_sensor.um}}</div>
+                <ng-container *ngFor="let last of last_values; let k = index">
+                  <ng-container *ngIf="last.sensor == sensor.sensor">
+                    <div class="last-value">Valore: {{last.data}} {{patient_sensor.um}}</div>
+                  </ng-container>
+                </ng-container>
                 <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
               </div>
             </mat-card>
@@ -72,7 +76,11 @@
               <mat-card>
                 <div class="sensor">
                   <div class="sensor-name">ID sensore: {{patient_sensor.type}}</div>
-                  <div class="last-value">Valore: {{sensor.data}} {{patient_sensor.um}}</div>
+                  <ng-container *ngFor="let last of last_values; let k = index">
+                    <ng-container *ngIf="last.sensor == sensor.sensor">
+                      <div class="last-value">Valore: {{last.data}} {{patient_sensor.um}}</div>
+                    </ng-container>
+                  </ng-container>
                   <button mat-button class="visualize-sensor" (click)=modify_sensor(patient_sensor) class="modify_button">Modifica</button>
                   <button mat-button class="visualize-sensor" (click)=visualize(i)>Visualizza</button>
                 </div>

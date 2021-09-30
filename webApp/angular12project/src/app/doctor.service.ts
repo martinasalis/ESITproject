@@ -14,7 +14,8 @@ export interface Doctor {
   notice: Notice
 }
 
-const baseUrl = '/api';
+//const baseUrl = '/api';
+const baseUrl = 'http://localhost:8080';
 
 @Injectable({
   providedIn: 'root'

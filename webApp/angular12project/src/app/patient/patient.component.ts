@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { NoticeDialogComponent } from "../notice-dialog/notice-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { Sensor, SensorService } from "../sensor.service";
+import { interval, Subscription } from "rxjs";
 
 @Component({
   selector: 'app-patient',
@@ -20,6 +21,9 @@ export class PatientComponent implements OnInit {
   page_info = false;
   page_admin = false;
 
+  source = interval(2000);
+  subscription: Subscription = Subscription.prototype;
+
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   pat: Patient = {_id: '', dor: Date.prototype, address: '', doctor: '', board: '', description: ''};
   clickedRow: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
@@ -27,6 +31,7 @@ export class PatientComponent implements OnInit {
   patBoardData: any;
   clickedSensor: Sensor = {_id: '', name: '', um: '', threshold: 0.0, board: '', type: 0};
   patient: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
+  last_values: any;
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
@@ -34,6 +39,8 @@ export class PatientComponent implements OnInit {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
       // Set informations previous page
       this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
+
+      this.subscription = this.source.subscribe(val => this.get_last_value());
     }
     else {
       this.router.navigate(['']);
@@ -78,6 +85,7 @@ export class PatientComponent implements OnInit {
             if(this.patBoardSensors.length != 0) {
               this.patientService.getBoardSensorData(this.pat).subscribe((data: any) => {
                 this.patBoardData = data;
+                this.last_values = data.Items[data.Items.length - 1].device_data.data;
               });
             }
             else {
@@ -90,6 +98,13 @@ export class PatientComponent implements OnInit {
         }
       });
     }
+  }
+
+  get_last_value(): void {
+    this.patientService.getBoardSensorData(this.pat).subscribe(data => {
+      this.last_values = [];
+      this.last_values = data.Items[data.Items.length - 1].device_data.data;
+    });
   }
 
   /**
@@ -157,6 +172,10 @@ export class PatientComponent implements OnInit {
    */
   visualize(i: Number): void {
     this.router.navigate(['page-sensor'], {state: {boardData: this.patBoardData, index: i, clickedUser: this.clickedRow}});
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

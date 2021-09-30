@@ -6,6 +6,7 @@ import { Patient, PatientService } from "../patient.service";
 import { MatDialog } from "@angular/material/dialog";
 import { SensorService } from "../sensor.service";
 import { FormControl, Validators } from "@angular/forms";
+import { interval, Subscription } from "rxjs";
 
 @Component({
   selector: 'app-page-sensor',
@@ -18,6 +19,9 @@ export class PageSensorComponent implements OnInit {
   navbar = false;
   page_doctor = false;
   page_patient = false;
+
+  source = interval(2000);
+  subscription: Subscription = Subscription.prototype;
 
   user: User = {_id: '', name: '', surname: '', username: '', password: '', mail: '', phone: '', dob: Date.prototype, type: Type.DEFAULT};
   doc: Doctor = {_id: '', role: '', notice: Notice.DEFAULT};
@@ -32,9 +36,9 @@ export class PageSensorComponent implements OnInit {
   charSingleData: any;
   chartLabels: any;
   chartOptions: any;
-  last_day: number[] = [];
-  last2_day: number[] = [];
-  last3_day: number[] = [];
+  last_day: any[] = [];
+  last2_day: any[] = [];
+  last3_day: any[] = [];
   mean_last_n: number = 0;
   date_last_day: string = '';
   date_last2_day: string = '';
@@ -43,6 +47,7 @@ export class PageSensorComponent implements OnInit {
   um: String = '';
   N: number = 0;
   last_n = new FormControl('');
+  last_values: any;
 
   constructor(private router: Router, private userService: UserService, private doctorService: DoctorService,
               private patientService: PatientService, public dialog: MatDialog, private sensorService: SensorService) {
@@ -52,6 +57,10 @@ export class PageSensorComponent implements OnInit {
       this.clickedSensor = this.router.getCurrentNavigation()?.extras.state?.boardData;
       this.index = this.router.getCurrentNavigation()?.extras.state?.index;
       this.clickedPatient = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
+
+      this.subscription = this.source.subscribe(val => this.get_last_value());
+
+      this.last_values = this.clickedSensor.Items[0].device_data.data[this.index];
 
       // Compute data time
       let last_date = new Date(this.clickedSensor.Items[this.clickedSensor.Items.length - 1].data_timestamp);
@@ -72,19 +81,19 @@ export class PageSensorComponent implements OnInit {
           const d = new Date(this.clickedSensor.Items[i].data_timestamp);
           this.date_last_day = d.toLocaleDateString();
           this.indices.push(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
-          this.last_day.push(this.clickedSensor.Items[i].device_data.data[this.index].data);
+          this.last_day.push({x: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), y: this.clickedSensor.Items[i].device_data.data[this.index].data});
         }
         else if(this.clickedSensor.Items[i].data_timestamp >= (start_last_date - 86400000) && this.clickedSensor.Items[i].data_timestamp <= (end_last_date - 86400000)) {
           const d = new Date(this.clickedSensor.Items[i].data_timestamp);
           this.date_last2_day = d.toLocaleDateString();
           this.indices.push(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
-          this.last2_day.push(this.clickedSensor.Items[i].device_data.data[this.index].data);
+          this.last2_day.push({x: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), y: this.clickedSensor.Items[i].device_data.data[this.index].data});
         }
         else if(this.clickedSensor.Items[i].data_timestamp >= (start_last_date - 172800000) && this.clickedSensor.Items[i].data_timestamp <= (end_last_date - 172800000)) {
           const d = new Date(this.clickedSensor.Items[i].data_timestamp);
           this.date_last3_day = d.toLocaleDateString();
           this.indices.push(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
-          this.last3_day.push(this.clickedSensor.Items[i].device_data.data[this.index].data);
+          this.last3_day.push({x: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), y: this.clickedSensor.Items[i].device_data.data[this.index].data});
         }
       }
     }
@@ -97,6 +106,11 @@ export class PageSensorComponent implements OnInit {
     if(this.user.type == Type.DOCTOR){
       this.page_doctor = true;
       this.doc = this.doctorService.getDoctor();
+
+      this.patientService.info(this.clickedPatient._id).subscribe((data: Patient) => {
+        this.patientService.setPatient(data);
+        this.pat = this.patientService.getPatient();
+      });
     }
     else if(this.user.type == Type.PATIENT){
       this.page_patient = true;
@@ -146,8 +160,8 @@ export class PageSensorComponent implements OnInit {
           type: 'time',
           time: {
             format: "HH:mm:ss",
-            unit: 'minute',
-            unitStepSize: 10,
+            unit: 'second',
+            unitStepSize: 1,
             displayFormats: {
               'second': 'HH:mm:ss',
               'minute': 'HH:mm:ss',
@@ -155,10 +169,25 @@ export class PageSensorComponent implements OnInit {
               min: '00:00:00',
               max: '23:59:59'
             },
+          },
+          tick: {
+            min: '00:00:00',
+            max: '23:59:59'
           }
         }],
       }
     };
+  }
+
+  get_last_value(): void {
+    this.patientService.getBoardSensorData(this.pat).subscribe(data => {
+      this.last_values = data.Items[data.Items.length - 1].device_data.data[this.index];
+      const d = new Date(data.Items[data.Items.length - 1].data_timestamp);
+
+      this.chartData[0].data.push(this.last_values.data);
+      this.charSingleData[0].data.push({x: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), y: this.last_values.data});
+      this.charSingleData.update();
+    });
   }
 
   /**
