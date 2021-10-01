@@ -153,7 +153,7 @@ export class PageSensorComponent implements OnInit {
           type: 'time',
           time: {
             format: "HH:mm:ss",
-            unit: 'second',
+            unit: 'minute',
             unitStepSize: 1,
             displayFormats: {
               'second': 'HH:mm:ss',
@@ -172,13 +172,13 @@ export class PageSensorComponent implements OnInit {
     this.patientService.getBoardSensorData(this.pat).subscribe(data => {
       this.last_values = data.Items[data.Items.length - 1].device_data.data[this.index];
       const d = new Date(data.Items[data.Items.length - 1].data_timestamp);
-      this.clickedSensor = data;
+      this.clickedSensor.Items.unshift(data.Items[data.Items.length - 1]);
 
       if(this.user.type == Type.DOCTOR) {
-        this.chartData[0].data.push({x: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), y: this.last_values.data});
+        this.chartData[0].data.unshift({x: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), y: this.last_values.data});
       }
       else {
-        this.charSingleData[0].data.push({x: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), y: this.last_values.data});
+        this.charSingleData[0].data.unshift({x: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(), y: this.last_values.data});
       }
     });
   }
