@@ -40,6 +40,7 @@ export class PatientComponent implements OnInit {
       // Set informations previous page
       this.clickedRow = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
 
+      // The value shown in the mat-card in update every 2 seconds
       this.subscription = this.source.subscribe(val => this.get_last_value());
     }
     else {
@@ -100,6 +101,10 @@ export class PatientComponent implements OnInit {
     }
   }
 
+  /**
+   * This function update the value shown in mat-card.
+   * The new value is the last value saved in DynamoDB table
+   */
   get_last_value(): void {
     this.patientService.getBoardSensorData(this.pat).subscribe(data => {
       this.last_values = [];

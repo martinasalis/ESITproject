@@ -56,6 +56,7 @@ export class PageSensorComponent implements OnInit {
       this.index = this.router.getCurrentNavigation()?.extras.state?.index;
       this.clickedPatient = this.router.getCurrentNavigation()?.extras.state?.clickedUser;
 
+      // The current value is update every 2 seconds
       this.subscription = this.source.subscribe(val => this.get_last_value());
 
       this.last_values = this.clickedSensor.Items[0].device_data.data[this.index];
@@ -168,6 +169,10 @@ export class PageSensorComponent implements OnInit {
     };
   }
 
+  /**
+   * This function insert in the chart the last value saved in DynamoDB and
+   * update the current value shown with the last value saved in DynamoDB
+   */
   get_last_value(): void {
     this.patientService.getBoardSensorData(this.pat).subscribe(data => {
       this.last_values = data.Items[data.Items.length - 1].device_data.data[this.index];
