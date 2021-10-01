@@ -11,8 +11,7 @@ export interface Patient {
   description: String
 }
 
-//const baseUrl = '/api';
-const baseUrl = 'http://localhost:8080';
+const baseUrl = '/api';
 
 @Injectable({
   providedIn: 'root'
