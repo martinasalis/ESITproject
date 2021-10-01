@@ -66,7 +66,7 @@ export class LoginFormComponent implements OnInit {
     // Dialog recovery password
     if(this.recovery_password) {
       const dialogRef = this.dialog.open(NoticeDialogComponent, {
-        width: '600px',
+        width: '640px',
         data: {flag: 10}
       });
 

@@ -33,38 +33,40 @@ exports = module.exports = function(app) {
             if(err) // Error occurred
                 res.send(err);
             else {
-                const params_mail = {
-                    Source: "lucagra97@live.it",
-                    Destination: {
-                        ToAddresses: [
-                            req.body.mail
-                        ],
-                    },
-                    Message: {
-                        Subject: {
-                            Data: "Nuova password utente",
-                            Charset: "UTF-8"
+                if(user) {
+                    const params_mail = {
+                        Source: "lucagra97@live.it",
+                        Destination: {
+                            ToAddresses: [
+                                req.body.mail
+                            ],
                         },
-                        Body: {
-                            Text: {
+                        Message: {
+                            Subject: {
                                 Data: "Nuova password utente",
                                 Charset: "UTF-8"
                             },
-                            Html: {
-                                Data: "<html><head></head><body><h1>Nuova password HealthApp</h1><p>Il tuo username è: " + user.username + "</p><p>La tua nuova password è: " + password + "</p></body></html>",
-                                Charset: "UTF-8"
+                            Body: {
+                                Text: {
+                                    Data: "Nuova password utente",
+                                    Charset: "UTF-8"
+                                },
+                                Html: {
+                                    Data: "<html><head></head><body><h1>Nuova password HealthApp</h1><p>Il tuo username è: " + user.username + "</p><p>La tua nuova password è: " + password + "</p></body></html>",
+                                    Charset: "UTF-8"
+                                }
                             }
                         }
-                    }
-                };
+                    };
 
-                // Send e-mail with new password
-                ses.sendEmail(params_mail, function(err, data) {
-                    if(err)
-                        console.log(err.message);
-                    else
-                        console.log("Email sent! Message ID: ", data.MessageId);
-                });
+                    // Send e-mail with new password
+                    ses.sendEmail(params_mail, function (err, data) {
+                        if (err)
+                            console.log(err.message);
+                        else
+                            console.log("Email sent! Message ID: ", data.MessageId);
+                    });
+                }
             }
         });
 
